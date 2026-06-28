@@ -1,0 +1,350 @@
+{
+  "name": "Mizan v15 — Reliable",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "mizan-analyze",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "3e2507ab-66da-4180-bfc0-c217aef8978d",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1200,
+        32
+      ],
+      "webhookId": "mizan-analyze-clean"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// [1] Prepare + Guard v2 — يدعم الآن الصفحات الممسوحة (Vision)\n// ═══════════════════════════════════════════════════════════\nconst body = $input.first().json.body || $input.first().json;\nconst text = body.text || '';\nconst company = (body.company || '').trim();\nconst period = (body.period || '').trim();\nconst scannedImages = Array.isArray(body.scanned_images) ? body.scanned_images : [];\n\nif (!company || !period) {\n  throw new Error('بيانات ناقصة: يجب إرسال اسم الشركة والفترة.');\n}\n\nconst hasImages = scannedImages.length > 0;\n\n// لو ما في نص لكن في صور → نكمل (Vision سيعوض)\nif (!text && !hasImages) {\n  throw new Error('لم يتم إرسال أي بيانات.');\n}\n\nlet clean = (text || '').replace(/[\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F\\x7F]/g, '');\nclean = clean.replace(/([\\u0600-\\u06FF])[a-zA-Z%&$#@*]+([\\u0600-\\u06FF])/g, '$1$2');\nclean = clean.replace(/[ \\t]+/g, ' ');\nclean = clean.replace(/\\n{3,}/g, '\\n\\n');\nclean = clean.trim();\n\n// Guard النص فقط إذا ما في صور\nif (!hasImages) {\n  if (clean.length < 400) {\n    throw new Error('تعذّر قراءة محتوى كافٍ من الملف. قد يكون الملف صورة ممسوحة لا تحتوي نصًا. الرجاء رفع PDF نصّي.');\n  }\n  const digitCount = (clean.match(/[0-9٠-٩]/g) || []).length;\n  if (digitCount < 30) {\n    throw new Error('الملف لا يبدو قائمة مالية. تأكد من رفع القائمة المالية الصحيحة.');\n  }\n}\n\nconst HARD_LIMIT = 70000;\nlet truncated = false;\nif (clean.length > HARD_LIMIT) {\n  clean = clean.substring(0, HARD_LIMIT);\n  truncated = true;\n}\n\nconst digitCount = (clean.match(/[0-9٠-٩]/g) || []).length;\n\nreturn [{\n  json: {\n    company,\n    period,\n    clean_text: clean,\n    scanned_images: scannedImages,\n    has_vision: hasImages,\n    meta: {\n      original_length: text.length,\n      clean_length: clean.length,\n      digit_count: digitCount,\n      truncated,\n      scanned_pages: scannedImages.length\n    }\n  }\n}];"
+      },
+      "id": "4a2b007a-1228-4ce5-8cc1-53d538731643",
+      "name": "Prepare + Guard",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -944,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// [2] Build Extract Request v3 — يدعم Vision + إصلاح الربح التشغيلي\n// ═══════════════════════════════════════════════════════════\nconst inp = $input.first().json;\nconst { company, period, clean_text, scanned_images, has_vision } = inp;\n\nconst instructions =\n'أنت مُستخرِج بيانات مالية متخصص في القوائم المالية السعودية. مهمتك الوحيدة: استخراج الأرقام الخام كما وردت.\\n\\n' +\n'قواعد مُلزمة:\\n' +\n'1- انقل كل رقم كما هو. لا تحسب، لا تجمع، لا تطرح.\\n' +\n'2- إذا لم تجد بندًا، ضع null. ممنوع التخمين.\\n' +\n'3- إجمالي الربح (Gross) ≠ الربح التشغيلي (Operating) ≠ صافي الربح (Net). هذه ثلاثة أرقام مختلفة تمامًا.\\n' +\n'3b- الربح التشغيلي يُؤخذ حرفيًا من السطر المسمى \"الربح التشغيلي\" أو \"Operating Profit\" في القائمة. ممنوع حسابه بالطرح أو الجمع من أرقام أخرى.\\n' +\n'3c- لشركات الاتصالات: الربح التشغيلي يظهر بعد خصم جميع المصاريف التشغيلية (بيعية + إدارية + استهلاك + إطفاء + برنامج تقاعد مبكر). خذه من السطر الصريح فقط.\\n' +\n'3d- جوهري: لا تخلط صافي الربح قبل الزكاة بـ operating_profit. هما رقمان مختلفان تمامًا.\\n' +\n'4- تكلفة الإيرادات تُؤخذ من قائمة الدخل الرئيسية فقط، مباشرة قبل إجمالي الربح.\\n' +\n'5- سجّل الوحدة كما وردت.\\n' +\n'6- إذا وُجد عمودان، انقل القيمتين في current و previous.\\n' +\n'7- ممنوع أي نص وصفي أو نسب محسوبة.\\n' +\n'8- رأس المال والأرباح المبقاة من قائمة المركز المالي أو حقوق الملكية.\\n' +\n'9- التدفقات النقدية: خذ كل من التشغيلي والاستثماري والتمويلي من قائمة التدفقات النقدية مباشرة. الأرقام السالبة تُسجَّل بإشارة سالبة.\\n\\n' +\n'مصطلحات البنوك:\\n' +\n'- \"صافي دخل التمويل\" أو \"إيرادات التمويل\" = revenue\\n' +\n'- \"مخصص خسائر الائتمان\" = cost_of_revenue\\n' +\n'- \"إجمالي دخل التشغيل\" = gross_profit\\n' +\n'- \"صافي الدخل\" أو \"ربح الفترة\" = net_profit\\n' +\n'- \"إجمالي الموجودات\" = total_assets\\n' +\n'- \"إجمالي المطلوبات\" = total_liabilities\\n' +\n'- \"إجمالي حقوق المساهمين\" = total_equity\\n' +\n'- \"النقد وما في حكمه\" = cash_and_equivalents\\n\\n' +\n'مصطلحات الشركات العادية:\\n' +\n'- \"الإيرادات\" أو \"المبيعات\" = revenue\\n' +\n'- \"تكلفة الإيرادات\" = cost_of_revenue\\n' +\n'- \"إجمالي الربح\" = gross_profit\\n\\n' +\n'مصطلحات الاتصالات:\\n' +\n'- \"تكلفة العمليات التشغيلية\" = cost_of_revenue\\n' +\n'- \"إجمالي الربح\" = gross_profit (بعد خصم تكلفة الإيرادات فقط)\\n' +\n'- \"الربح التشغيلي\" = operating_profit (بعد خصم جميع المصاريف التشغيلية)\\n' +\n'- \"صافي الربح قبل الزكاة\" ≠ operating_profit\\n\\n' +\n'القائمة المالية لشركة ' + company + ' — فترة ' + period + ':\\n' +\n(clean_text || '(النص غير متاح — استخرج من الصور أعلاه)') +\n'\\n\\nأرجع JSON بهذا الشكل بالضبط:\\n' +\n'{\"currency\":\"SAR\",\"unit\":\"ألف ريال\",\"unit_multiplier\":1000,' +\n'\"income_statement\":{\"revenue\":{\"current\":null,\"previous\":null},\"cost_of_revenue\":{\"current\":null,\"previous\":null},\"gross_profit\":{\"current\":null,\"previous\":null},\"operating_expenses\":{\"current\":null,\"previous\":null},\"operating_profit\":{\"current\":null,\"previous\":null},\"depreciation_amortization\":{\"current\":null,\"previous\":null},\"finance_costs\":{\"current\":null,\"previous\":null},\"zakat_tax\":{\"current\":null,\"previous\":null},\"net_profit\":{\"current\":null,\"previous\":null}},' +\n'\"balance_sheet\":{\"current_assets\":{\"current\":null,\"previous\":null},\"non_current_assets\":{\"current\":null,\"previous\":null},\"total_assets\":{\"current\":null,\"previous\":null},\"current_liabilities\":{\"current\":null,\"previous\":null},\"non_current_liabilities\":{\"current\":null,\"previous\":null},\"total_liabilities\":{\"current\":null,\"previous\":null},\"total_equity\":{\"current\":null,\"previous\":null},\"share_capital\":{\"current\":null,\"previous\":null},\"retained_earnings\":{\"current\":null,\"previous\":null},\"inventory\":{\"current\":null,\"previous\":null},\"cash_and_equivalents\":{\"current\":null,\"previous\":null}},' +\n'\"cash_flow\":{\"operating_cash_flow\":{\"current\":null,\"previous\":null},\"investing_cash_flow\":{\"current\":null,\"previous\":null},\"financing_cash_flow\":{\"current\":null,\"previous\":null},\"capex\":{\"current\":null,\"previous\":null}},' +\n'\"segments\":[{\"label\":\"اسم القطاع\",\"value\":null}]}';\n\n// بناء محتوى الرسالة — نصوص + صور إذا وجدت\nconst userContent = [];\n\nif (has_vision && Array.isArray(scanned_images) && scanned_images.length > 0) {\n  userContent.push({\n    type: 'text',\n    text: `القوائم المالية لشركة ${company} — فترة ${period}\\nالصور التالية هي صفحات ممسوحة ضوئياً من القائمة المالية، استخرج منها الأرقام:`\n  });\n  for (const img of scanned_images.slice(0, 6)) {\n    userContent.push({\n      type: 'image',\n      source: { type: 'base64', media_type: img.media_type || 'image/jpeg', data: img.data }\n    });\n  }\n  userContent.push({ type: 'text', text: instructions });\n} else {\n  userContent.push({ type: 'text', text: instructions });\n}\n\nconst apiBody = {\n  model: 'claude-sonnet-4-5-20250929',\n  max_tokens: 3000,\n  temperature: 0,\n  messages: [\n    { role: 'user', content: userContent },\n    { role: 'assistant', content: '{' }\n  ]\n};\n\nreturn [{\n  json: {\n    company,\n    period,\n    meta: inp.meta,\n    has_vision: has_vision || false,\n    api_body: JSON.stringify(apiBody)\n  }\n}];"
+      },
+      "id": "125a6863-5426-490f-824b-5154c924c72e",
+      "name": "Build Extract Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.api_body }}",
+        "options": {
+          "timeout": 90000
+        }
+      },
+      "id": "915da6a8-fad6-44bd-beac-b07875207aae",
+      "name": "Anthropic Extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -208,
+        32
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "mTS3tB0iwQKBRl0Z",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// [3] Parse + Validate v2 — يستخدم الاستخراج البرمجي أولاً\nconst ai = $input.first().json;\nconst meta = ai.meta || {};\nconst buildNode = $('Build Extract Request').first().json;\nconst codeNode = $('Code in JavaScript').first().json;\nconst company = buildNode.company;\nconst period = buildNode.period;\n\nfunction num(x) {\n  if (x === null || x === undefined || x === '') return null;\n  if (typeof x === 'number') return isFinite(x) ? x : null;\n  const n = parseFloat(String(x).replace(/[,٬\\s]/g, '').replace(/[()]/g, m => m === '(' ? '-' : ''));\n  return isFinite(n) ? n : null;\n}\nfunction pFP(o) {\n  if (!o) return { current: null, previous: null };\n  return { current: num(o.current), previous: num(o.previous) };\n}\n\nconst prog = codeNode && codeNode.programmatic_extraction;\nconst isRel = prog && prog.is_reliable;\nlet F, source;\n\nif (isRel) {\n  source = 'programmatic';\n  const d = prog.data;\n  F = {\n    revenue:            pFP(d.revenue),\n    cost_of_revenue:    pFP(d.cost_of_revenue),\n    gross_profit:       pFP(d.gross_profit),\n    operating_expenses: { current: null, previous: null },\n    operating_profit:   pFP(d.operating_profit),\n    depreciation:       { current: null, previous: null },\n    finance_costs:      { current: null, previous: null },\n    zakat_tax:          { current: null, previous: null },\n    net_profit:         pFP(d.net_profit),\n    current_assets:     pFP(d.current_assets),\n    non_current_assets: { current: null, previous: null },\n    total_assets:       pFP(d.total_assets),\n    current_liabilities:pFP(d.current_liabilities),\n    non_current_liab:   { current: null, previous: null },\n    total_liabilities:  pFP(d.total_liabilities),\n    total_equity:       pFP(d.total_equity),\n    share_capital:      pFP(d.share_capital),\n    retained_earnings:  pFP(d.retained_earnings),\n    inventory:          { current: null, previous: null },\n    cash:               pFP(d.cash),\n    operating_cf:       pFP(d.operating_cf),\n    investing_cf:       pFP(d.investing_cf),\n    financing_cf:       pFP(d.financing_cf),\n    capex:              { current: null, previous: null }\n  };\n} else {\n  source = 'ai';\n  if (!ai.content || !Array.isArray(ai.content)) throw new Error('رد غير متوقع.');\n  let txt = ai.content.filter(b => b && b.type === 'text').map(b => b.text || '').join('');\n  if (!txt.trim().startsWith('{')) txt = '{' + txt;\n  txt = txt.replace(/^```json\\s*/i, '').replace(/```\\s*$/, '').trim();\n  let raw;\n  try { raw = JSON.parse(txt); } catch(e) {\n    const en = txt.lastIndexOf('}');\n    if (en > 0) { try { raw = JSON.parse(txt.slice(0, en+1)); } catch(e2) {} }\n    if (!raw) throw new Error('JSON غير صالح.');\n  }\n  function pick(obj, path) {\n    const parts = path.split('.');\n    let o = obj;\n    for (const p of parts) { if (o == null) return null; o = o[p]; }\n    return o;\n  }\n  function pair(path) {\n    const o = pick(raw, path) || {};\n    return { current: num(o.current), previous: num(o.previous) };\n  }\n  F = {\n    revenue:            pair('income_statement.revenue'),\n    cost_of_revenue:    pair('income_statement.cost_of_revenue'),\n    gross_profit:       pair('income_statement.gross_profit'),\n    operating_expenses: pair('income_statement.operating_expenses'),\n    operating_profit:   pair('income_statement.operating_profit'),\n    depreciation:       pair('income_statement.depreciation_amortization'),\n    finance_costs:      pair('income_statement.finance_costs'),\n    zakat_tax:          pair('income_statement.zakat_tax'),\n    net_profit:         pair('income_statement.net_profit'),\n    current_assets:     pair('balance_sheet.current_assets'),\n    non_current_assets: pair('balance_sheet.non_current_assets'),\n    total_assets:       pair('balance_sheet.total_assets'),\n    current_liabilities:pair('balance_sheet.current_liabilities'),\n    non_current_liab:   pair('balance_sheet.non_current_liabilities'),\n    total_liabilities:  pair('balance_sheet.total_liabilities'),\n    total_equity:       pair('balance_sheet.total_equity'),\n    share_capital:      pair('balance_sheet.share_capital'),\n    retained_earnings:  pair('balance_sheet.retained_earnings'),\n    inventory:          pair('balance_sheet.inventory'),\n    cash:               pair('balance_sheet.cash_and_equivalents'),\n    operating_cf:       pair('cash_flow.operating_cash_flow'),\n    investing_cf:       pair('cash_flow.investing_cash_flow'),\n    financing_cf:       pair('cash_flow.financing_cash_flow'),\n    capex:              pair('cash_flow.capex')\n  };\n}\n\nconst checks = [], TOL = 0.02;\nfunction relErr(a, b) {\n  if (a == null || b == null) return null;\n  return Math.abs(a-b) / Math.max(Math.abs(a), Math.abs(b), 1);\n}\nfunction checkEq(name, lhs, rhs, side) {\n  const e = relErr(lhs, rhs);\n  if (e === null) { checks.push({name, status: 'skip'}); return; }\n  if (e <= TOL) checks.push({name, status: 'pass', error_pct: +(e*100).toFixed(2)});\n  else checks.push({name, status: 'fail', error_pct: +(e*100).toFixed(2), side});\n}\n\nfor (const side of ['current', 'previous']) {\n  const ta = F.total_assets[side], tl = F.total_liabilities[side], te = F.total_equity[side];\n  if (ta != null && tl != null && te != null) checkEq('معادلة الميزانية (' + side + ')', ta, tl + te, side);\n  if (F.gross_profit[side] != null && F.revenue[side] != null && F.cost_of_revenue[side] != null)\n    checkEq('إجمالي الربح (' + side + ')', F.gross_profit[side], F.revenue[side] - Math.abs(F.cost_of_revenue[side]), side);\n}\n\nconst failed = checks.filter(c => c.status === 'fail');\nconst passed = checks.filter(c => c.status === 'pass');\nconst hasCore = F.revenue.current != null || F.net_profit.current != null || F.total_assets.current != null;\nlet confidence = 'high';\nconst warnings = [];\nif (!hasCore) { confidence = 'low'; warnings.push('لم يُعثر على البنود الأساسية.'); }\nif (failed.length > 0) {\n  confidence = failed.length >= 2 ? 'low' : 'medium';\n  failed.forEach(c => warnings.push('فشل تحقق: ' + c.name));\n}\nif (source === 'ai') warnings.push('تم الاستخراج بواسطة AI — الاستخراج البرمجي لم يكن كافياً.');\nif (meta.truncated) { if (confidence === 'high') confidence = 'medium'; warnings.push('تم اقتطاع جزء من النص.'); }\n\nreturn [{json:{company, period, currency:'SAR', unit_text:'ألف ريال', unit_multiplier:1000, extraction_source:source, figures:F, segments:[], validation:{checks, passed:passed.length, failed:failed.length, confidence, warnings}, meta}}];"
+      },
+      "id": "245ef999-dbf7-462d-aa44-a04d789b637e",
+      "name": "Parse + Validate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// [4] Compute — حساب كل النسب والتغيّرات برمجيًا (v17)\n// أضيف: cashflow_summary, equity_summary, نسب مديونية إضافية\n// ═══════════════════════════════════════════════════════════\nconst inp = $input.first().json;\nconst F = inp.figures;\nconst mult = inp.unit_multiplier || 1;\n\nconst r2 = (n, d = 2) => (n == null || !isFinite(n)) ? null : +n.toFixed(d);\nfunction ratio(a, b) {\n  if (a == null || b == null || b === 0) return null;\n  return a / b;\n}\nfunction pct(a, b) {\n  const x = ratio(a, b);\n  return x == null ? null : r2(x * 100);\n}\nfunction change(cur, prev) {\n  if (cur == null || prev == null || prev === 0) return null;\n  return r2(((cur - prev) / Math.abs(prev)) * 100);\n}\nfunction trendOf(ch) {\n  if (ch == null) return 'flat';\n  if (ch > 0.05) return 'up';\n  if (ch < -0.05) return 'down';\n  return 'flat';\n}\nconst cur = k => F[k] ? F[k].current : null;\nconst prv = k => F[k] ? F[k].previous : null;\n\nconst toBillion = v => v == null ? null : r2((v * mult) / 1e9, 2);\n\nconst ratios = [];\nfunction addRatio(label, valuePct, prevPct, formula) {\n  if (valuePct == null) return;\n  ratios.push({\n    label,\n    value: valuePct + '%',\n    previous: prevPct != null ? prevPct + '%' : null,\n    value_raw: valuePct,\n    previous_raw: prevPct,\n    source: 'محسوب برمجيًا: ' + formula\n  });\n}\n\naddRatio('هامش صافي الربح', pct(cur('net_profit'), cur('revenue')), pct(prv('net_profit'), prv('revenue')), 'صافي الربح ÷ الإيرادات');\naddRatio('هامش إجمالي الربح', pct(cur('gross_profit'), cur('revenue')), pct(prv('gross_profit'), prv('revenue')), 'إجمالي الربح ÷ الإيرادات');\naddRatio('هامش الربح التشغيلي', pct(cur('operating_profit'), cur('revenue')), pct(prv('operating_profit'), prv('revenue')), 'الربح التشغيلي ÷ الإيرادات');\n\nconst currentRatioCur = ratio(cur('current_assets'), cur('current_liabilities'));\nconst currentRatioPrv = ratio(prv('current_assets'), prv('current_liabilities'));\nif (currentRatioCur != null) ratios.push({ label: 'نسبة التداول', value: r2(currentRatioCur) + 'x', previous: currentRatioPrv != null ? r2(currentRatioPrv) + 'x' : null, value_raw: r2(currentRatioCur), source: 'محسوب برمجيًا: الأصول المتداولة ÷ الخصوم المتداولة' });\n\nconst quickCur = ratio((cur('current_assets') != null && cur('inventory') != null) ? cur('current_assets') - cur('inventory') : null, cur('current_liabilities'));\nif (quickCur != null) ratios.push({ label: 'النسبة السريعة', value: r2(quickCur) + 'x', previous: null, value_raw: r2(quickCur), source: 'محسوب برمجيًا: (المتداولة − المخزون) ÷ الخصوم المتداولة' });\n\n// --- نسب المديونية (موسّعة v17) ---\nconst deCur = ratio(cur('total_liabilities'), cur('total_equity'));\nif (deCur != null) ratios.push({ label: 'نسبة الدين إلى حقوق الملكية', value: r2(deCur) + 'x', previous: null, value_raw: r2(deCur), source: 'محسوب برمجيًا: إجمالي الخصوم ÷ حقوق الملكية' });\n\nconst daCur = pct(cur('total_liabilities'), cur('total_assets'));\nif (daCur != null) ratios.push({ label: 'نسبة الدين إلى الأصول', value: daCur + '%', previous: pct(prv('total_liabilities'), prv('total_assets')) != null ? pct(prv('total_liabilities'), prv('total_assets')) + '%' : null, value_raw: daCur, source: 'محسوب برمجيًا: إجمالي الخصوم ÷ إجمالي الأصول' });\n\nconst eqMultiplierCur = ratio(cur('total_assets'), cur('total_equity'));\nif (eqMultiplierCur != null) ratios.push({ label: 'مضاعف حقوق الملكية', value: r2(eqMultiplierCur) + 'x', previous: null, value_raw: r2(eqMultiplierCur), source: 'محسوب برمجيًا: إجمالي الأصول ÷ حقوق الملكية' });\n\nconst roeCur = pct(cur('net_profit'), cur('total_equity'));\nif (roeCur != null) ratios.push({ label: 'العائد على حقوق الملكية (ROE)', value: roeCur + '%', previous: pct(prv('net_profit'), prv('total_equity')) != null ? pct(prv('net_profit'), prv('total_equity')) + '%' : null, value_raw: roeCur, source: 'محسوب برمجيًا: صافي الربح ÷ حقوق الملكية' });\nconst roaCur = pct(cur('net_profit'), cur('total_assets'));\nif (roaCur != null) ratios.push({ label: 'العائد على الأصول (ROA)', value: roaCur + '%', previous: null, value_raw: roaCur, source: 'محسوب برمجيًا: صافي الربح ÷ إجمالي الأصول' });\n\n// --- KPIs ---\nconst kpis = [];\nfunction addKpi(icon, label, key) {\n  const c = cur(key), p = prv(key);\n  if (c == null) return;\n  const b = toBillion(c);\n  const ch = change(c, p);\n  kpis.push({\n    icon, label,\n    value: b != null ? String(b) : String(c),\n    unit: 'مليار ريال',\n    change: ch != null ? (ch > 0 ? '+' : '') + ch + '%' : '',\n    trend: trendOf(ch),\n    source: 'مستخرج من القائمة'\n  });\n}\naddKpi('💰', 'صافي الربح (Net Profit)', 'net_profit');\naddKpi('📊', 'إجمالي الربح (Gross Profit)', 'gross_profit');\naddKpi('⚙️', 'الربح التشغيلي (Operating Profit)', 'operating_profit');\naddKpi('💵', 'الإيرادات (Revenue)', 'revenue');\n\n// --- جدول الأرقام التفصيلية ---\nconst figLabels = {\n  revenue: 'الإيرادات', cost_of_revenue: 'تكلفة الإيرادات', gross_profit: 'إجمالي الربح',\n  operating_profit: 'الربح التشغيلي', net_profit: 'صافي الربح',\n  total_assets: 'إجمالي الأصول', total_liabilities: 'إجمالي الخصوم', total_equity: 'حقوق الملكية',\n  current_assets: 'الأصول المتداولة', current_liabilities: 'الخصوم المتداولة',\n  cash: 'النقد وما في حكمه', operating_cf: 'التدفق النقدي التشغيلي'\n};\nconst incomeKeys = ['revenue', 'cost_of_revenue', 'gross_profit', 'operating_profit', 'net_profit'];\nconst balanceKeys = ['total_assets', 'total_liabilities', 'total_equity', 'current_assets', 'current_liabilities', 'cash'];\nfunction figRows(keys) {\n  return keys.filter(k => cur(k) != null).map(k => ({\n    label: figLabels[k] || k,\n    current: String(toBillion(cur(k))),\n    previous: prv(k) != null ? String(toBillion(prv(k))) : null,\n    unit: 'مليار'\n  }));\n}\nconst figures = [];\nconst incRows = figRows(incomeKeys);\nconst balRows = figRows(balanceKeys);\nif (incRows.length) figures.push({ category: 'قائمة الدخل', items: incRows });\nif (balRows.length) figures.push({ category: 'المركز المالي', items: balRows });\n\n// --- الرسوم البيانية ---\nlet growth_chart = null;\nif (cur('revenue') != null && prv('revenue') != null) {\n  growth_chart = { title: 'الإيرادات', unit: 'مليار', points: [\n    { label: 'الفترة السابقة', value: toBillion(prv('revenue')) },\n    { label: 'الفترة الحالية', value: toBillion(cur('revenue')) }\n  ]};\n}\n\nlet comparison_chart = null;\nconst cmpKeys = ['revenue', 'gross_profit', 'net_profit'].filter(k => cur(k) != null);\nif (cmpKeys.length) {\n  comparison_chart = {\n    title: 'الفترة الحالية مقابل السابقة', unit: 'مليار',\n    labels: cmpKeys.map(k => figLabels[k]),\n    current: { name: 'الحالي', values: cmpKeys.map(k => toBillion(cur(k))) },\n    previous: { name: 'السابق', values: cmpKeys.map(k => prv(k) != null ? toBillion(prv(k)) : null) }\n  };\n}\n\nlet composition_chart = null;\nif (inp.segments && inp.segments.length >= 2) {\n  composition_chart = { title: 'تركيبة القطاعات', items: inp.segments.map(s => ({ label: s.label, value: s.value })) };\n}\n\n// --- v17: ملخص التدفقات النقدية ---\nlet cashflow_summary = null;\n{\n  const op = cur('operating_cf'), inv = cur('investing_cf'), fin = cur('financing_cf'), capex = cur('capex');\n  if (op != null || inv != null || fin != null) {\n    let fcf = null;\n    if (op != null && capex != null) fcf = op - Math.abs(capex);\n    else if (op != null && inv != null) fcf = op + inv;\n    cashflow_summary = {\n      operating: op != null ? toBillion(op) : null,\n      investing: inv != null ? toBillion(inv) : null,\n      financing: fin != null ? toBillion(fin) : null,\n      free_cash_flow: fcf != null ? toBillion(fcf) : null,\n      unit: 'مليار'\n    };\n  }\n}\n\n// --- v17: ملخص حقوق المساهمين ---\nlet equity_summary = null;\n{\n  const te = cur('total_equity'), tePrev = prv('total_equity');\n  const sc = cur('share_capital'), re = cur('retained_earnings');\n  if (te != null) {\n    equity_summary = {\n      total_equity: toBillion(te),\n      share_capital: sc != null ? toBillion(sc) : null,\n      retained_earnings: re != null ? toBillion(re) : null,\n      change_pct: change(te, tePrev),\n      unit: 'مليار'\n    };\n  }\n}\n\nreturn [{\n  json: {\n    company: inp.company,\n    period: inp.period,\n    validation: inp.validation,\n    computed: { kpis, ratios, figures, growth_chart, comparison_chart, composition_chart, cashflow_summary, equity_summary },\n    meta: inp.meta\n  }\n}];"
+      },
+      "id": "0d783bbb-e6da-412a-a9d2-9122c9e9218d",
+      "name": "Compute",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// [5] Build Explain Request — بناء طلب الشرح للنموذج (v17)\n// أضيف: تمرير cashflow_summary و equity_summary ضمن الحقائق\n// ═══════════════════════════════════════════════════════════\nconst inp = $input.first().json;\nconst C = inp.computed;\n\nconst facts = {\n  company: inp.company,\n  period: inp.period,\n  kpis: C.kpis.map(k => ({ label: k.label, value: k.value, unit: k.unit, change: k.change, trend: k.trend })),\n  ratios: C.ratios.map(r => ({ label: r.label, value: r.value, previous: r.previous })),\n  figures: C.figures,\n  cashflow_summary: C.cashflow_summary || null,\n  equity_summary: C.equity_summary || null,\n  confidence: inp.validation.confidence\n};\n\nconst prompt =\n'أنت محرّر مالي. أُعطيت أرقامًا ونسبًا مُحسوبة مسبقًا وموثوقة. مهمتك صياغة شرح وصفي عربي حولها فقط.\\n\\n' +\n'قواعد مُلزمة (صارمة جدًا):\\n' +\n'1- ممنوع منعًا باتًا إضافة أي رقم أو نسبة غير موجودة في البيانات المعطاة لك أدناه.\\n' +\n'2- ممنوع تعديل أو إعادة حساب أي رقم. استخدم الأرقام كما هي حرفيًا إذا ذكرتها.\\n' +\n'3- يمكنك الوصف الموضوعي فقط (ارتفع/انخفض/مستقر) استنادًا إلى الأرقام المعطاة.\\n' +\n'4- ممنوع أي توصية استثمارية (اشترِ/بِع/استثمر).\\n' +\n'5- إذا كانت درجة الثقة \"low\" أو \"medium\"، اذكر بوضوح أن الأرقام قد تكون غير مكتملة.\\n' +\n'6- لا تخترع اسم قطاع أو نشاط غير مذكور.\\n' +\n'7- إذا توفرت بيانات cashflow_summary أو equity_summary، يمكنك الإشارة إليها وصفيًا ضمن insight أو notes دون اختراع أرقام إضافية.\\n\\n' +\n'البيانات المحسوبة (مصدر الحقيقة الوحيد):\\n' +\nJSON.stringify(facts, null, 1) +\n'\\n\\nأرجع JSON بهذا الشكل بالضبط (نصوص وصفية فقط، بلا أرقام جديدة):\\n' +\n'{' +\n'\"summary\":\"جملتان تصفان أداء الشركة في الفترة استنادًا للأرقام أعلاه\",' +\n'\"about\":\"وصف موجز للشركة والفترة المالية\",' +\n'\"insight\":\"فقرة من 3 جمل تربط الأرقام المعطاة ببعضها وصفيًا\",' +\n'\"ratio_notes\":[{\"label\":\"اسم النسبة كما ورد أعلاه\",\"note\":\"تفسير وصفي بجملة واحدة\"}],' +\n'\"risks\":[\"ملاحظة وصفية أو مخاطرة محتملة مبنية على الأرقام المعطاة\"],' +\n'\"notes\":[\"حقيقة محايدة مذكورة بالأرقام المعطاة\"]' +\n'}';\n\nconst apiBody = {\n  model: 'claude-haiku-4-5-20251001',\n  max_tokens: 2500,\n  temperature: 0.2,\n  messages: [\n    { role: 'user', content: prompt },\n    { role: 'assistant', content: '{' }\n  ]\n};\n\nreturn [{\n  json: {\n    computed: C,\n    validation: inp.validation,\n    company: inp.company,\n    period: inp.period,\n    meta: inp.meta,\n    api_body: JSON.stringify(apiBody)\n  }\n}];"
+      },
+      "id": "896cbec2-d786-43a1-80ac-48ab2744f56f",
+      "name": "Build Explain Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.api_body }}",
+        "options": {
+          "timeout": 90000
+        }
+      },
+      "id": "6e0f6958-50cb-4203-85b1-c2a6f13082bb",
+      "name": "Anthropic Explain",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        832,
+        32
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "mTS3tB0iwQKBRl0Z",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// [6] Assemble — دمج الأرقام المحسوبة مع الشرح النصي (v17)\n// أضيف: إرسال cashflow_summary و equity_summary للواجهة\n// ═══════════════════════════════════════════════════════════\nconst ai = $input.first().json;\n\nconst src = $('Build Explain Request').first().json;\nconst C = src.computed;\nconst V = src.validation;\n\nlet expl = {};\nif (ai.content && Array.isArray(ai.content)) {\n  let txt = ai.content.filter(b => b && b.type === 'text').map(b => b.text || '').join('');\n  if (!txt.trim().startsWith('{')) txt = '{' + txt;\n  txt = txt.replace(/^```json\\s*/i, '').replace(/```\\s*$/, '').trim();\n  try { expl = JSON.parse(txt); }\n  catch (e) {\n    const end = txt.lastIndexOf('}');\n    if (end > 0) { try { expl = JSON.parse(txt.slice(0, end + 1)); } catch (e2) {} }\n  }\n}\n\nconst ratioNotes = {};\n(expl.ratio_notes || []).forEach(r => { if (r && r.label) ratioNotes[r.label] = r.note; });\nconst ratios = C.ratios.map(r => ({\n  label: r.label,\n  value: r.value,\n  previous: r.previous,\n  note: ratioNotes[r.label] || ''\n}));\n\nconst confLabel = { high: 'موثوقية عالية', medium: 'موثوقية متوسطة — راجع الأرقام', low: 'موثوقية منخفضة — تحقّق يدويًا' };\nconst disclaimerBase = 'عرض وصفي للأرقام المالية المعلنة دون توصية استثمارية. جميع الأرقام مستخرجة من القائمة أو محسوبة برمجيًا.';\n\nconst report = {\n  summary: expl.summary || '',\n  about: expl.about || '',\n  insight: expl.insight || '',\n  kpis: C.kpis,\n  ratios,\n  figures: C.figures,\n  growth_chart: C.growth_chart || undefined,\n  comparison_chart: C.comparison_chart || undefined,\n  composition_chart: C.composition_chart || undefined,\n  cashflow_summary: C.cashflow_summary || undefined,\n  equity_summary: C.equity_summary || undefined,\n  risks: Array.isArray(expl.risks) ? expl.risks : [],\n  notes: Array.isArray(expl.notes) ? expl.notes : [],\n  confidence: V.confidence,\n  confidence_label: confLabel[V.confidence] || '',\n  warnings: V.warnings || [],\n  disclaimer: disclaimerBase\n};\n\nif (V.confidence === 'low') {\n  report.summary = '⚠ تنبيه موثوقية: تعذّر التحقق الكامل من الأرقام، قد تكون ناقصة أو غير دقيقة. ' + report.summary;\n}\n\nreturn [{ json: { ok: true, report } }];"
+      },
+      "id": "36235451-b555-4cf9-a157-ad6c8684e7c2",
+      "name": "Assemble",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1088,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "20d3f12c-7960-4374-af13-fcef3eedb60f",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ═══════════════════════════════════════════════════════════\n// [2] Extract Numbers — استخراج الأرقام برمجياً من النص\n// بدون AI — regex + pattern matching فقط\n// ═══════════════════════════════════════════════════════════\nconst inp = $input.first().json;\nconst text = inp.clean_text || '';\n\n// ─── تحويل الأرقام العربية للإنجليزية ───\nfunction arabicToEn(s) {\n  return String(s).replace(/[٠١٢٣٤٥٦٧٨٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));\n}\n\n// ─── تنظيف رقم وتحويله لقيمة عددية ───\nfunction parseNum(s) {\n  if (!s) return null;\n  s = arabicToEn(String(s)).replace(/,|،/g, '').replace(/\\s/g, '').trim();\n  // الأرقام بين قوسين = سالبة\n  if (/^\\([\\d.]+\\)$/.test(s)) s = '-' + s.replace(/[()]/g, '');\n  const n = parseFloat(s);\n  return isFinite(n) ? n : null;\n}\n\n// ─── البحث عن رقم بجانب كلمة مفتاحية ───\n// يبحثفي السطر نفسه أو السطر التالي\nfunction findValue(keywords, txt) {\n  const lines = txt.split('\\n');\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    const matched = keywords.some(kw => line.includes(kw));\n    if (!matched) continue;\n\n    // البحث عن أرقام في نفس السطر\n    const nums = arabicToEn(line).match(/\\(?\\d{1,3}(?:[,،٬]\\d{3})+(?:\\.\\d+)?\\)?|\\(?\\d+(?:\\.\\d+)?\\)?/g);\n    if (nums && nums.length > 0) {\n      // نأخذ أول رقمين (current و previous)\n      const current = parseNum(nums[0]);\n      const previous = nums[1] ? parseNum(nums[1]) : null;\n      if (current !== null) return { current, previous };\n    }\n\n    // البحث في السطر التالي\n    if (i + 1 < lines.length) {\nconst nextNums = arabicToEn(lines[i + 1]).match(/\\(?\\d{1,3}(?:[,،٬]\\d{3})+(?:\\.\\d+)?\\)?|\\(?\\d+(?:\\.\\d+)?\\)?/g);\n        const current = parseNum(nextNums[0]);\n        const previous = nextNums[1] ? parseNum(nextNums[1]) : null;\n        if (current !== null) return { current, previous };\n      }\n    }\n  }\n  return { current: null, previous: null };\n\n// ─── البحث عن الربح التشغيلي بدقة أعلى ───\n// يتجاهل \"صافي الربح قبل الزكاة\" و\"الربح الإجمالي\"\nfunction findOperatingProfit(txt) {\n    const lines = txt.split('\\n');\n    for (let i = 0; i < lines.length; i++) {\n          const line = lines[i];\n          const isOperating = (\n                  line.includes('الربح التشغيلي') ||\n                  line.includes('ربح التشغيل') ||\n                  line.toLowerCase().includes('operating profit') ||\n                  line.toLowerCase().includes('profit from operations') ||\n                      line.includes('ربح العمليات') ||\n                      line.includes('دخل العمليات') ||\n                      line.includes('صافي الدخل من العمليات') ||\n                      line.includes('الربح قبل الزكاة والضريبة')\n                );\n          const isRatio = line.includes('هامش') || line.includes('نسبة') || line.includes('%');\n          if (!isOperating || isRatio) continue;\n                const nums = arabicToEn(line).match(/\\(?\\d{1,3}(?:[,،]\\d{3})+(?:\\.\\d+)?\\)?|\\(?\\d+(?:\\.\\d+)?\\)?/g);\n          if (nums && nums.length > 0) {\n                  const current = parseNum(nums[0]);\n                  const previous = nums[1] ? parseNum(nums[1]) : null;\n                  if (current !== null) return { current, previous };\n          }\n          if (i + 1 < lines.length) {\n                  const nextNums = arabicToEn(lines[i + 1]).match(/\\(?\\d{1,3}(?:[,،]\\d{3})+(?:\\.\\d+)?\\)?|\\(?\\d+(?:\\.\\d+)?\\)?/g);\n                  if (nextNums && nextNums.length > 0) {\n                            const current = parseNum(nextNums[0]);\n                            const previous = nextNums[1] ? parseNum(nextNums[1]) : null;\n                            if (current !== null) return { current, previous };\n                  }\n          }\n    }\n    return { current: null, previous: null };\n}\n\nconst extracted = {\n    operating_profit:  findOperatingProfit(text),\n    net_profit:        findValue(['صافي الربح','صافي الدخل','ربح الفترة','ربح الفتره','الربح الصافي','الدخل الصافي'], text),\n    total_assets:      findValue(['إجمالي الأصول','اجمالي الاصول','مجموع الأصول','إجمالي الموجودات'], text),\n    total_liabilities: findValue(['إجمالي الخصوم','اجمالي الخصوم','مجموع الخصوم','إجمالي المطلوبات'], text),\n    total_equity:      findValue(['إجمالي حقوق الملكية','اجمالي حقوق الملكية','حقوق المساهمين','إجمالي حقوق المساهمين'], text),\n    current_assets:    findValue(['الأصول المتداولة','اجمالي الاصول المتداولة','إجمالي الأصول المتداولة'], text),\n    current_liabilities:findValue(['الخصوم المتداولة','اجمالي الخصوم المتداولة','إجمالي الخصوم المتداولة','الالتزامات المتداولة','إجمالي الالتزامات المتداولة'], text),\n    cash:              findValue(['النقد وما في حكمه','النقد وما يعادله','نقد وما في حكمه'], text),\n    share_capital:     findValue(['رأس المال','رأس المال المدفوع','رأس المال المصدر'], text),\n    retained_earnings: findValue(['الأرباح المبقاة','الارباح المبقاة','الأرباح المحتجزة'], text),\n    operating_cf:      findValue(['صافي النقد من الأنشطة التشغيلية','التدفق النقدي التشغيلي','صافي التدفقات النقدية من الأنشطة التشغيلية'], text),\n    investing_cf:      findValue(['صافي النقد من الأنشطة الاستثمارية','التدفق النقدي الاستثماري','صافي التدفقات النقدية من الأنشطة الاستثمارية'], text),\n    financing_cf:      findValue(['صافي النقد من الأنشطة التمويلية','التدفق النقدي التمويلي','صافي التدفقات النقدية من الأنشطة التمويلية'], text),\n};\n\n// ─── حساب عدد البنود المستخرجة ───\nconst extractedCount = Object.values(extracted).filter(v => v.current !== null).length;\nconst totalFields = Object.keys(extracted).length;\n\n// ─── إذا الاستخراج البرمجي نجح بنسبة 60%+ نستخدمه، وإلا نتركه للـ AI ───\nconst isReliable = extractedCount >= Math.floor(totalFields * 0.6);\n\nreturn [{\n  json: {\n    company: inp.company,\n    period: inp.period,\n    clean_text: inp.clean_text,\n    scanned_images: inp.scanned_images,\n    has_vision: inp.has_vision,\n    meta: inp.meta,\n    // الأرقام المستخرجة برمجياً\n    programmatic_extraction: {\n      data: extracted,\n      extracted_count: extractedCount,\n      total_fields: totalFields,\n      is_reliable: isReliable\n    }\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -736,
+        32
+      ],
+      "id": "375a2b6d-2503-4b9d-8672-3637691d21aa",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare + Guard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare + Guard": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Extract Request": {
+      "main": [
+        [
+          {
+            "node": "Anthropic Extract",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Extract": {
+      "main": [
+        [
+          {
+            "node": "Parse + Validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse + Validate": {
+      "main": [
+        [
+          {
+            "node": "Compute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute": {
+      "main": [
+        [
+          {
+            "node": "Build Explain Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Explain Request": {
+      "main": [
+        [
+          {
+            "node": "Anthropic Explain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Explain": {
+      "main": [
+        [
+          {
+            "node": "Assemble",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assemble": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Build Extract Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "4a3fa066-f1c5-43ba-80c6-6b58e0db858b",
+  "meta": {
+    "instanceId": "7b6a8fb3d33987c72409ff7caeac0378abc268df4de614b67c7582911d0b3847"
+  },
+  "nodeGroups": [],
+  "id": "PppJW7ejF5khOmJl",
+  "tags": [
+    {
+      "updatedAt": "2026-06-19T22:01:21.098Z",
+      "createdAt": "2026-06-19T22:01:21.098Z",
+      "id": "NMXLlULuSrsZ9x5P",
+      "name": "mizan"
+    }
+  ]
+}
