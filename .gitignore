@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.log
+extension/test-results/
+extension/playwright-report/
+extension/tests/fixtures/*.webm
+extension/e2e-screens/
