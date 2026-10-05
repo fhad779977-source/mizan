@@ -79,7 +79,9 @@ export function createGlobeMaterial(tex: EarthTextures, u: EarthUniforms, bakeCl
 
   const cloudUv = uv().sub(vec2(u.cloudOffset, 0));
   const cloudSample = texture(tex.brc, cloudUv).b;
-  const clouds = smoothstep(0.2, 1, cloudSample).mul(u.atmosphere.mul(0.5).add(1)).toVar();
+  // Fade clouds toward the poles, where the equirectangular texture pinches into streaks.
+  const polarFade = smoothstep(0.97, 0.86, abs(positionLocal.y));
+  const clouds = smoothstep(0.2, 1, cloudSample).mul(u.atmosphere.mul(0.5).add(1)).mul(polarFade).toVar();
 
   const day = texture(tex.day, uv()).rgb;
   const luminance = dot(day, vec3(0.299, 0.587, 0.114));
@@ -134,7 +136,7 @@ export function createGlobeMaterial(tex: EarthTextures, u: EarthUniforms, bakeCl
 
 export function createCloudMaterial(tex: EarthTextures, u: EarthUniforms) {
   const material = new THREE.MeshStandardNodeMaterial({ transparent: true, depthWrite: false });
-  const clouds = smoothstep(0.24, 0.92, texture(tex.brc, uv()).b);
+  const clouds = smoothstep(0.24, 0.92, texture(tex.brc, uv()).b).mul(smoothstep(0.97, 0.86, abs(positionLocal.y)));
   const strength = u.atmosphere.mul(0.5).add(0.68);
   material.colorNode = vec3(1);
   material.roughnessNode = float(0.9);
