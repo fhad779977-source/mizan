@@ -19,6 +19,7 @@ if (!episodePath) {
 const preview = args.includes('--preview');
 const audioIdx = args.indexOf('--audio');
 const audio = audioIdx >= 0 ? resolve(args[audioIdx + 1]) : null;
+// ملف timed.json الناتج من sync.mjs يحمل مسار الصوت بنفسه
 const FPS = 30;
 
 const episode = JSON.parse(readFileSync(resolve(episodePath), 'utf8'));
@@ -62,7 +63,8 @@ await browser.close();
 
 const out = resolve(outDir, `${episode.id}.mp4`);
 const ffArgs = ['-v', 'error', '-y', '-framerate', String(FPS), '-i', resolve(framesDir, 'f%05d.jpg')];
-if (audio) ffArgs.push('-i', audio, '-c:a', 'aac', '-b:a', '192k', '-shortest');
+const voice = audio ?? episode.audio ?? null;
+if (voice) ffArgs.push('-i', voice, '-af', 'apad', '-c:a', 'aac', '-b:a', '192k', '-shortest'); // apad: لا يُقص آخر الفيديو إذا انتهى الصوت قبله
 else ffArgs.push('-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=stereo', '-c:a', 'aac', '-shortest');
 ffArgs.push('-c:v', 'libx264', '-profile:v', 'high', '-pix_fmt', 'yuv420p', '-crf', '18', '-r', String(FPS), '-movflags', '+faststart', out);
 execFileSync('ffmpeg', ffArgs);
