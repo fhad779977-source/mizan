@@ -1,3 +1,9 @@
 node_modules/
+dist/
+.env
 *.log
 football-shorts/out/
+extension/test-results/
+extension/playwright-report/
+extension/e2e-screens/
+extension/tests/fixtures/*.webm
