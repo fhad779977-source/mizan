@@ -2,7 +2,7 @@
   "id": "day01-haaland-record",
   "title": "أرقام كرة القدم",
   "duration": 60,
-  "logoText": "شعارك",
+  "logo": "../assets/logo.png",
   "sources": [
     "https://theanalyst.com/articles/how-many-goals-has-erling-haaland-scored-in-2022-23",
     "https://www.nbcsports.com/soccer/news/premier-league-single-season-goals-record-erling-haaland-record-goal-video-passes-shearer-cole"
