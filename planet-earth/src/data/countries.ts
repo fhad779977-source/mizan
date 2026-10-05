@@ -93,13 +93,191 @@ const RIYADH: CityGuide = {
 const JEDDAH: CityGuide = {
   landmarks: [
     { name: 'Al-Balad (Historic Jeddah)', area: 'Al-Balad', note: 'UNESCO-listed coral-stone houses with carved rawasheen balconies.' },
+    { name: 'Nassif House', area: 'Al-Balad', note: 'A 19th-century merchant house, now a museum of old Jeddah.' },
     { name: 'King Fahd’s Fountain', area: 'Corniche', note: 'One of the tallest fountains in the world, lit up at night.' },
     { name: 'Al-Rahma Mosque', area: 'Corniche', note: 'The “floating mosque”, built over the Red Sea.' },
     { name: 'Jeddah Corniche', area: 'Waterfront', note: 'A 30 km seafront promenade with sculptures and beaches.' },
+    { name: 'Jeddah Yacht Club & Marina', area: 'North Corniche', note: 'Waterfront marina with restaurants and Red Sea sunsets.' },
+    { name: 'Tayebat Museum', area: 'Al Faisaliyah', note: 'Large museum of Hijazi heritage and Islamic history.' },
+  ],
+  cafes: [
+    { name: 'Brew92', area: 'Jeddah', note: 'A pioneer of Saudi third-wave coffee.' },
+    { name: 'Meraki Artisan', area: 'Ar Rawdah', note: 'Specialty roaster and coffee bar.' },
+    { name: 'Tmal Speciality Coffee', area: 'Jeddah', note: 'Cosy, affordable specialty coffee.' },
+    { name: 'Camel Step', area: 'Jeddah', note: 'Respected Saudi roaster known for consistency.' },
+    { name: 'Ash Cafe', area: 'Jeddah', note: 'Local brand with in-house roasting and bright interiors.' },
+  ],
+  restaurants: [
+    { name: 'Al-Nakheel Restaurant', area: 'Corniche', note: 'Hijazi dishes on a large terrace with a sea breeze.' },
+    { name: 'Najat Al-Shaabi', area: 'Al-Balad', note: 'Old-Jeddah classics: mutabbaq, masoub and mugalgal.' },
+    { name: 'Samia’s Dish', area: 'Jeddah', note: 'Affordable, home-style Hijazi cooking.' },
+    { name: 'Hummus Al Jalal', area: 'Al-Balad', note: 'Generations-old foul recipe with morning queues.' },
+    { name: 'Al Basali Restaurant', area: 'Near Bab Makkah', note: 'Red Sea seafood such as grilled hammour.' },
+    { name: 'Al Baik', area: 'Citywide', note: 'The broasted-chicken chain that started in Jeddah in 1974.' },
+  ],
+};
+
+const ALULA: CityGuide = {
+  landmarks: [
+    { name: 'Hegra', area: 'AlUla', note: 'Saudi Arabia’s first UNESCO site: over 100 Nabataean tombs.' },
+    { name: 'Elephant Rock', area: 'AlUla', note: 'A 52 m natural arch shaped like an elephant, best at dusk.' },
+    { name: 'Maraya', area: 'Ashar Valley', note: 'The world’s largest mirrored building.' },
+    { name: 'AlUla Old Town', area: 'AlUla', note: 'Mud-brick lanes from the 12th century, with shops and cafés.' },
+    { name: 'Dadan', area: 'AlUla', note: 'Capital of the ancient Dadan and Lihyan kingdoms.' },
+    { name: 'Jabal Ikmah', area: 'AlUla', note: 'An open-air library of ancient rock inscriptions.' },
+    { name: 'Harrat Viewpoint', area: 'AlUla', note: 'Volcanic plateau lookout over the whole valley.' },
+  ],
+  cafes: [
+    { name: 'Tomoor AlUla', area: 'Old Town', note: 'Modern Saudi café built around AlUla dates.' },
+    { name: 'Wacafe', area: 'Old Town', note: 'Relaxed café in the heart of Old Town.' },
+  ],
+  restaurants: [
+    { name: 'Maraya Social', area: 'Maraya', note: 'Rooftop restaurant by chef Jason Atherton; booking required.' },
+    { name: 'Saffron', area: 'Banyan Tree AlUla', note: 'The resort’s signature Thai restaurant.' },
+    { name: 'Tofareya', area: 'Old Town', note: 'Traditional Saudi dishes.' },
+    { name: 'Villa Fayrouz', area: 'Old Town', note: 'Lebanese mezze and grills.' },
+    { name: 'Entrecôte Café de Paris', area: 'Old Town', note: 'French steak-frites classic.' },
+  ],
+};
+
+const MAKKAH: CityGuide = {
+  landmarks: [
+    { name: 'Masjid al-Haram', area: 'Central Makkah', note: 'The Grand Mosque surrounding the Kaaba, the qibla for Muslims worldwide.' },
+    { name: 'Jabal al-Nour', area: 'North-east Makkah', note: 'The mountain of the Cave of Hira, where the first revelation came.' },
+    { name: 'Makkah Clock Tower', area: 'Abraj Al Bait', note: 'One of the world’s tallest buildings, with a clock museum.' },
   ],
   cafes: [],
+  restaurants: [],
+};
+
+const MADINAH: CityGuide = {
+  landmarks: [
+    { name: 'Al-Masjid an-Nabawi', area: 'Central Madinah', note: 'The Prophet’s Mosque, the second holiest site in Islam.' },
+    { name: 'Quba Mosque', area: 'Quba', note: 'The first mosque built in Islam.' },
+    { name: 'Mount Uhud', area: 'North Madinah', note: 'Site of the Battle of Uhud.' },
+    { name: 'Hejaz Railway Museum', area: 'Al Anbariyah', note: 'The historic 1908 railway station, now a museum.' },
+  ],
+  cafes: [],
+  restaurants: [],
+};
+
+const ABHA: CityGuide = {
+  landmarks: [
+    { name: 'Rijal Almaa', area: 'An hour from Abha', note: 'A 900-year-old village of stone, clay and wood towers.' },
+    { name: 'Al Soudah', area: 'Asir mountains', note: 'Misty highlands near the kingdom’s highest peaks.' },
+    { name: 'Al Habala', area: 'South-west of Abha', note: 'The “hanging village” on a cliff, reached by cable car.' },
+    { name: 'Al Muftaha Village', area: 'Central Abha', note: 'Historic village with Asiri murals, galleries and cafés.' },
+    { name: 'Art Street', area: 'Abha', note: 'A relaxed walk of public art, cafés and seasonal events.' },
+  ],
+  cafes: [{ name: 'Bees Tower Honey Refinery', area: 'Near Rijal Almaa', note: 'Coffee and local honey with views of green mountains.' }],
+  restaurants: [],
+};
+
+const KHOBAR: CityGuide = {
+  landmarks: [
+    { name: 'Al Khobar Corniche', area: 'Waterfront', note: 'A long Gulf-side promenade, busiest in the evening.' },
+    { name: 'King Fahd Causeway', area: 'West of Khobar', note: 'The 25 km bridge-and-island link to Bahrain.' },
+    { name: 'Ithra', area: 'Dhahran', note: 'King Abdulaziz Center for World Culture: museum, library and cinema.' },
+    { name: 'Half Moon Bay', area: 'South of Khobar', note: 'A curved bay of calm water and beaches.' },
+  ],
+  cafes: [
+    { name: 'Andes Roasters', area: 'Al Khobar', note: 'Specialty roastery with a strong local following.' },
+    { name: 'Camel Step', area: 'Al Khobar', note: 'Saudi specialty roaster.' },
+    { name: 'August Cafe', area: 'Corniche', note: 'Popular café on the corniche.' },
+  ],
   restaurants: [
-    { name: 'Al Baik', area: 'Citywide', note: 'The broasted-chicken chain that started in Jeddah in 1974.' },
+    { name: 'Nozomi', area: 'Corniche', note: 'Elegant Japanese with a terrace over the Gulf.' },
+    { name: 'Café Chic', area: 'Sofitel Al Khobar The Corniche', note: 'French cuisine with Gulf views.' },
+    { name: 'Heritage Village', area: 'Al Khobar', note: 'Traditional Saudi dishes such as kabsa and mandi.' },
+  ],
+};
+
+const ISTANBUL: CityGuide = {
+  landmarks: [
+    { name: 'Hagia Sophia', area: 'Sultanahmet', note: 'A sixth-century dome that has stood for 1,500 years.' },
+    { name: 'Blue Mosque', area: 'Sultanahmet', note: 'Ottoman mosque lined with blue Iznik tiles.' },
+    { name: 'Topkapı Palace', area: 'Sultanahmet', note: 'Seat of the Ottoman sultans for four centuries.' },
+    { name: 'Grand Bazaar', area: 'Fatih', note: 'One of the oldest and largest covered markets in the world.' },
+    { name: 'Galata Tower', area: 'Beyoğlu', note: 'Medieval stone tower with a 360° view of the Golden Horn.' },
+  ],
+  cafes: [
+    { name: 'Mandabatmaz', area: 'Beyoğlu', note: 'Tiny spot famous for thick Turkish coffee.' },
+    { name: 'Pierre Loti Café', area: 'Eyüp', note: 'Hilltop tea garden over the Golden Horn.' },
+    { name: 'Hafız Mustafa 1864', area: 'Sirkeci', note: 'Historic shop for baklava and Turkish delight.' },
+  ],
+  restaurants: [
+    { name: 'Pandeli', area: 'Spice Bazaar', note: 'Ottoman cooking above the bazaar since 1901.' },
+    { name: 'Hamdi Restaurant', area: 'Eminönü', note: 'Kebabs with a view of the Golden Horn.' },
+    { name: 'Çiya Sofrası', area: 'Kadıköy', note: 'Regional Anatolian dishes on the Asian side.' },
+    { name: 'Karaköy Güllüoğlu', area: 'Karaköy', note: 'The city’s best-known baklava house.' },
+  ],
+};
+
+const ROME: CityGuide = {
+  landmarks: [
+    { name: 'The Colosseum', area: 'Centro Storico', note: 'The largest amphitheatre ever built, finished in 80 AD.' },
+    { name: 'Roman Forum', area: 'Centro Storico', note: 'The ruined heart of ancient Rome.' },
+    { name: 'Pantheon', area: 'Piazza della Rotonda', note: 'A 2,000-year-old temple with an open oculus.' },
+    { name: 'Trevi Fountain', area: 'Trevi', note: 'Baroque fountain; a coin tossed in promises a return.' },
+    { name: 'Vatican Museums', area: 'Vatican City', note: 'Home of the Sistine Chapel ceiling.' },
+  ],
+  cafes: [
+    { name: 'Sant’Eustachio Il Caffè', area: 'Near the Pantheon', note: 'Legendary espresso since 1938.' },
+    { name: 'Antico Caffè Greco', area: 'Via Condotti', note: 'Rome’s oldest café, open since 1760.' },
+    { name: 'Tazza d’Oro', area: 'Near the Pantheon', note: 'Famous for granita di caffè.' },
+  ],
+  restaurants: [
+    { name: 'Roscioli', area: 'Campo de’ Fiori', note: 'Deli-restaurant known for carbonara.' },
+    { name: 'Da Enzo al 29', area: 'Trastevere', note: 'Small, classic Roman trattoria.' },
+    { name: 'Armando al Pantheon', area: 'Near the Pantheon', note: 'Family-run Roman cooking since 1961.' },
+  ],
+};
+
+const TOKYO: CityGuide = {
+  landmarks: [
+    { name: 'Senso-ji', area: 'Asakusa', note: 'Tokyo’s oldest temple, founded in 645.' },
+    { name: 'Shibuya Crossing', area: 'Shibuya', note: 'The world’s busiest pedestrian scramble.' },
+    { name: 'Meiji Jingu', area: 'Harajuku', note: 'Forest shrine to Emperor Meiji.' },
+    { name: 'Tokyo Skytree', area: 'Sumida', note: 'A 634 m broadcasting tower with observation decks.' },
+    { name: 'teamLab Planets', area: 'Toyosu', note: 'Immersive digital-art museum.' },
+  ],
+  cafes: [
+    { name: 'Blue Bottle Coffee Kiyosumi', area: 'Kiyosumi-Shirakawa', note: 'The brand’s first café in Japan, in a converted warehouse.' },
+    { name: 'Fuglen Tokyo', area: 'Tomigaya', note: 'Oslo coffee bar with vintage Norwegian design.' },
+  ],
+  restaurants: [
+    { name: 'Ichiran Shibuya', area: 'Shibuya', note: 'Tonkotsu ramen eaten in private booths.' },
+    { name: 'AFURI Ebisu', area: 'Ebisu', note: 'Light yuzu-shio ramen.' },
+    { name: 'Tsukiji Outer Market', area: 'Tsukiji', note: 'Street stalls for sushi, tamagoyaki and seafood.' },
+  ],
+};
+
+const CAIRO: CityGuide = {
+  landmarks: [
+    { name: 'Pyramids of Giza', area: 'Giza', note: 'The Great Pyramid, built around 2560 BC.' },
+    { name: 'Grand Egyptian Museum', area: 'Giza', note: 'The world’s largest museum devoted to one civilisation.' },
+    { name: 'Khan el-Khalili', area: 'Islamic Cairo', note: 'Historic bazaar dating to the 14th century.' },
+    { name: 'Cairo Citadel', area: 'Mokattam', note: 'Saladin’s fortress and the Muhammad Ali Mosque.' },
+  ],
+  cafes: [{ name: 'El Fishawy', area: 'Khan el-Khalili', note: 'Mirror-lined café serving mint tea since the 18th century.' }],
+  restaurants: [
+    { name: 'Abou Tarek', area: 'Downtown', note: 'The city’s most famous koshari.' },
+    { name: 'Felfela', area: 'Downtown', note: 'Egyptian classics such as ful and ta’ameya since 1959.' },
+    { name: 'Naguib Mahfouz Café', area: 'Khan el-Khalili', note: 'Egyptian dishes in a calm courtyard inside the bazaar.' },
+  ],
+};
+
+const BARCELONA: CityGuide = {
+  landmarks: [
+    { name: 'Sagrada Família', area: 'Eixample', note: 'Gaudí’s basilica, under construction since 1882.' },
+    { name: 'Park Güell', area: 'Gràcia', note: 'Mosaic terraces overlooking the city.' },
+    { name: 'Casa Batlló', area: 'Passeig de Gràcia', note: 'Gaudí’s dragon-roofed house.' },
+    { name: 'Gothic Quarter', area: 'Ciutat Vella', note: 'Medieval lanes around the cathedral.' },
+  ],
+  cafes: [{ name: 'Granja M. Viader', area: 'El Raval', note: 'Hot chocolate and churros since 1870.' }],
+  restaurants: [
+    { name: 'Cervecería Catalana', area: 'Eixample', note: 'Busy, much-loved tapas bar.' },
+    { name: 'La Boqueria', area: 'La Rambla', note: 'The city’s great food market, with counter bars.' },
   ],
 };
 
@@ -203,8 +381,8 @@ export const COUNTRIES: Country[] = [
     regions: [
       r('riyadh', 'Riyadh', 24.7136, 46.6753, 'The capital', 'A capital of glass towers rising from the Najd plateau, with the mud-brick roots of Diriyah at its edge.', RIYADH),
       r('jeddah', 'Jeddah', 21.4858, 39.1925, 'Gateway to the Red Sea', 'Port city of coral-stone houses, a long corniche and the gateway for pilgrims to Makkah.', JEDDAH),
-      r('makkah', 'Makkah', 21.3891, 39.8579, 'The holiest city in Islam', 'Home of the Masjid al-Haram and the Kaaba, welcoming millions of pilgrims every year.'),
-      r('madinah', 'Madinah', 24.5247, 39.5692, 'City of the Prophet', 'Home of the Prophet’s Mosque and Quba Mosque, the first mosque in Islam.'),
+      r('makkah', 'Makkah', 21.3891, 39.8579, 'The holiest city in Islam', 'Home of the Masjid al-Haram and the Kaaba, welcoming millions of pilgrims every year.', MAKKAH),
+      r('madinah', 'Madinah', 24.5247, 39.5692, 'City of the Prophet', 'Home of the Prophet’s Mosque and Quba Mosque, the first mosque in Islam.', MADINAH),
       r(
         'alula',
         'AlUla',
@@ -212,14 +390,10 @@ export const COUNTRIES: Country[] = [
         37.9232,
         'Open-air museum',
         'Sandstone canyons and Hegra, Saudi Arabia’s first UNESCO site, with over 100 Nabataean tombs.',
-        landmarksOnly(
-          { name: 'Hegra', area: 'AlUla', note: 'Monumental Nabataean tombs carved into sandstone outcrops.' },
-          { name: 'Elephant Rock', area: 'AlUla', note: 'A 52 m natural arch shaped like an elephant.' },
-          { name: 'Maraya', area: 'Ashar Valley', note: 'The world’s largest mirrored building.' },
-        ),
+        ALULA,
       ),
-      r('abha', 'Abha', 18.2465, 42.5117, 'Mountains of Asir', 'Cool highland city at 2,200 m, with misty peaks and colourful Asiri architecture.'),
-      r('khobar', 'Al Khobar', 26.2172, 50.1971, 'The Eastern Province', 'Gulf-side city linked to Bahrain by the King Fahd Causeway.'),
+      r('abha', 'Abha', 18.2465, 42.5117, 'Mountains of Asir', 'Cool highland city at 2,200 m, with misty peaks and colourful Asiri architecture.', ABHA),
+      r('khobar', 'Al Khobar', 26.2172, 50.1971, 'The Eastern Province', 'Gulf-side city linked to Bahrain by the King Fahd Causeway.', KHOBAR),
       r('neom', 'NEOM', 28.0, 35.2, 'Red Sea frontier', 'A vast development region on the Gulf of Aqaba, with mountains that meet the sea.'),
     ],
   },
@@ -352,11 +526,7 @@ export const COUNTRIES: Country[] = [
         139.6503,
         'The world’s largest city',
         'Neon districts, quiet shrines and more Michelin stars than any other city.',
-        landmarksOnly(
-          { name: 'Senso-ji', area: 'Asakusa', note: 'Tokyo’s oldest temple, founded in 645.' },
-          { name: 'Shibuya Crossing', area: 'Shibuya', note: 'The world’s busiest pedestrian scramble.' },
-          { name: 'Tokyo Skytree', area: 'Sumida', note: 'A 634 m broadcasting tower with observation decks.' },
-        ),
+        TOKYO,
       ),
       r('kyoto', 'Kyoto', 35.0116, 135.7681, 'The old capital', 'More than 1,600 temples, bamboo groves and the Gion geisha district.'),
       r('osaka', 'Osaka', 34.6937, 135.5023, 'Japan’s kitchen', 'Street food capital with a famous castle and neon Dotonbori.'),
@@ -383,11 +553,7 @@ export const COUNTRIES: Country[] = [
         12.4964,
         'The Eternal City',
         'Three thousand years of history, from the Forum to St Peter’s.',
-        landmarksOnly(
-          { name: 'The Colosseum', area: 'Centro Storico', note: 'The largest amphitheatre ever built, finished in 80 AD.' },
-          { name: 'Trevi Fountain', area: 'Trevi', note: 'Baroque fountain; a coin tossed in promises a return.' },
-          { name: 'Vatican Museums', area: 'Vatican City', note: 'Home of the Sistine Chapel ceiling.' },
-        ),
+        ROME,
       ),
       r('venice', 'Venice', 45.4408, 12.3155, 'City of canals', '118 islands linked by 400 bridges in a lagoon.'),
       r('florence', 'Florence', 43.7696, 11.2558, 'Birthplace of the Renaissance', 'Brunelleschi’s dome, the Uffizi and Michelangelo’s David.'),
@@ -442,11 +608,7 @@ export const COUNTRIES: Country[] = [
         31.2357,
         'Home of the pyramids',
         'Africa’s largest city, beside the last standing wonder of the ancient world.',
-        landmarksOnly(
-          { name: 'Pyramids of Giza', area: 'Giza', note: 'The Great Pyramid, built around 2560 BC.' },
-          { name: 'Grand Egyptian Museum', area: 'Giza', note: 'The world’s largest museum devoted to one civilisation.' },
-          { name: 'Khan el-Khalili', area: 'Islamic Cairo', note: 'Historic bazaar dating to the 14th century.' },
-        ),
+        CAIRO,
       ),
       r('luxor', 'Luxor', 25.6872, 32.6396, 'The world’s greatest open-air museum', 'Karnak, Luxor Temple and the Valley of the Kings.'),
       r('sharm', 'Sharm El Sheikh', 27.9158, 34.33, 'Red Sea resort', 'Coral reefs, diving and the mountains of Sinai.'),
@@ -472,11 +634,7 @@ export const COUNTRIES: Country[] = [
         28.9784,
         'Where two continents meet',
         'Mosques, palaces and bazaars on both sides of the Bosphorus.',
-        landmarksOnly(
-          { name: 'Hagia Sophia', area: 'Sultanahmet', note: 'A sixth-century dome that has stood for 1,500 years.' },
-          { name: 'Blue Mosque', area: 'Sultanahmet', note: 'Ottoman mosque lined with blue Iznik tiles.' },
-          { name: 'Grand Bazaar', area: 'Fatih', note: 'One of the oldest and largest covered markets in the world.' },
-        ),
+        ISTANBUL,
       ),
       r('cappadocia', 'Cappadocia', 38.6431, 34.8289, 'Land of fairy chimneys', 'Rock valleys and sunrise hot-air balloon flights.'),
       r('antalya', 'Antalya', 36.8969, 30.7133, 'The Turquoise Coast', 'Mediterranean beaches and Roman ruins.'),
@@ -503,10 +661,7 @@ export const COUNTRIES: Country[] = [
         2.1686,
         'Gaudí’s city',
         'Modernist architecture, beaches and the Gothic Quarter.',
-        landmarksOnly(
-          { name: 'Sagrada Família', area: 'Eixample', note: 'Gaudí’s basilica, under construction since 1882.' },
-          { name: 'Park Güell', area: 'Gràcia', note: 'Mosaic terraces overlooking the city.' },
-        ),
+        BARCELONA,
       ),
       r('seville', 'Seville', 37.3891, -5.9845, 'Heart of Andalusia', 'The Alcázar palace, flamenco and orange-scented streets.'),
     ],
