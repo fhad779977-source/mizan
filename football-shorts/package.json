@@ -1,0 +1,15 @@
+{
+  "name": "football-shorts",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "مولّد مقاطع «أرقام كرة القدم» القصيرة للتيك توك",
+  "scripts": {
+    "render": "node scripts/render.mjs",
+    "preview": "node scripts/render.mjs --preview"
+  },
+  "dependencies": {
+    "@fontsource/cairo": "^5.2.0",
+    "@playwright/test": "1.56.1"
+  }
+}
