@@ -25,7 +25,8 @@ CLASS = {
 RADIUS = {
     "riyadh": 0.125, "london": 0.07, "new-york": 0.08, "paris": 0.06, "istanbul": 0.08,
     "tokyo": 0.09, "cairo": 0.07, "barcelona": 0.05, "washington": 0.06, "los-angeles": 0.12,
-    "san-francisco": 0.06, "edinburgh": 0.04,
+    "san-francisco": 0.06, "edinburgh": 0.04, "jeddah": 0.09, "dubai": 0.1, "makkah": 0.04,
+    "madinah": 0.04, "khobar": 0.04, "abu-dhabi": 0.05, "rome": 0.03, "alula": 0.035,
 }
 SIMPLIFY = 2.5e-5  # ≈ 2.5 m
 LATIN = re.compile(r"^[\x00-ɏḀ-ỿ -⁯’]+$")
