@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { ELEMENTS, PLACES, SECTIONS, type ElementId, type Place, type SectionId } from './data/content';
+import { ELEMENTS, PLACES, SECTIONS, type ElementId, type GlobePoint, type Place, type SectionId } from './data/content';
+import { COUNTRIES, type Country, type Region } from './data/countries';
 import { EarthExperience, type RenderBackend } from './three/EarthExperience';
 import { detectQuality } from './three/quality';
 import { sound } from './audio/SoundEngine';
@@ -10,7 +11,7 @@ import { Loader } from './components/Loader';
 import { Nav } from './components/Nav';
 import { SectionRail } from './components/SectionRail';
 import { Hero } from './components/Hero';
-import { Explore } from './components/Explore';
+import { Explore, type ExploreTab } from './components/Explore';
 import { Hotspots } from './components/Hotspots';
 import { Elements } from './components/Elements';
 import { Stats } from './components/Stats';
@@ -34,6 +35,9 @@ export default function App() {
   const [active, setActive] = useState(0);
   const [element, setElement] = useState<ElementId>('land');
   const [selected, setSelected] = useState<Place | null>(null);
+  const [exploreTab, setExploreTab] = useState<ExploreTab>('continent');
+  const [country, setCountry] = useState<Country | null>(null);
+  const [region, setRegion] = useState<Region | null>(null);
   const [soundOn, setSoundOn] = useState(false);
 
   /* -------------------------- 3D bootstrap -------------------------- */
@@ -122,9 +126,20 @@ export default function App() {
     if (active !== 1) setSelected(null);
   }, [active]);
 
+  // What the globe turns toward, and how close the camera dives.
   useEffect(() => {
-    experience?.focusPlace(selected);
-  }, [experience, selected]);
+    if (!experience) return;
+    if (active !== 1) experience.focusPlace(null);
+    else if (exploreTab !== 'country') experience.focusPlace(selected);
+    else if (region) experience.focusPlace(region, 1);
+    else if (country) experience.focusPlace(country, country.zoom);
+    else experience.focusPlace(null);
+  }, [experience, active, exploreTab, selected, country, region]);
+
+  const globePoints = useMemo<GlobePoint[]>(() => {
+    if (exploreTab !== 'country') return PLACES;
+    return country ? country.regions : COUNTRIES;
+  }, [exploreTab, country]);
 
   const firstSection = useRef(true);
   useEffect(() => {
@@ -144,6 +159,35 @@ export default function App() {
     window.addEventListener('pointermove', onMove);
     return () => window.removeEventListener('pointermove', onMove);
   }, [experience]);
+
+  const selectCountry = useCallback((c: Country | null) => {
+    setCountry(c);
+    setRegion(null);
+    if (c) sound.ping(0.9);
+  }, []);
+
+  const selectRegion = useCallback((r: Region | null) => {
+    setRegion(r);
+    if (r) sound.ping(1.2);
+  }, []);
+
+  const changeTab = useCallback((tab: ExploreTab) => {
+    setExploreTab(tab);
+    setSelected(null);
+  }, []);
+
+  const selectGlobePoint = useCallback(
+    (p: GlobePoint) => {
+      if (p.kind === 'country') selectCountry(COUNTRIES.find((c) => c.id === p.id) ?? null);
+      else if (p.kind === 'region') selectRegion(region?.id === p.id ? null : (country?.regions.find((r) => r.id === p.id) ?? null));
+      else {
+        const place = PLACES.find((x) => x.id === p.id) ?? null;
+        setSelected((cur) => (cur?.id === p.id ? null : place));
+        if (place) sound.ping(place.kind === 'ocean' ? 0.75 : 1);
+      }
+    },
+    [country, region, selectCountry, selectRegion],
+  );
 
   const selectPlace = useCallback((place: Place | null) => {
     setSelected(place);
@@ -179,9 +223,9 @@ export default function App() {
       {mode === '3d' && (
         <Hotspots
           experience={experience}
-          places={PLACES}
-          selectedId={selected?.id ?? null}
-          onSelect={(p) => selectPlace(selected?.id === p.id ? null : p)}
+          places={globePoints}
+          selectedId={exploreTab === 'country' ? (region?.id ?? null) : (selected?.id ?? null)}
+          onSelect={selectGlobePoint}
         />
       )}
 
@@ -192,7 +236,18 @@ export default function App() {
 
       <main className={`page mode-${mode}`}>
         <Hero active={active === 0} ready={ready} onStart={() => navigate('explore')} />
-        <Explore active={active === 1} places={PLACES} selected={selected} onSelect={selectPlace} />
+        <Explore
+          active={active === 1}
+          tab={exploreTab}
+          onTab={changeTab}
+          places={PLACES}
+          selected={selected}
+          onSelect={selectPlace}
+          country={country}
+          region={region}
+          onSelectCountry={selectCountry}
+          onSelectRegion={selectRegion}
+        />
         <Elements active={active === 2} current={element} onSelect={selectElement} />
         <Stats active={active === 3} />
         <Final active={active === 4} backend={backend} onBackToOrbit={() => navigate('hero')} />

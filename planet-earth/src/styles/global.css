@@ -680,21 +680,22 @@ a {
 }
 
 .tabs {
-  display: flex;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
   margin-top: 26px;
   padding: 4px;
   border-radius: 999px;
   background: rgba(5, 7, 13, 0.4);
   border: 1px solid var(--glass-line);
-  width: max-content;
 }
 
 .tabs button {
-  padding: 9px 18px;
+  padding: 9px 4px;
   border-radius: 999px;
-  font-size: 10.5px;
-  letter-spacing: 0.26em;
+  white-space: nowrap;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-mute);
   transition:
@@ -876,6 +877,280 @@ a {
   color: var(--glow);
 }
 
+/* ---------- Country drill-down ---------- */
+.explore__panel {
+  max-height: calc(100svh - 150px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 196, 255, 0.25) transparent;
+}
+
+.code-chip {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  min-width: 28px;
+  height: 20px;
+  padding: 0 5px;
+  border: 1px solid var(--glass-line);
+  border-radius: 5px;
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--glow);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 22px;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  transition: color 0.3s;
+}
+
+.back:hover {
+  color: var(--ink);
+}
+
+.back svg,
+.spot__map svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.drill {
+  animation: card-in 0.8s var(--ease-out);
+}
+
+.drill__kicker {
+  margin: 16px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--glow);
+}
+
+.drill__title {
+  margin: 10px 0 0;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.drill__kicker + .drill__title {
+  margin-top: 4px;
+}
+
+.drill__lead {
+  margin-top: 12px;
+  font-size: 13.5px;
+}
+
+.drill__coords {
+  margin: 12px 0 0;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--ink-mute);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 20px 0 0;
+  padding: 16px 0;
+  border-block: 1px solid var(--ink-faint);
+}
+
+.facts dt {
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.facts dd {
+  margin: 4px 0 0;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.15;
+}
+
+.drill__label {
+  margin: 20px 0 6px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.region-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.region-list button {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(231, 233, 238, 0.06);
+  text-align: left;
+  transition: padding 0.5s var(--ease-out);
+}
+
+.region-list button:hover {
+  padding-left: 6px;
+}
+
+.region-list__name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--ink);
+}
+
+.region-list__badge {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(124, 196, 255, 0.14);
+  font-family: var(--sans);
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--glow);
+}
+
+.region-list__tag {
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+
+.guide-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 22px;
+}
+
+.guide-tabs button {
+  padding: 8px 14px;
+  border: 1px solid var(--glass-line);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  transition:
+    color 0.4s,
+    border-color 0.4s,
+    background 0.4s;
+}
+
+.guide-tabs button sup {
+  margin-left: 5px;
+  font-size: 8px;
+  color: var(--glow);
+}
+
+.guide-tabs button.is-active {
+  color: var(--ink);
+  border-color: var(--glow-soft);
+  background: rgba(124, 196, 255, 0.1);
+}
+
+.spots {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+.spot {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(231, 233, 238, 0.06);
+  animation: card-in 0.7s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 0.05s);
+}
+
+.spot__num {
+  padding-top: 4px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--glow);
+  font-variant-numeric: tabular-nums;
+}
+
+.spot__name {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.spot__area {
+  margin: 2px 0 0;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.spot__note {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.spot__map {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 6px 10px;
+  border: 1px solid var(--glass-line);
+  border-radius: 999px;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition:
+    color 0.3s,
+    border-color 0.3s;
+}
+
+.spot__map:hover {
+  color: var(--ink);
+  border-color: var(--glow);
+}
+
+.spots__note {
+  margin: 14px 0 0;
+  font-size: 11.5px;
+  color: var(--ink-mute);
+}
+
 /* ---------- Hotspots ---------- */
 .hotspots {
   position: fixed;
@@ -935,6 +1210,34 @@ a {
 .hotspot--ocean .hotspot__dot {
   background: transparent;
   border: 1.5px solid #e8f5ff;
+}
+
+.hotspot--country .hotspot__dot {
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+.hotspots .hotspot--country:hover .hotspot__dot,
+.hotspots .hotspot--country.is-selected .hotspot__dot {
+  transform: rotate(45deg) scale(1.35);
+}
+
+.hotspot--region .hotspot__dot {
+  left: -4px;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+}
+
+/* City names stay visible unless they would collide with a higher-priority label. */
+.hotspot--region .hotspot__label {
+  opacity: 0.85;
+  transform: none;
+  font-size: 9px;
+}
+
+.hotspot--region[data-label='off']:not(:hover):not(.is-selected) .hotspot__label {
+  opacity: 0;
 }
 
 @keyframes pulse {
@@ -1548,6 +1851,14 @@ a {
 
   .explore__panel .body {
     display: none;
+  }
+
+  .explore__panel {
+    max-height: 58svh;
+  }
+
+  .explore__panel .drill__lead {
+    display: block;
   }
 
   .tabs {

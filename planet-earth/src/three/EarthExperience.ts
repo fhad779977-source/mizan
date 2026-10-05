@@ -1,5 +1,5 @@
 import * as THREE from 'three/webgpu';
-import type { Place } from '../data/content';
+import type { GlobePoint } from '../data/content';
 import type { ElementId } from '../data/content';
 import {
   createAtmosphereMaterial,
@@ -76,6 +76,8 @@ export class EarthExperience {
   private cloudAngle = 0;
   private focusSpin: number | null = null;
   private focusLat = 0;
+  private focusZoom = 0;
+  private zoom = 0;
   private elementTargets = { land: 0, ocean: 0, atmosphere: 0 };
   private intro = { zoom: 0, exposure: 1 };
 
@@ -205,7 +207,7 @@ export class EarthExperience {
     this.elementTargets.atmosphere = id === 'atmosphere' ? 1 : 0;
   }
 
-  setPlaces(places: Place[]) {
+  setPlaces(places: GlobePoint[]) {
     this.hotspotLocals = places.map((p) => latLonToLocal(p.lat, p.lon, 1.01));
     this.hotspotBuffer = new Float32Array(places.length * 3);
   }
@@ -215,7 +217,12 @@ export class EarthExperience {
   }
 
   /** Rotate the globe so that a place faces the camera; null resumes the slow drift. */
-  focusPlace(place: Place | null) {
+  /**
+   * @param zoom 0 keeps the section's framing; 1 dives close to the surface
+   * (used for countries and cities). Only applies within the Explore shot.
+   */
+  focusPlace(place: Pick<GlobePoint, 'lat' | 'lon'> | null, zoom = 0) {
+    this.focusZoom = place ? zoom : 0;
     if (!place) {
       this.focusSpin = null;
       this.focusLat = 0;
@@ -224,7 +231,7 @@ export class EarthExperience {
     const local = latLonToLocal(place.lat, place.lon);
     const target = Math.atan2(-local.x, local.z);
     this.focusSpin = target + TAU * Math.round((this.spinAngle - target) / TAU);
-    this.focusLat = THREE.MathUtils.degToRad(place.lat) * 0.8;
+    this.focusLat = THREE.MathUtils.degToRad(place.lat) * (0.8 + 0.2 * zoom);
   }
 
   /** Cinematic arrival after loading: fade in and glide toward the planet. */
@@ -364,7 +371,11 @@ export class EarthExperience {
 
     // Camera: scroll-driven dolly + gentle pointer parallax.
     const introZ = this.intro.zoom * this.intro.zoom * 4.5;
-    this.camera.position.set(px * 0.14, py * 0.09 + this.intro.zoom * 0.6, shot.cameraZ + introZ);
+    // Dive toward the surface when a country or city is focused (Explore shot only).
+    const exploreWeight = Math.max(0, 1 - Math.abs(this.progress - 1) * 1.6);
+    this.zoom = damp(this.zoom, this.focusZoom * exploreWeight, 1.8, dt);
+    const diveZ = this.zoom * 1.3;
+    this.camera.position.set(px * 0.14, py * 0.09 + this.intro.zoom * 0.6, shot.cameraZ + introZ - diveZ);
     this.camera.lookAt(px * 0.04, py * 0.025, 0);
     if (Math.abs(this.camera.fov - shot.fov) > 0.01) {
       this.camera.fov = shot.fov;
@@ -372,13 +383,17 @@ export class EarthExperience {
     }
 
     this.earthGroup.position.copy(shot.earth);
+    this.earthGroup.position.x *= 1 - this.zoom * 0.42;
 
     // Rotation: slow drift, or ease toward a focused place.
     const spinScale = reduced ? 0.35 : 1;
     if (this.focusSpin === null) {
       this.spinAngle += shot.spin * spinScale * dt;
     } else {
-      this.spinAngle = damp(this.spinAngle, this.focusSpin, 2.2, dt);
+      // The planet sits right of the copy: over-turn past "facing the camera" so the place
+      // settles in the open area between the panel and the globe's centre.
+      const yaw = 1.6 * Math.atan2(-this.earthGroup.position.x, this.camera.position.z - this.earthGroup.position.z);
+      this.spinAngle = damp(this.spinAngle, this.focusSpin + yaw, 2.2, dt);
     }
     this.spinner.rotation.y = this.spinAngle;
     this.pivot.rotation.x = damp(this.pivot.rotation.x, this.focusLat, 2.2, dt);

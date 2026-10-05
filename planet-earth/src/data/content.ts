@@ -1,11 +1,16 @@
 export type PlaceKind = 'continent' | 'ocean';
 
-export interface Place {
+/** Anything that can be pinned to the globe. */
+export interface GlobePoint {
   id: string;
-  kind: PlaceKind;
+  kind: PlaceKind | 'country' | 'region';
   name: string;
   lat: number;
   lon: number;
+}
+
+export interface Place extends GlobePoint {
+  kind: PlaceKind;
   stats: [label: string, value: string][];
   description: string;
 }
