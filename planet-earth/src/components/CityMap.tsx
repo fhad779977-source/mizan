@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { CATEGORY_META, CATEGORY_ORDER, type CityMapData, type CityPoi, type PoiCategory } from '../data/cityMap';
+import { StreetsLayer } from './StreetsLayer';
 
 interface CityMapProps {
   data: CityMapData;
@@ -234,6 +235,12 @@ export function CityMap({ data, focus, onClose }: CityMapProps) {
     pointers.current.delete(e.pointerId);
   };
 
+  /** Zoom buttons act on the centre of the visible map, not the screen (the panel covers part of it). */
+  const zoomAroundFree = (factor: number) => {
+    const r = freeRect();
+    zoomAt(factor, (r.l + r.r) / 2, (r.t + r.b) / 2);
+  };
+
   const toggleCategory = (cat: PoiCategory) =>
     setEnabled((s) => {
       const next = new Set(s);
@@ -250,6 +257,7 @@ export function CityMap({ data, focus, onClose }: CityMapProps) {
 
   return (
     <div className={`citymap ${shown ? 'is-shown' : ''}`} role="region" aria-label={`Map of ${data.name}`}>
+      <StreetsLayer cityId={data.id} center={data.center} view={view} fitK={fitK.current} width={size.w} height={size.h} />
       <svg
         ref={svgRef}
         className="citymap__svg"
@@ -272,7 +280,6 @@ export function CityMap({ data, focus, onClose }: CityMapProps) {
             <stop offset="100%" stopColor="var(--space-0)" stopOpacity="0.85" />
           </radialGradient>
         </defs>
-        <rect width="100%" height="100%" fill="var(--map-bg)" />
         <rect width="100%" height="100%" fill="url(#citymap-grid)" />
 
         <g transform={`translate(${x} ${y}) scale(${k})`}>
@@ -384,10 +391,10 @@ export function CityMap({ data, focus, onClose }: CityMapProps) {
       </div>
 
       <div className="citymap__zoom">
-        <button type="button" aria-label="Zoom in" onClick={() => zoomAt(1.6, size.w / 2, size.h / 2)}>
+        <button type="button" aria-label="Zoom in" onClick={() => zoomAroundFree(1.6)}>
           +
         </button>
-        <button type="button" aria-label="Zoom out" onClick={() => zoomAt(1 / 1.6, size.w / 2, size.h / 2)}>
+        <button type="button" aria-label="Zoom out" onClick={() => zoomAroundFree(1 / 1.6)}>
           −
         </button>
         <button type="button" aria-label="Show whole city" onClick={() => fit(true)}>

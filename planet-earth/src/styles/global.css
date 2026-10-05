@@ -1613,7 +1613,24 @@ a {
   transform: none;
 }
 
+.citymap {
+  background: var(--map-bg);
+}
+
+.citymap__streets {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out);
+  pointer-events: none;
+}
+
+.citymap__streets.is-ready {
+  opacity: 1;
+}
+
 .citymap__svg {
+  position: relative;
   display: block;
   touch-action: none;
   cursor: grab;
