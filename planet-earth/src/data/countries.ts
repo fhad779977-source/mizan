@@ -222,14 +222,14 @@ const ROME: CityGuide = {
     { name: 'Vatican Museums', area: 'Vatican City', note: 'Home of the Sistine Chapel ceiling.' },
   ],
   cafes: [
-    { name: 'Sant’Eustachio Il Caffè', area: 'Near the Pantheon', note: 'Legendary espresso since 1938.' },
+    { name: 'Sant’Eustachio Il Caffè', area: 'Pantheon', note: 'Legendary espresso since 1938.' },
     { name: 'Antico Caffè Greco', area: 'Via Condotti', note: 'Rome’s oldest café, open since 1760.' },
-    { name: 'Tazza d’Oro', area: 'Near the Pantheon', note: 'Famous for granita di caffè.' },
+    { name: 'Tazza d’Oro', area: 'Pantheon', note: 'Famous for granita di caffè.' },
   ],
   restaurants: [
     { name: 'Roscioli', area: 'Campo de’ Fiori', note: 'Deli-restaurant known for carbonara.' },
     { name: 'Da Enzo al 29', area: 'Trastevere', note: 'Small, classic Roman trattoria.' },
-    { name: 'Armando al Pantheon', area: 'Near the Pantheon', note: 'Family-run Roman cooking since 1961.' },
+    { name: 'Armando al Pantheon', area: 'Pantheon', note: 'Family-run Roman cooking since 1961.' },
   ],
 };
 

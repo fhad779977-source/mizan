@@ -15,6 +15,12 @@ interface ExploreProps {
   region: Region | null;
   onSelectCountry: (country: Country | null) => void;
   onSelectRegion: (region: Region | null) => void;
+  hasMap: boolean;
+  mapOpen: boolean;
+  onOpenMap: () => void;
+  /** Guide entries that have a pin on the city map. */
+  mappedNames: Set<string>;
+  onLocate: (name: string) => void;
 }
 
 const TABS: { id: ExploreTab; label: string }[] = [
@@ -25,6 +31,7 @@ const TABS: { id: ExploreTab; label: string }[] = [
 
 export function Explore(props: ExploreProps) {
   const { active, tab, onTab, places, selected, onSelect, country, region, onSelectCountry, onSelectRegion } = props;
+  const { hasMap, mapOpen, onOpenMap, mappedNames, onLocate } = props;
   const drilled = tab === 'country' && country !== null;
   const counts: Record<ExploreTab, number> = {
     continent: places.filter((p) => p.kind === 'continent').length,
@@ -117,7 +124,17 @@ export function Explore(props: ExploreProps) {
             )}
 
             {country && tab === 'country' && region && (
-              <RegionView key={region.id} country={country} region={region} onBack={() => onSelectRegion(null)} />
+              <RegionView
+                key={region.id}
+                country={country}
+                region={region}
+                onBack={() => onSelectRegion(null)}
+                hasMap={hasMap}
+                mapOpen={mapOpen}
+                onOpenMap={onOpenMap}
+                mappedNames={mappedNames}
+                onLocate={onLocate}
+              />
             )}
           </div>
         </div>
@@ -222,7 +239,18 @@ const GUIDE_TABS: { id: GuideTab; label: string }[] = [
   { id: 'restaurants', label: 'Restaurants' },
 ];
 
-function RegionView({ country, region, onBack }: { country: Country; region: Region; onBack: () => void }) {
+interface RegionViewProps {
+  country: Country;
+  region: Region;
+  onBack: () => void;
+  hasMap: boolean;
+  mapOpen: boolean;
+  onOpenMap: () => void;
+  mappedNames: Set<string>;
+  onLocate: (name: string) => void;
+}
+
+function RegionView({ country, region, onBack, hasMap, mapOpen, onOpenMap, mappedNames, onLocate }: RegionViewProps) {
   const guide = region.guide;
   const available = guide ? GUIDE_TABS.filter((t) => guide[t.id].length > 0) : [];
   const [guideTab, setGuideTab] = useState<GuideTab>(available[0]?.id ?? 'landmarks');
@@ -237,6 +265,14 @@ function RegionView({ country, region, onBack }: { country: Country; region: Reg
       </h3>
       <p className="body drill__lead">{region.description}</p>
       <p className="drill__coords">{formatCoords(region.lat, region.lon)}</p>
+      {hasMap && !mapOpen && (
+        <button type="button" className="btn btn--small" onClick={onOpenMap}>
+          <span>Open city map</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14" />
+          </svg>
+        </button>
+      )}
 
       {guide && available.length > 0 && (
         <>
@@ -260,7 +296,19 @@ function RegionView({ country, region, onBack }: { country: Country; region: Reg
               <li key={spot.name} className="spot" style={{ ['--i' as string]: i }}>
                 <span className="spot__num">{String(i + 1).padStart(2, '0')}</span>
                 <div className="spot__body">
-                  <p className="spot__name">{spot.name}</p>
+                  <p className="spot__name">
+                    {mapOpen && mappedNames.has(spot.name) ? (
+                      <button type="button" className="spot__locate" onClick={() => onLocate(spot.name)} title="Show on the map">
+                        {spot.name}
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z" />
+                          <circle cx="12" cy="10" r="2" />
+                        </svg>
+                      </button>
+                    ) : (
+                      spot.name
+                    )}
+                  </p>
                   <p className="spot__area">{spot.area}</p>
                   <p className="spot__note">{spot.note}</p>
                 </div>

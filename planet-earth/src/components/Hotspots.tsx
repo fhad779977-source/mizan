@@ -7,13 +7,15 @@ interface HotspotsProps {
   places: GlobePoint[];
   selectedId: string | null;
   onSelect: (place: GlobePoint) => void;
+  /** Fades the markers out (e.g. while a city map covers the globe). */
+  hidden?: boolean;
 }
 
 /**
  * DOM markers pinned to the globe. Positions are written straight to the
  * elements every frame by the 3D engine, bypassing React re-renders.
  */
-export function Hotspots({ experience, places, selectedId, onSelect }: HotspotsProps) {
+export function Hotspots({ experience, places, selectedId, onSelect, hidden = false }: HotspotsProps) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export function Hotspots({ experience, places, selectedId, onSelect }: HotspotsP
   }, [experience, places]);
 
   return (
-    <div className="hotspots" aria-label="Places on the globe">
+    <div className={`hotspots ${hidden ? 'is-hidden' : ''}`} aria-label="Places on the globe" aria-hidden={hidden}>
       {places.map((place, i) => (
         <button
           key={place.id}

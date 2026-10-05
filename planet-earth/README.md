@@ -27,6 +27,28 @@ src/
 public/textures/        hd (4096) and sd (2048) NASA Blue Marble based maps
 ```
 
+## City maps
+
+Opening a city that has a guide dives the globe in, then cross-fades to a street map built from
+OpenStreetMap: main roads with their names (English and local script), districts, and markers for
+heritage sites, landmarks, cafés, restaurants, hotels, towers, offices and malls.
+
+The data is fetched once at build time and shipped as static JSON, so the site needs no map server:
+
+```bash
+npm run build:maps            # all cities
+npm run build:maps -- riyadh  # one city
+```
+
+- `scripts/city-maps.config.mjs` lists the streets, districts and extra places per city, plus aliases
+  (often the Arabic or local name used in OpenStreetMap).
+- Landmarks, cafés and restaurants come from the guides in `src/data/countries.ts`.
+- Anything Nominatim cannot find inside the city's box is reported and left off the map — never guessed.
+- Requests follow the Nominatim usage policy (1 request/second, cached in `scripts/.cache`).
+- `node scripts/probe.mjs <lat> <lon> <radius> "name"…` helps find the name OpenStreetMap uses.
+
+Map data © OpenStreetMap contributors, available under the ODbL.
+
 ## Rendering & fallbacks
 
 | Situation | Behaviour |

@@ -17,6 +17,9 @@ import { Elements } from './components/Elements';
 import { Stats } from './components/Stats';
 import { Final } from './components/Final';
 import { FallbackGlobe } from './components/FallbackGlobe';
+import { CityMap } from './components/CityMap';
+import { loadCityMap, type CityMapData } from './data/cityMap';
+import { CITY_MAP_IDS } from './data/cityMaps.generated';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -38,6 +41,9 @@ export default function App() {
   const [exploreTab, setExploreTab] = useState<ExploreTab>('continent');
   const [country, setCountry] = useState<Country | null>(null);
   const [region, setRegion] = useState<Region | null>(null);
+  const [mapData, setMapData] = useState<CityMapData | null>(null);
+  const [mapOpen, setMapOpen] = useState(false);
+  const [mapFocus, setMapFocus] = useState<{ name: string; n: number } | null>(null);
   const [soundOn, setSoundOn] = useState(false);
 
   /* -------------------------- 3D bootstrap -------------------------- */
@@ -86,10 +92,13 @@ export default function App() {
     setLoaded(true);
   }, [mode]);
 
-  // Keep the page still until the loader has gone.
+  // Keep the page still until the loader has gone, and while a city map is open
+  // (the wheel and touch gestures then belong to the map).
+  const showMapForLock = mapOpen && mapData !== null && mapData.id === region?.id;
   useEffect(() => {
-    document.documentElement.classList.toggle('is-locked', !ready);
-  }, [ready]);
+    document.documentElement.classList.toggle('is-locked', !ready || showMapForLock);
+    document.documentElement.classList.toggle('map-open', showMapForLock);
+  }, [ready, showMapForLock]);
 
   /* ----------------------------- Scroll ----------------------------- */
   const handleScroll = useCallback(
@@ -135,6 +144,40 @@ export default function App() {
     else if (country) experience.focusPlace(country, country.zoom);
     else experience.focusPlace(null);
   }, [experience, active, exploreTab, selected, country, region]);
+
+  // Opening a city with a map: let the globe finish its dive, then cross-fade to the street map.
+  useEffect(() => {
+    setMapOpen(false);
+    setMapFocus(null);
+    if (!region || !CITY_MAP_IDS.includes(region.id)) {
+      setMapData(null);
+      return;
+    }
+    let cancelled = false;
+    const started = performance.now();
+    void loadCityMap(region.id).then((data) => {
+      if (cancelled || !data) return;
+      setMapData(data);
+      const wait = Math.max(0, (profile.reducedMotion ? 200 : 1500) - (performance.now() - started));
+      window.setTimeout(() => !cancelled && setMapOpen(true), wait);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [region, profile.reducedMotion]);
+
+  useEffect(() => {
+    if (active !== 1 || exploreTab !== 'country') setMapOpen(false);
+  }, [active, exploreTab]);
+
+  const locateOnMap = useCallback((name: string) => {
+    setMapOpen(true);
+    setMapFocus((f) => ({ name, n: (f?.n ?? 0) + 1 }));
+    sound.ping(1.4);
+  }, []);
+
+  const mappedNames = useMemo(() => new Set(mapData?.pois.map((p) => p.name) ?? []), [mapData]);
+  const showMap = mapOpen && mapData !== null && mapData.id === region?.id;
 
   const globePoints = useMemo<GlobePoint[]>(() => {
     if (exploreTab !== 'country') return PLACES;
@@ -220,8 +263,11 @@ export default function App() {
       <div className="vignette" aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
 
+      {showMap && mapData && <CityMap data={mapData} focus={mapFocus} onClose={() => setMapOpen(false)} />}
+
       {mode === '3d' && (
         <Hotspots
+          hidden={showMap}
           experience={experience}
           places={globePoints}
           selectedId={exploreTab === 'country' ? (region?.id ?? null) : (selected?.id ?? null)}
@@ -247,6 +293,11 @@ export default function App() {
           region={region}
           onSelectCountry={selectCountry}
           onSelectRegion={selectRegion}
+          hasMap={mapData !== null && mapData.id === region?.id}
+          mapOpen={showMap}
+          onOpenMap={() => setMapOpen(true)}
+          mappedNames={mappedNames}
+          onLocate={locateOnMap}
         />
         <Elements active={active === 2} current={element} onSelect={selectElement} />
         <Stats active={active === 3} />
