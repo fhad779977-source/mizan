@@ -505,7 +505,7 @@
     "incomplete": [
       {
         "id": "color-contrast",
-        "count": 36
+        "count": 37
       }
     ],
     "pixelChecks": [
@@ -640,6 +640,13 @@
         "worst": 10.4,
         "required": 3,
         "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-video__play",
+        "worst": 17.09,
+        "required": 4.5,
+        "large": false,
         "ok": true
       },
       {

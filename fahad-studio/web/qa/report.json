@@ -17,7 +17,7 @@
         "qa/form-390-mid.png",
         "qa/form-390-bottom.png"
       ],
-      "requests": 28
+      "requests": 29
     },
     {
       "page": "/lab/",
@@ -30,7 +30,7 @@
         "qa/lab-390-mid.png",
         "qa/lab-390-bottom.png"
       ],
-      "requests": 23
+      "requests": 24
     },
     {
       "page": "/",
@@ -56,7 +56,7 @@
         "qa/form-768-mid.png",
         "qa/form-768-bottom.png"
       ],
-      "requests": 31
+      "requests": 32
     },
     {
       "page": "/lab/",
@@ -69,7 +69,7 @@
         "qa/lab-768-mid.png",
         "qa/lab-768-bottom.png"
       ],
-      "requests": 23
+      "requests": 24
     },
     {
       "page": "/",
@@ -95,7 +95,7 @@
         "qa/form-1440-mid.png",
         "qa/form-1440-bottom.png"
       ],
-      "requests": 28
+      "requests": 29
     },
     {
       "page": "/lab/",
@@ -108,7 +108,7 @@
         "qa/lab-1440-mid.png",
         "qa/lab-1440-bottom.png"
       ],
-      "requests": 23
+      "requests": 24
     },
     {
       "page": "/",
@@ -358,7 +358,7 @@
     {
       "name": "weight: initial mobile transfer under 1.2 MB",
       "ok": true,
-      "detail": "405 KB"
+      "detail": "406 KB"
     },
     {
       "name": "stability: CLS under 0.1 (mobile, throttled)",
@@ -371,11 +371,11 @@
       "label": "desktop unthrottled",
       "viewport": "1440",
       "throttled": false,
-      "loadEventMs": 120,
-      "lcpMs": 600,
+      "loadEventMs": 98,
+      "lcpMs": 512,
       "cls": 0.0001,
       "requests": 22,
-      "transferKB": 405,
+      "transferKB": 406,
       "byTypeKB": {
         "link": 44,
         "script": 6,
@@ -388,11 +388,11 @@
       "label": "mobile throttled",
       "viewport": "390",
       "throttled": true,
-      "loadEventMs": 1300,
-      "lcpMs": 2480,
+      "loadEventMs": 1311,
+      "lcpMs": 2360,
       "cls": 0.0005,
       "requests": 22,
-      "transferKB": 405,
+      "transferKB": 406,
       "byTypeKB": {
         "link": 44,
         "script": 6,
