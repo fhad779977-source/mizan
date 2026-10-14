@@ -15,6 +15,9 @@ const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const PLANS = {
   desktop: { viewport: { width: 1440, height: 900 }, dpr: 1, mobile: false, seconds: 7.2, keys: [[0, 0], [1.0, 0], [6.4, 2520], [7.2, 2520]] },
   mobile: { viewport: { width: 390, height: 844 }, dpr: 2, mobile: true, seconds: 6.4, keys: [[0, 0], [1.7, 0], [3.3, "#rail-title"], [3.9, "#rail-title"], [5.6, "#work"], [6.4, "#work"]] },
+  // Full-page walkthrough (phone): every section, ending on the closing scene.
+  //   npm run capture:showreel -- tour
+  tour: { viewport: { width: 390, height: 844 }, dpr: 2, mobile: true, seconds: 30, keys: [[0, 0], [2.0, 0], [4.5, "#rail-title"], [7.0, "#rail-title"], [9.5, "#work"], [11.5, "#work"], [16.5, "#c03"], [19.0, "#method"], [21.5, "#method"], [24.0, "#atelier"], [27.0, "#atelier"], [28.5, "max"], [30, "max"]], explicit: true },
 };
 
 const server = await startServer({ mode: "preview", port: 4196 });
@@ -22,7 +25,7 @@ const browser = await launchBrowser();
 try {
   // Optional CLI filter: npm run capture:showreel -- mobile
   const only = process.argv.slice(2).filter((a) => a in PLANS);
-  for (const [name, plan] of Object.entries(PLANS).filter(([n]) => !only.length || only.includes(n))) {
+  for (const [name, plan] of Object.entries(PLANS).filter(([n, p]) => (only.length ? only.includes(n) : !p.explicit))) {
     const dir = path.join(WEB, "assets-src", "showreel", name);
     rmSync(dir, { recursive: true, force: true });
     mkdirSync(dir, { recursive: true });
@@ -31,7 +34,7 @@ try {
     await page.goto(`${server.url}/form/?capture=1`, { waitUntil: "load" });
     await settle(page);
     const keys = await page.evaluate(
-      (keys) => keys.map(([t, v]) => [t, typeof v === "number" ? v : Math.round(document.querySelector(v).getBoundingClientRect().top + scrollY - 70)]),
+      (keys) => keys.map(([t, v]) => [t, typeof v === "number" ? v : v === "max" ? document.documentElement.scrollHeight - innerHeight : Math.round(document.querySelector(v).getBoundingClientRect().top + scrollY - 70)]),
       plan.keys,
     );
     const frames = Math.round(plan.seconds * FPS);
