@@ -1,0 +1,70 @@
+{
+  "composition": "digital-craft-horizontal",
+  "quality": "final",
+  "preset": {
+    "scale": 1,
+    "crf": 17,
+    "jpegQuality": 95,
+    "concurrency": 3,
+    "x264Preset": "slow",
+    "audioBitrate": "320k"
+  },
+  "output": "renders/digital-craft-horizontal.mp4",
+  "renderedAt": "2026-10-14T05:35:47.901Z",
+  "renderSeconds": 236.017,
+  "remotion": "4.0.535",
+  "command": "npx remotion render digital-craft-horizontal /home/user/mizan/fahad-studio/renders/digital-craft-horizontal.tmp.mp4 --codec=h264 --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac --audio-bitrate=320k --crf=17 --x264-preset=slow --jpeg-quality=95 --scale=1 --concurrency=3 --log=warn",
+  "verification": {
+    "file": "renders/digital-craft-horizontal.mp4",
+    "probe": {
+      "duration": 20.011,
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080,
+        "fps": 30,
+        "pixFmt": "yuv420p",
+        "frames": 600
+      },
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2
+      }
+    },
+    "loudness": {
+      "integratedLufs": -20.4,
+      "truePeakDbfs": -2.3,
+      "maxVolumeDb": -2.4
+    },
+    "black": [],
+    "luma": {
+      "frames": 600,
+      "minLuma": 24.7304,
+      "maxLuma": 50.84,
+      "top": [
+        {
+          "frame": 360,
+          "delta": 10.269899999999996
+        },
+        {
+          "frame": 475,
+          "delta": 9.621399999999994
+        },
+        {
+          "frame": 476,
+          "delta": 8.772500000000004
+        },
+        {
+          "frame": 90,
+          "delta": 2.7113000000000014
+        },
+        {
+          "frame": 91,
+          "delta": 2.1701000000000015
+        }
+      ]
+    },
+    "issues": []
+  }
+}

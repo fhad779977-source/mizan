@@ -1,0 +1,48 @@
+{
+  "name": "fahad-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FAHAD STUDIO — local motion & 3D production studio built on Remotion",
+  "type": "module",
+  "scripts": {
+    "doctor": "tsx scripts/doctor.ts",
+    "studio": "remotion studio",
+    "new-project": "tsx scripts/new-project.ts",
+    "preview": "tsx scripts/render.ts --quality preview",
+    "render": "tsx scripts/render.ts --quality final",
+    "check": "tsx scripts/check.ts",
+    "contact-sheet": "tsx scripts/contact-sheet.ts",
+    "verify": "tsx scripts/verify.ts",
+    "import-srt": "tsx scripts/import-srt.ts",
+    "gen-audio": "tsx scripts/gen-audio.ts",
+    "gen-assets": "remotion still object-still public/assets/images/vessel-study.png --log=error && remotion render site-scroll public/assets/video/site-scroll.mp4 --muted --crf=20 --log=error",
+    "registry": "tsx scripts/registry.ts",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.8.1",
+    "@remotion/captions": "4.0.535",
+    "@remotion/cli": "4.0.535",
+    "@remotion/fonts": "4.0.535",
+    "@remotion/media": "4.0.535",
+    "@remotion/renderer": "4.0.535",
+    "@remotion/three": "4.0.535",
+    "@remotion/transitions": "4.0.535",
+    "@remotion/zod-types": "4.0.535",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.535",
+    "three": "0.186.1",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@fontsource/ibm-plex-sans-arabic": "5.3.0",
+    "@fontsource/inter": "5.3.0",
+    "@fontsource/noto-kufi-arabic": "5.3.0",
+    "@types/node": "22.18.0",
+    "@types/react": "19.2.2",
+    "@types/three": "0.186.0",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3"
+  }
+}

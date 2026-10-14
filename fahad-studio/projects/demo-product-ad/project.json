@@ -1,0 +1,192 @@
+{
+  "slug": "demo-product-ad",
+  "name": "Demo — Product Ad",
+  "template": "product-ad",
+  "language": "ar",
+  "direction": "rtl",
+  "fps": 30,
+  "targetDurationInSeconds": 15,
+  "formats": [
+    {
+      "id": "vertical",
+      "width": 1080,
+      "height": 1920,
+      "safeArea": "reels"
+    },
+    {
+      "id": "square",
+      "width": 1080,
+      "height": 1080,
+      "safeArea": "feed"
+    }
+  ],
+  "brief": {
+    "goal": "Launch teaser for a single physical product.",
+    "audience": "Social feed viewers; muted autoplay first.",
+    "message": "One product, one idea: form without noise.",
+    "assumptions": [
+      "PLACEHOLDER copy and brand — replace before use.",
+      "The 3D vessel is an abstract stand-in, not the real product. Replace scene media with a product photo (assets/images) or model (assets/models)."
+    ]
+  },
+  "brand": {
+    "name": "BRAND",
+    "colors": {
+      "background": "#ECE8E0",
+      "surface": "#F7F4EE",
+      "foreground": "#0E0E10",
+      "muted": "#6E6B66",
+      "silver": "#A9ACB2",
+      "accent": "#2B4BFF"
+    },
+    "fonts": {
+      "display": "kufi",
+      "body": "plex-arabic",
+      "latin": "inter"
+    },
+    "logo": {
+      "wordmark": "BRAND",
+      "arabic": "العلامة",
+      "tagline": "PRODUCT LAUNCH"
+    }
+  },
+  "motion": {
+    "speed": 1.1,
+    "bpm": 120
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "type": "statement",
+      "durationInSeconds": 2.6,
+      "eyebrow": "NEW",
+      "headline": "شكلٌ\nبلا ضجيج",
+      "headlineLatin": "FORM WITHOUT NOISE",
+      "transitionOut": {
+        "type": "slide",
+        "durationInFrames": 12,
+        "direction": "up"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/impact.wav",
+          "at": 0.1,
+          "volume": 0.6
+        }
+      ]
+    },
+    {
+      "id": "hero",
+      "type": "product-hero",
+      "durationInSeconds": 4,
+      "eyebrow": "OBJECT 01",
+      "headline": "المنتج ٠١",
+      "headlineLatin": "OBJECT STUDY",
+      "transitionOut": {
+        "type": "maskWipe",
+        "durationInFrames": 14,
+        "direction": "left"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/whoosh.wav",
+          "at": 3.5,
+          "volume": 0.4
+        }
+      ]
+    },
+    {
+      "id": "details",
+      "type": "feature-cards",
+      "durationInSeconds": 4.4,
+      "eyebrow": "DETAILS",
+      "headline": "تفاصيل تُحَسّ",
+      "headlineLatin": "OBJECT 01",
+      "media": "assets/images/vessel-study.png",
+      "items": [
+        {
+          "label": "الخامة",
+          "value": "سيراميك مطفأ"
+        },
+        {
+          "label": "الغطاء",
+          "value": "ألمنيوم مصقول"
+        },
+        {
+          "label": "السعة",
+          "latin": "500 ML"
+        }
+      ],
+      "transitionOut": {
+        "type": "iris",
+        "durationInFrames": 14,
+        "direction": "left"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/tick.wav",
+          "at": 0.9,
+          "volume": 0.35
+        },
+        {
+          "src": "assets/audio/sfx/tick.wav",
+          "at": 1.1,
+          "volume": 0.35
+        },
+        {
+          "src": "assets/audio/sfx/tick.wav",
+          "at": 1.3,
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "type": "statement",
+      "durationInSeconds": 2.4,
+      "variant": "center",
+      "headline": "قريبًا",
+      "headlineLatin": "COMING SOON",
+      "transitionOut": {
+        "type": "cut",
+        "durationInFrames": 0,
+        "direction": "left"
+      },
+      "sfx": []
+    },
+    {
+      "id": "end",
+      "type": "logo-end",
+      "durationInSeconds": 2.9,
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/shimmer.wav",
+          "at": 0.3,
+          "volume": 0.45
+        }
+      ]
+    }
+  ],
+  "audio": {
+    "music": {
+      "src": "assets/audio/music/ambient-bed.wav",
+      "volume": 0.45,
+      "fadeInSeconds": 0.3,
+      "fadeOutSeconds": 1.2
+    },
+    "sfxVolume": 1
+  },
+  "subtitles": {
+    "enabled": false,
+    "items": []
+  },
+  "assets": [
+    "assets/images/vessel-study.png",
+    "assets/audio/music/ambient-bed.wav",
+    "assets/audio/sfx/impact.wav",
+    "assets/audio/sfx/whoosh.wav",
+    "assets/audio/sfx/tick.wav",
+    "assets/audio/sfx/shimmer.wav"
+  ],
+  "showSafeArea": false
+}

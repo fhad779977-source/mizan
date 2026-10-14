@@ -1,0 +1,30 @@
+[
+  {
+    "text": "واجهة تبدأ بفكرة واضحة.",
+    "startMs": 300,
+    "endMs": 2600,
+    "confidence": 1,
+    "timestampMs": 1450
+  },
+  {
+    "text": "تنقّل بسيط، وتجربة متجاوبة على كل شاشة.",
+    "startMs": 2800,
+    "endMs": 6200,
+    "confidence": 1,
+    "timestampMs": 4500
+  },
+  {
+    "text": "من الهيكل السلكي إلى تصميم نهائي في 3 مراحل.",
+    "startMs": 6400,
+    "endMs": 9600,
+    "confidence": 1,
+    "timestampMs": 8000
+  },
+  {
+    "text": "Design. Motion. Interface — صُنعت بعناية.",
+    "startMs": 9800,
+    "endMs": 13800,
+    "confidence": 1,
+    "timestampMs": 11800
+  }
+]

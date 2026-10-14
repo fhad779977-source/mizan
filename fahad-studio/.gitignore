@@ -1,0 +1,9 @@
+node_modules/
+previews/_frames_*/
+previews/test/
+*.tmp.mp4
+.DS_Store
+# Large outputs: keep final renders and previews out of git by default; remove
+# these two lines if you want them versioned (consider Git LFS).
+renders/*.mp4
+previews/*.mp4

@@ -1,0 +1,99 @@
+{
+  "slug": "template-web-showcase",
+  "name": "Website Showcase",
+  "template": "web-showcase",
+  "language": "mixed",
+  "direction": "rtl",
+  "fps": 30,
+  "targetDurationInSeconds": 14,
+  "formats": [
+    { "id": "horizontal", "width": 1920, "height": 1080, "safeArea": "youtube" },
+    { "id": "vertical", "width": 1080, "height": 1920, "safeArea": "reels" }
+  ],
+  "brief": {
+    "goal": "Present a website or digital interface with real screen footage.",
+    "audience": "Portfolio visitors, LinkedIn, Behance.",
+    "message": "Clear structure, responsive craft, from wireframe to interface.",
+    "assumptions": [
+      "PLACEHOLDER copy. Replace scene media with your own screen recording (assets/video).",
+      "The included recording is the studio's own concept site (rendered by the site-scroll composition)."
+    ]
+  },
+  "brand": {
+    "name": "WEB",
+    "colors": {
+      "background": "#0F1113",
+      "surface": "#1B1E22",
+      "foreground": "#E8E6E1",
+      "muted": "#878B90",
+      "silver": "#B7BCC2",
+      "accent": "#5EE6B0"
+    },
+    "fonts": { "display": "plex-arabic", "body": "plex-arabic", "latin": "inter" },
+    "logo": { "wordmark": "STUDIO", "arabic": "واجهة", "tagline": "WEB SHOWCASE" }
+  },
+  "motion": { "speed": 1, "bpm": 120 },
+  "scenes": [
+    {
+      "id": "intro",
+      "type": "statement",
+      "durationInSeconds": 2.6,
+      "eyebrow": "CASE STUDY",
+      "headline": "تجربة رقمية\nواضحة",
+      "headlineLatin": "A CLEAR DIGITAL EXPERIENCE",
+      "transitionOut": { "type": "maskWipe", "durationInFrames": 12, "direction": "left" },
+      "sfx": [{ "src": "assets/audio/sfx/whoosh.wav", "at": 2.2, "volume": 0.35 }]
+    },
+    {
+      "id": "recording",
+      "type": "screen-recording",
+      "durationInSeconds": 5.2,
+      "eyebrow": "WALKTHROUGH",
+      "headline": "تنقّل بلا عناء",
+      "media": "assets/video/site-scroll.mp4",
+      "items": [
+        { "label": "هيكل واضح", "latin": "STRUCTURE", "value": "01" },
+        { "label": "تصميم متجاوب", "latin": "RESPONSIVE", "value": "02" },
+        { "label": "حركة هادئة", "latin": "MOTION", "value": "03" }
+      ],
+      "transitionOut": { "type": "slide", "durationInFrames": 14, "direction": "left" },
+      "sfx": [
+        { "src": "assets/audio/sfx/tick.wav", "at": 1.0, "volume": 0.35 },
+        { "src": "assets/audio/sfx/tick.wav", "at": 2.24, "volume": 0.35 },
+        { "src": "assets/audio/sfx/tick.wav", "at": 3.48, "volume": 0.35 }
+      ]
+    },
+    {
+      "id": "compare",
+      "type": "before-after",
+      "durationInSeconds": 4,
+      "eyebrow": "PROCESS",
+      "headline": "من الهيكل\nإلى الواجهة",
+      "headlineLatin": "WIREFRAME → INTERFACE",
+      "variant": "site",
+      "transitionOut": { "type": "maskWipe", "durationInFrames": 12, "direction": "up" },
+      "sfx": [{ "src": "assets/audio/sfx/whoosh.wav", "at": 0.8, "volume": 0.3 }]
+    },
+    {
+      "id": "end",
+      "type": "logo-end",
+      "durationInSeconds": 3.4,
+      "body": "تصميم وتطوير واجهات",
+      "sfx": [{ "src": "assets/audio/sfx/impact.wav", "at": 0.25, "volume": 0.55 }]
+    }
+  ],
+  "audio": {
+    "music": { "src": "assets/audio/music/ambient-bed.wav", "volume": 0.5, "fadeInSeconds": 0.5, "fadeOutSeconds": 1.4 },
+    "sfxVolume": 1
+  },
+  "subtitles": { "enabled": false, "items": [] },
+  "assets": [
+    "assets/video/site-scroll.mp4",
+    "assets/subtitles/web-showcase.ar.srt",
+    "assets/audio/music/ambient-bed.wav",
+    "assets/audio/sfx/whoosh.wav",
+    "assets/audio/sfx/tick.wav",
+    "assets/audio/sfx/impact.wav"
+  ],
+  "showSafeArea": false
+}

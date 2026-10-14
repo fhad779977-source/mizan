@@ -1,0 +1,155 @@
+{
+  "slug": "demo-identity-reel",
+  "name": "Demo — Identity Reel",
+  "template": "identity-reel",
+  "language": "mixed",
+  "direction": "rtl",
+  "fps": 30,
+  "targetDurationInSeconds": 13,
+  "formats": [
+    {
+      "id": "square",
+      "width": 1080,
+      "height": 1080,
+      "safeArea": "feed"
+    },
+    {
+      "id": "vertical",
+      "width": 1080,
+      "height": 1920,
+      "safeArea": "reels"
+    }
+  ],
+  "brief": {
+    "goal": "Reveal a brand identity: mark, name, palette and typography.",
+    "audience": "Brand presentation, portfolio, social.",
+    "message": "A confident identity built on a single mark.",
+    "assumptions": [
+      "PLACEHOLDER brand — set brand.logo and brand.colors for the real identity."
+    ]
+  },
+  "brand": {
+    "name": "MARK",
+    "colors": {
+      "background": "#000000",
+      "surface": "#141414",
+      "foreground": "#F5F1E8",
+      "muted": "#7D7A74",
+      "silver": "#D4D6DA",
+      "accent": "#C9A86A"
+    },
+    "fonts": {
+      "display": "kufi",
+      "body": "plex-arabic",
+      "latin": "inter"
+    },
+    "logo": {
+      "wordmark": "MARK",
+      "arabic": "علامة",
+      "tagline": "IDENTITY SYSTEM"
+    }
+  },
+  "motion": {
+    "speed": 1,
+    "bpm": 120
+  },
+  "scenes": [
+    {
+      "id": "mark",
+      "type": "three-object",
+      "durationInSeconds": 3.4,
+      "eyebrow": "THE MARK",
+      "headline": "العلامة",
+      "headlineLatin": "ONE SIGN",
+      "transitionOut": {
+        "type": "iris",
+        "durationInFrames": 14,
+        "direction": "left"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/riser.wav",
+          "at": 1.6,
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "name",
+      "type": "hero-title",
+      "durationInSeconds": 2.8,
+      "eyebrow": "NAME",
+      "headline": "اسمٌ يبقى",
+      "headlineLatin": "A NAME THAT STAYS",
+      "transitionOut": {
+        "type": "maskWipe",
+        "durationInFrames": 12,
+        "direction": "right"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/impact.wav",
+          "at": 0.1,
+          "volume": 0.6
+        }
+      ]
+    },
+    {
+      "id": "system",
+      "type": "palette",
+      "durationInSeconds": 3.4,
+      "eyebrow": "COLOUR & TYPE",
+      "headline": "أبجد",
+      "transitionOut": {
+        "type": "slide",
+        "durationInFrames": 12,
+        "direction": "up"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/whoosh.wav",
+          "at": 0.1,
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "type": "logo-end",
+      "durationInSeconds": 4.5,
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/impact.wav",
+          "at": 0.25,
+          "volume": 0.6
+        },
+        {
+          "src": "assets/audio/sfx/shimmer.wav",
+          "at": 0.5,
+          "volume": 0.45
+        }
+      ]
+    }
+  ],
+  "audio": {
+    "music": {
+      "src": "assets/audio/music/ambient-bed.wav",
+      "volume": 0.5,
+      "fadeInSeconds": 0.4,
+      "fadeOutSeconds": 1.5
+    },
+    "sfxVolume": 1
+  },
+  "subtitles": {
+    "enabled": false,
+    "items": []
+  },
+  "assets": [
+    "assets/audio/music/ambient-bed.wav",
+    "assets/audio/sfx/riser.wav",
+    "assets/audio/sfx/impact.wav",
+    "assets/audio/sfx/whoosh.wav",
+    "assets/audio/sfx/shimmer.wav"
+  ],
+  "showSafeArea": false
+}

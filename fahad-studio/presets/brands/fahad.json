@@ -1,0 +1,13 @@
+{
+  "name": "FAHAD",
+  "colors": {
+    "background": "#07070A",
+    "surface": "#121216",
+    "foreground": "#F2EEE6",
+    "muted": "#8D8C8A",
+    "silver": "#C9CBD0",
+    "accent": "#E4572E"
+  },
+  "fonts": { "display": "kufi", "body": "plex-arabic", "latin": "inter" },
+  "logo": { "wordmark": "FAHAD", "arabic": "فهد", "tagline": "DIGITAL CRAFT" }
+}

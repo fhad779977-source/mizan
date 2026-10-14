@@ -1,0 +1,70 @@
+{
+  "composition": "demo-web-showcase-horizontal",
+  "quality": "preview",
+  "preset": {
+    "scale": 0.5,
+    "crf": 28,
+    "jpegQuality": 70,
+    "concurrency": 3,
+    "x264Preset": "veryfast",
+    "audioBitrate": "128k"
+  },
+  "output": "previews/demo-web-showcase-horizontal.preview.mp4",
+  "renderedAt": "2026-10-14T05:42:51.394Z",
+  "renderSeconds": 68.316,
+  "remotion": "4.0.535",
+  "command": "npx remotion render demo-web-showcase-horizontal /home/user/mizan/fahad-studio/previews/demo-web-showcase-horizontal.preview.tmp.mp4 --codec=h264 --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac --audio-bitrate=128k --crf=28 --x264-preset=veryfast --jpeg-quality=70 --scale=0.5 --concurrency=3 --log=warn",
+  "verification": {
+    "file": "previews/demo-web-showcase-horizontal.preview.mp4",
+    "probe": {
+      "duration": 13.952,
+      "video": {
+        "codec": "h264",
+        "width": 960,
+        "height": 540,
+        "fps": 30,
+        "pixFmt": "yuv420p",
+        "frames": 418
+      },
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2
+      }
+    },
+    "loudness": {
+      "integratedLufs": -23.3,
+      "truePeakDbfs": -6.9,
+      "maxVolumeDb": -6.9
+    },
+    "black": [],
+    "luma": {
+      "frames": 418,
+      "minLuma": 30.2734,
+      "maxLuma": 41.6742,
+      "top": [
+        {
+          "frame": 215,
+          "delta": 3.0763999999999996
+        },
+        {
+          "frame": 216,
+          "delta": 2.8080999999999996
+        },
+        {
+          "frame": 322,
+          "delta": 2.623100000000001
+        },
+        {
+          "frame": 72,
+          "delta": 2.004300000000004
+        },
+        {
+          "frame": 73,
+          "delta": 1.5025000000000013
+        }
+      ]
+    },
+    "issues": []
+  }
+}

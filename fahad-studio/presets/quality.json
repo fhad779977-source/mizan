@@ -1,0 +1,19 @@
+{
+  "$comment": "Render quality presets used by scripts/render.ts. Tuned for a 4-core / 15 GB machine with software WebGL (swangle). Raise concurrency on bigger machines.",
+  "preview": {
+    "scale": 0.5,
+    "crf": 28,
+    "jpegQuality": 70,
+    "concurrency": 3,
+    "x264Preset": "veryfast",
+    "audioBitrate": "128k"
+  },
+  "final": {
+    "scale": 1,
+    "crf": 17,
+    "jpegQuality": 95,
+    "concurrency": 3,
+    "x264Preset": "slow",
+    "audioBitrate": "320k"
+  }
+}

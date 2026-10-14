@@ -1,0 +1,17 @@
+{
+  "$comment": "Output formats and platform safe areas. Safe-area insets are fractions of the frame (top/right/bottom/left). Approximate UI overlays; verify against the platform before publishing.",
+  "formats": {
+    "vertical": { "width": 1080, "height": 1920, "label": "9:16 Reels / TikTok / Shorts" },
+    "horizontal": { "width": 1920, "height": 1080, "label": "16:9 YouTube / Web" },
+    "square": { "width": 1080, "height": 1080, "label": "1:1 Feed" },
+    "portrait": { "width": 1080, "height": 1350, "label": "4:5 Feed" }
+  },
+  "safeAreas": {
+    "none": { "top": 0, "right": 0, "bottom": 0, "left": 0 },
+    "reels": { "top": 0.11, "right": 0.12, "bottom": 0.2, "left": 0.055 },
+    "tiktok": { "top": 0.085, "right": 0.13, "bottom": 0.23, "left": 0.055 },
+    "shorts": { "top": 0.095, "right": 0.13, "bottom": 0.2, "left": 0.055 },
+    "feed": { "top": 0.055, "right": 0.055, "bottom": 0.055, "left": 0.055 },
+    "youtube": { "top": 0.05, "right": 0.05, "bottom": 0.05, "left": 0.05 }
+  }
+}

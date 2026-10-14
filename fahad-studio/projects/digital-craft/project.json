@@ -1,0 +1,126 @@
+{
+  "slug": "digital-craft",
+  "name": "FAHAD — DIGITAL CRAFT",
+  "template": "digital-craft",
+  "language": "mixed",
+  "direction": "rtl",
+  "fps": 30,
+  "targetDurationInSeconds": 20,
+  "formats": [
+    { "id": "vertical", "width": 1080, "height": 1920, "safeArea": "reels" },
+    { "id": "horizontal", "width": 1920, "height": 1080, "safeArea": "youtube" }
+  ],
+  "brief": {
+    "goal": "Studio proof-of-quality piece that presents FAHAD as a digital craft studio.",
+    "audience": "Prospective collaborators and followers on Reels / Shorts and the web.",
+    "message": "نصنع حضورًا — we craft presence: design, motion, interface and 3D.",
+    "assumptions": [
+      "No client work or contact details are shown; all UI and visuals are original concepts.",
+      "Silent-friendly: every message is readable without sound.",
+      "Music and SFX are synthesized in-studio (scripts/gen-audio.ts)."
+    ]
+  },
+  "brand": {
+    "name": "FAHAD",
+    "colors": {
+      "background": "#07070A",
+      "surface": "#16161B",
+      "foreground": "#F2EEE6",
+      "muted": "#8D8C8A",
+      "silver": "#C9CBD0",
+      "accent": "#E4572E"
+    },
+    "fonts": { "display": "kufi", "body": "plex-arabic", "latin": "inter" },
+    "logo": { "wordmark": "FAHAD", "arabic": "فهد", "tagline": "DIGITAL CRAFT" }
+  },
+  "motion": { "speed": 1, "bpm": 120 },
+  "scenes": [
+    {
+      "id": "open",
+      "type": "hero-title",
+      "durationInSeconds": 3.2,
+      "eyebrow": "FAHAD STUDIO",
+      "headline": "نصنع حضورًا",
+      "headlineLatin": "WE CRAFT PRESENCE",
+      "transitionOut": { "type": "maskWipe", "durationInFrames": 12, "direction": "up" },
+      "sfx": [
+        { "src": "assets/audio/sfx/whoosh.wav", "at": 0, "volume": 0.45 },
+        { "src": "assets/audio/sfx/impact.wav", "at": 0.15, "volume": 0.8 },
+        { "src": "assets/audio/sfx/whoosh.wav", "at": 2.85, "volume": 0.4 }
+      ]
+    },
+    {
+      "id": "principles",
+      "type": "type-grid",
+      "durationInSeconds": 4.4,
+      "eyebrow": "PRINCIPLES",
+      "variant": "match:0.1,0.5,0.8,0.29|0.5,0.2,0.43,0.6",
+      "items": [
+        { "label": "تصميم", "latin": "DESIGN", "value": "01" },
+        { "label": "حركة", "latin": "MOTION", "value": "02" },
+        { "label": "تجربة", "latin": "EXPERIENCE", "value": "03" }
+      ],
+      "transitionOut": { "type": "matchFrame", "durationInFrames": 18, "direction": "left" },
+      "sfx": [
+        { "src": "assets/audio/sfx/tick.wav", "at": 0.27, "volume": 0.4 },
+        { "src": "assets/audio/sfx/tick.wav", "at": 1.27, "volume": 0.4 },
+        { "src": "assets/audio/sfx/tick.wav", "at": 2.27, "volume": 0.4 },
+        { "src": "assets/audio/sfx/riser.wav", "at": 2.9, "volume": 0.45 }
+      ]
+    },
+    {
+      "id": "interface",
+      "type": "interface",
+      "durationInSeconds": 5.6,
+      "eyebrow": "INTERFACE",
+      "headline": "من الفكرة إلى الواجهة",
+      "headlineLatin": "FROM WIREFRAME TO INTERFACE",
+      "transitionOut": { "type": "maskWipe", "durationInFrames": 14, "direction": "left" },
+      "sfx": [
+        { "src": "assets/audio/sfx/impact.wav", "at": 0.05, "volume": 0.35 },
+        { "src": "assets/audio/sfx/whoosh.wav", "at": 0.6, "volume": 0.3 },
+        { "src": "assets/audio/sfx/tick.wav", "at": 4.4, "volume": 0.55 },
+        { "src": "assets/audio/sfx/whoosh.wav", "at": 5.05, "volume": 0.45 }
+      ]
+    },
+    {
+      "id": "dimension",
+      "type": "three-object",
+      "durationInSeconds": 4.4,
+      "eyebrow": "DIMENSION",
+      "headline": "عمقٌ يُلمس",
+      "headlineLatin": "DEPTH YOU CAN FEEL",
+      "transitionOut": { "type": "iris", "durationInFrames": 16, "direction": "left" },
+      "sfx": [
+        { "src": "assets/audio/sfx/riser.wav", "at": 2.9, "volume": 0.35 }
+      ]
+    },
+    {
+      "id": "signature",
+      "type": "logo-end",
+      "durationInSeconds": 4.4,
+      "body": "استوديو تصميم وحركة",
+      "sfx": [
+        { "src": "assets/audio/sfx/impact.wav", "at": 0.25, "volume": 0.75 },
+        { "src": "assets/audio/sfx/shimmer.wav", "at": 0.5, "volume": 0.5 }
+      ]
+    }
+  ],
+  "audio": {
+    "music": { "src": "assets/audio/music/ambient-bed.wav", "volume": 0.55, "fadeInSeconds": 0.4, "fadeOutSeconds": 1.6 },
+    "sfxVolume": 1
+  },
+  "subtitles": { "enabled": false, "items": [] },
+  "assets": [
+    "assets/audio/music/ambient-bed.wav",
+    "assets/audio/sfx/whoosh.wav",
+    "assets/audio/sfx/impact.wav",
+    "assets/audio/sfx/tick.wav",
+    "assets/audio/sfx/riser.wav",
+    "assets/audio/sfx/shimmer.wav",
+    "assets/fonts/NotoKufiArabic-900.woff2",
+    "assets/fonts/IBMPlexSansArabic-400.woff2",
+    "assets/fonts/Inter-800.woff2"
+  ],
+  "showSafeArea": false
+}
