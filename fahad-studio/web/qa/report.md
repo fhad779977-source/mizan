@@ -1,6 +1,6 @@
 # Web QA report
 
-Generated 2026-10-14T10:07:45.851Z — 48 passed, 0 failed.
+Generated 2026-10-14T10:15:44.624Z — 48 passed, 0 failed.
 
 ## Conditions
 - browser: Playwright Chromium (headless, software GL)
@@ -56,11 +56,11 @@ Generated 2026-10-14T10:07:45.851Z — 48 passed, 0 failed.
 - PASS leaks: lab effects identical after 5 remounts — {"fx":{"MaskHeadline":2,"Reveal":1,"Parallax":1,"PinnedScene":1,"CursorReveal":1,"VideoBackground":2},"triggers":8} → {"fx":{"MaskHeadline":2,"Reveal":1,"Parallax":1,"PinnedScene":1,"CursorReveal":1,"VideoBackground":2},"triggers":8}
 - PASS leaks: FORM effects identical after crossing the pin breakpoint 4× — {"fx":{"MaskHeadline":4,"PinnedScene":1,"Reveal":7,"Parallax":5,"VideoBackground":1},"triggers":43,"pins":1} → {"fx":{"MaskHeadline":4,"PinnedScene":1,"Reveal":7,"Parallax":5,"VideoBackground":1},"triggers":43,"pins":1}
 - PASS weight: initial mobile transfer under 1.2 MB — 406 KB
-- PASS stability: CLS under 0.1 (mobile, throttled) — 0.0005
+- PASS stability: CLS under 0.1 (mobile, throttled) — 0.0006
 
 ## Performance (lab)
-- desktop unthrottled @1440: LCP 512 ms · CLS 0.0001 · 22 requests · 406 KB initial · load event 98 ms
-- mobile throttled @390: LCP 2360 ms · CLS 0.0005 · 22 requests · 406 KB initial · load event 1311 ms
+- desktop unthrottled @1440: LCP 536 ms · CLS 0.0001 · 22 requests · 406 KB initial · load event 114 ms
+- mobile throttled @390: LCP 2304 ms · CLS 0.0006 · 22 requests · 406 KB initial · load event 1320 ms
 - idle requestAnimationFrame calls/s on FORM: 64
 
 Screenshots: qa/*.png

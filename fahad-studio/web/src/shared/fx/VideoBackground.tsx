@@ -4,6 +4,9 @@
 // - src is attached only near the viewport (lazy); paused when off-screen
 // - mobile gets the lighter encode; Save-Data / reduced motion keep the poster
 // - autoplay rejection is caught and leaves the poster with a play control
+// - VITE_VIDEO_BLOB=1 builds fetch the clip whole and play it from a blob: URL,
+//   for hosts that serve files without byte ranges (iOS Safari refuses those)
+/// <reference types="vite/client" />
 import React, { useEffect, useRef, useState } from "react";
 import manifest from "../media-manifest.json";
 import { reducedMotion, trackFx } from "./motion";
@@ -40,7 +43,19 @@ export const VideoBackground: React.FC<{
     let attached = false;
     let inView = false;
     let stall = 0;
-    const onError = () => setState("blocked");
+    let viaBlob = import.meta.env.VITE_VIDEO_BLOB === "1";
+    const onError = () => {
+      // Blob playback refused (e.g. a host policy): retry once with plain sources.
+      if (viaBlob) {
+        viaBlob = false;
+        ready = Promise.resolve();
+        el.removeAttribute("src");
+        attachSources();
+        void play();
+        return;
+      }
+      setState("blocked");
+    };
     // iOS only autoplays inline video that is muted *as an attribute*; React
     // sets the property, not the attribute, so set both explicitly.
     el.muted = true;
@@ -48,9 +63,30 @@ export const VideoBackground: React.FC<{
     el.setAttribute("muted", "");
     el.setAttribute("playsinline", "");
     el.setAttribute("webkit-playsinline", "");
+    let blobUrl = "";
+    let ready: Promise<void> = Promise.resolve();
     const attach = () => {
       if (attached) return;
       attached = true;
+      if (viaBlob) {
+        // Pick the format this browser plays, fetch it, play from memory.
+        const url = src.webm && !el.canPlayType("video/mp4") ? src.webm : src.mp4;
+        ready = fetch(url)
+          .then((r) => {
+            if (!r.ok) throw new Error(String(r.status));
+            return r.blob();
+          })
+          .then((b) => {
+            blobUrl = URL.createObjectURL(new Blob([b], { type: url.endsWith(".webm") ? "video/webm" : "video/mp4" }));
+            el.src = blobUrl;
+            el.load();
+          });
+        ready.catch(onError);
+        return;
+      }
+      attachSources();
+    };
+    const attachSources = () => {
       // MP4 (H.264) first: plays everywhere, including iPhone Safari; WebM is
       // a smaller fallback for browsers that skip the MP4.
       const m = document.createElement("source");
@@ -79,7 +115,7 @@ export const VideoBackground: React.FC<{
       window.removeEventListener("keydown", onGesture);
     };
     const play = (): Promise<void> =>
-      el.play().then(
+      ready.then(() => el.play()).then(
         () => {
           removeGesture();
           setState("playing");
@@ -92,11 +128,15 @@ export const VideoBackground: React.FC<{
           window.addEventListener("keydown", onGesture);
         },
       );
-    function onGesture() {
+    const onGesture = () => {
       removeGesture();
+      el.play().catch(() => {});
       if (inView && attached) void play();
-    }
+    };
     start.current = () => {
+      // Inside the tap: unlock the element now (WebKit remembers the gesture),
+      // even if the source is still being fetched.
+      el.play().catch(() => {});
       attach();
       void play();
     };
@@ -132,6 +172,7 @@ export const VideoBackground: React.FC<{
       el.removeEventListener("error", onError, true);
       el.pause();
       el.removeAttribute("src");
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
       el.innerHTML = "";
       el.load();
       release();
