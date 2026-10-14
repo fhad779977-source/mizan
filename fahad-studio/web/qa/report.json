@@ -331,6 +331,11 @@
       "detail": "{\"paused\":false,\"state\":\"playing\",\"src\":\"horizon-desktop.webm\"}"
     },
     {
+      "name": "video: motion is visible (pixels changed over 2.5 s, >0.3%; the old still-looking loop measured 0%)",
+      "ok": true,
+      "detail": "0.76% of pixels changed"
+    },
+    {
       "name": "video: pauses when scrolled out of view",
       "ok": true,
       "detail": ""
@@ -371,8 +376,8 @@
       "label": "desktop unthrottled",
       "viewport": "1440",
       "throttled": false,
-      "loadEventMs": 114,
-      "lcpMs": 536,
+      "loadEventMs": 111,
+      "lcpMs": 540,
       "cls": 0.0001,
       "requests": 22,
       "transferKB": 406,
@@ -388,8 +393,8 @@
       "label": "mobile throttled",
       "viewport": "390",
       "throttled": true,
-      "loadEventMs": 1320,
-      "lcpMs": 2304,
+      "loadEventMs": 1304,
+      "lcpMs": 2496,
       "cls": 0.0006,
       "requests": 22,
       "transferKB": 406,
@@ -514,7 +519,7 @@
   ],
   "idleRafPerSecond": 64,
   "summary": {
-    "passed": 48,
+    "passed": 49,
     "failed": 0,
     "failures": []
   }

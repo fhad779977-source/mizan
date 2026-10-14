@@ -89,8 +89,8 @@
   "videos": {
     "horizon": {
       "kind": "video",
-      "width": 1920,
-      "height": 1080,
+      "width": 960,
+      "height": 540,
       "poster": "/media/horizon-poster.jpg",
       "posterWebp": "/media/horizon-poster.webp",
       "desktop": {

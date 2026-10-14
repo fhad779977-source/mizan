@@ -12,7 +12,7 @@
       "id": "horizon",
       "src": "assets-src/video/horizon.mp4",
       "posterAt": 0,
-      "desktop": { "width": 1920, "crf": 20, "vp9crf": 28 },
+      "desktop": { "width": 1280, "crf": 20, "vp9crf": 28 },
       "mobile": { "width": 960, "crf": 24, "vp9crf": 33 },
       "source": "Original — Remotion composition web-horizon-loop (src/compositions/HorizonLoop.tsx), seamless 10 s loop",
       "license": "Owned by FAHAD STUDIO",

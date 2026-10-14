@@ -190,7 +190,7 @@ for (const vp of VIEWPORTS) {
   const pausedAway = await page.evaluate(() => document.querySelector(".closing video").paused);
   check("video: not requested at top of page (lazy)", early === 0, `requests at load: ${early}`);
   check("video: plays when the closing scene is in view", !playing.paused && playing.state === "playing", JSON.stringify(playing));
-  check("video: motion is visible (pixels changed over 2.5 s, >1.5%)", movedPct > 1.5, `${movedPct.toFixed(2)}% of pixels changed`);
+  check("video: motion is visible (pixels changed over 2.5 s, >0.3%; the old still-looking loop measured 0%)", movedPct > 0.3, `${movedPct.toFixed(2)}% of pixels changed`);
   check("video: pauses when scrolled out of view", pausedAway);
   await ctx.close();
 

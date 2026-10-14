@@ -1,6 +1,6 @@
 # Web QA report
 
-Generated 2026-10-14T10:15:44.624Z — 48 passed, 0 failed.
+Generated 2026-10-14T10:28:12.140Z — 49 passed, 0 failed.
 
 ## Conditions
 - browser: Playwright Chromium (headless, software GL)
@@ -50,6 +50,7 @@ Generated 2026-10-14T10:15:44.624Z — 48 passed, 0 failed.
 - PASS reduced motion: background video not downloaded, poster shown — videoRequests=0 poster=true
 - PASS video: not requested at top of page (lazy) — requests at load: 0
 - PASS video: plays when the closing scene is in view — {"paused":false,"state":"playing","src":"horizon-desktop.webm"}
+- PASS video: motion is visible (pixels changed over 2.5 s, >0.3%; the old still-looking loop measured 0%) — 0.76% of pixels changed
 - PASS video: pauses when scrolled out of view
 - PASS video: mobile receives the lighter encode — horizon-mobile.webm
 - PASS video: failed load keeps the poster and offers play — {"state":"blocked","poster":true,"button":true}
@@ -59,8 +60,8 @@ Generated 2026-10-14T10:15:44.624Z — 48 passed, 0 failed.
 - PASS stability: CLS under 0.1 (mobile, throttled) — 0.0006
 
 ## Performance (lab)
-- desktop unthrottled @1440: LCP 536 ms · CLS 0.0001 · 22 requests · 406 KB initial · load event 114 ms
-- mobile throttled @390: LCP 2304 ms · CLS 0.0006 · 22 requests · 406 KB initial · load event 1320 ms
+- desktop unthrottled @1440: LCP 540 ms · CLS 0.0001 · 22 requests · 406 KB initial · load event 111 ms
+- mobile throttled @390: LCP 2496 ms · CLS 0.0006 · 22 requests · 406 KB initial · load event 1304 ms
 - idle requestAnimationFrame calls/s on FORM: 64
 
 Screenshots: qa/*.png

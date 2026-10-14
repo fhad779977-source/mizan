@@ -262,33 +262,33 @@
         "lab"
       ],
       "sourceFile": "assets-src/video/horizon.mp4",
-      "width": 1920,
-      "height": 1080,
+      "width": 960,
+      "height": 540,
       "durationSeconds": 10,
       "files": [
         {
           "path": "/media/horizon-desktop.mp4",
-          "bytes": 147939
+          "bytes": 470306
         },
         {
           "path": "/media/horizon-desktop.webm",
-          "bytes": 71564
+          "bytes": 230146
         },
         {
           "path": "/media/horizon-mobile.mp4",
-          "bytes": 27409
+          "bytes": 184803
         },
         {
           "path": "/media/horizon-mobile.webm",
-          "bytes": 22733
+          "bytes": 114441
         },
         {
           "path": "/media/horizon-poster.jpg",
-          "bytes": 15949
+          "bytes": 24348
         },
         {
           "path": "/media/horizon-poster.webp",
-          "bytes": 8710
+          "bytes": 13038
         }
       ]
     },
