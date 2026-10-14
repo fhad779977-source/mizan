@@ -47,11 +47,11 @@ const Brief: React.FC = () => {
         <span className="mono">In one sentence</span>
         <input type="text" value={note} maxLength={180} placeholder={C.brief.placeholder} onChange={(e) => setNote(e.target.value)} />
       </label>
-      <output className="brief__preview" htmlFor={`${id}-copy`}>
+      <p className="brief__preview" id={`${id}-preview`}>
         {text}
-      </output>
+      </p>
       <div className="brief__actions">
-        <button id={`${id}-copy`} type="button" className="fx-button" onClick={copy}>
+        <button id={`${id}-copy`} type="button" className="fx-button" onClick={copy} aria-describedby={`${id}-preview`}>
           {C.brief.copyLabel} <span className="fx-button__arrow" aria-hidden>→</span>
         </button>
         {content.contact.email ? (
@@ -69,7 +69,7 @@ const Brief: React.FC = () => {
 
 export const Closing: React.FC = () => (
   <section id={C.id} className="closing" aria-labelledby="closing-title">
-    <VideoBackground id={C.video} label={C.videoLabel} className="closing__bg" />
+    <VideoBackground id={C.video} label={C.videoLabel} decorative className="closing__bg" />
     <div className="closing__shade" aria-hidden />
     <div className="closing__content">
       <MaskHeadline id="closing-title" className="closing__title" lines={lines(C.title)} />

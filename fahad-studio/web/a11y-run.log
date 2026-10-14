@@ -1,0 +1,15 @@
+
+> fahad-studio-web@0.1.0 a11y
+> node scripts/a11y.mjs
+
+✓ /form/ @1440: 0 violation types
+✓ /form/ @1440: pixel contrast on 33 gradient/image/video texts, lowest 1.30× of required
+✓ /form/ @390: 0 violation types
+✓ /form/ @390: pixel contrast on 35 gradient/image/video texts, lowest 1.10× of required
+✓ /form/ @1440 reduced-motion: 0 violation types
+✓ /form/ @1440 reduced-motion: pixel contrast on 36 gradient/image/video texts, lowest 1.30× of required
+✓ /lab/ @1440: 0 violation types
+✓ /lab/ @1440: pixel contrast on 8 gradient/image/video texts, lowest 2.45× of required
+✓ / @1440: 0 violation types
+✓ / @1440: pixel contrast on 0 gradient/image/video texts, lowest Infinity× of required
+PASS — 0 serious/critical violation type(s) · qa/a11y.md

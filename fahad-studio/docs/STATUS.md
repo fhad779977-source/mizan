@@ -96,7 +96,8 @@ Performance (lab numbers — headless Chromium with software GL in a 4-vCPU clou
 
 Not tested / limits:
 - No real phone, tablet or Safari/Firefox run — only Chromium emulation (touch + DPR). iOS autoplay/Low Power Mode behaviour is handled in code (poster + play button) but not observed on a device.
-- No screen-reader session; semantics (landmarks, headings, labels, live region) were written for it but not verified with VoiceOver/NVDA.
+- Accessibility is now audited automatically (`npm run web:a11y`): 0 axe violations on all audited pages; every text over a gradient/image/video passes measured contrast (lowest margin 1.10× of the requirement, at 390 px); ARIA trees reviewed. Still no live screen-reader session (VoiceOver/NVDA) — the tree is what they would read, but announcements and timing were not heard.
+- Firefox and WebKit (Safari engine) are untested: the environment's network policy blocks `cdn.playwright.dev` and `playwright.download.prss.microsoft.com` (HTTP 403). Allow them under the environment's Network access to run the same QA there.
 - Text overlap is judged from screenshots, not measured automatically.
 - On another machine Playwright needs Chromium (`FAHAD_BROWSER_GUI` or `npx playwright install chromium` in `web/`).
 

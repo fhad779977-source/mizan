@@ -1,0 +1,840 @@
+[
+  {
+    "label": "/form/ @1440",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 33
+      }
+    ],
+    "pixelChecks": [
+      {
+        "selector": ".hdr__brand",
+        "worst": 16.51,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".hdr__desc",
+        "worst": 5.84,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#work\"]",
+        "worst": 16.41,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#method\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#atelier\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".hero__copy > .eyebrow.mono",
+        "worst": 10.34,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "h1 > .fx-mask:nth-child(1) > .fx-mask__inner",
+        "worst": 16.19,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "h1 > .fx-mask:nth-child(2) > .fx-mask__inner",
+        "worst": 16.08,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-mask:nth-child(3) > .fx-mask__inner",
+        "worst": 16.08,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-mask:nth-child(3) > .fx-mask__inner > em",
+        "worst": 16.19,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".hero__intro > p:nth-child(1)",
+        "worst": 10.27,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".hero__hint",
+        "worst": 5.84,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(1) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(2) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(3) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(4) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "#closing-title > .fx-mask:nth-child(1) > .fx-mask__inner",
+        "worst": 15.92,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "#closing-title > .fx-mask:nth-child(2) > .fx-mask__inner > em",
+        "worst": 6.93,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".closing__text",
+        "worst": 10.71,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > legend",
+        "worst": 10.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > .brief__chips > .chip:nth-child(2) > span",
+        "worst": 16.68,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > .brief__chips > .chip:nth-child(3) > span",
+        "worst": 16.68,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".chip:nth-child(4) > span",
+        "worst": 16.68,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > legend",
+        "worst": 10.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > .brief__chips > .chip:nth-child(1) > span",
+        "worst": 16.08,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > .brief__chips > .chip:nth-child(2) > span",
+        "worst": 16.43,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".brief__note > .mono",
+        "worst": 9.35,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "input[maxlength=\"180\"]",
+        "worst": 11.12,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "#_r_0_-preview",
+        "worst": 12.01,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "#_r_0_-copy",
+        "worst": 16.59,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-button__arrow",
+        "worst": 16.59,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "text",
+        "worst": 9.92,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#top\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "label": "/form/ @390",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 35
+      }
+    ],
+    "pixelChecks": [
+      {
+        "selector": ".hdr__brand",
+        "worst": 16.51,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".hero__copy > .eyebrow",
+        "worst": 10.06,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "h1 > .fx-mask:nth-child(1) > .fx-mask__inner",
+        "worst": 15.72,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "h1 > .fx-mask:nth-child(2) > .fx-mask__inner",
+        "worst": 15.34,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-mask:nth-child(3) > .fx-mask__inner",
+        "worst": 15.06,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-mask:nth-child(3) > .fx-mask__inner > em",
+        "worst": 15.48,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".hero__intro > p:nth-child(1)",
+        "worst": 9.49,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c02\"] > .panel__cap > .panel__name",
+        "worst": 16.7,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c03\"] > .panel__cap > .mono",
+        "worst": 16.6,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c03\"] > .panel__cap > .panel__name",
+        "worst": 16.7,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c04\"] > .panel__cap > .mono",
+        "worst": 16.6,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c04\"] > .panel__cap > .panel__name",
+        "worst": 16.7,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c05\"] > .panel__cap > .mono",
+        "worst": 16.6,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c05\"] > .panel__cap > .panel__name",
+        "worst": 16.7,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(1) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(2) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(3) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(4) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "#closing-title > .fx-mask:nth-child(1) > .fx-mask__inner",
+        "worst": 16.99,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "#closing-title > .fx-mask:nth-child(2) > .fx-mask__inner > em",
+        "worst": 17.09,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".closing__text",
+        "worst": 10.89,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > legend",
+        "worst": 10.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > .brief__chips > .chip:nth-child(2) > span",
+        "worst": 16.68,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > .brief__chips > .chip:nth-child(3) > span",
+        "worst": 16.67,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".chip:nth-child(4) > span",
+        "worst": 16.68,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > legend",
+        "worst": 10.22,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > .brief__chips > .chip:nth-child(1) > span",
+        "worst": 14.63,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > .brief__chips > .chip:nth-child(2) > span",
+        "worst": 14.49,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".brief__note > .mono",
+        "worst": 4.97,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "input[maxlength=\"180\"]",
+        "worst": 12.9,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "#_r_0_-preview",
+        "worst": 16.59,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "#_r_0_-copy",
+        "worst": 16.58,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-button__arrow",
+        "worst": 16.58,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "text",
+        "worst": 11.81,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#top\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "label": "/form/ @1440 reduced-motion",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 36
+      }
+    ],
+    "pixelChecks": [
+      {
+        "selector": ".hdr__brand",
+        "worst": 16.51,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".hdr__desc",
+        "worst": 5.84,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#work\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#method\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#atelier\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".hero__copy > .eyebrow",
+        "worst": 10.21,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "h1 > .fx-mask:nth-child(1) > .fx-mask__inner",
+        "worst": 15.85,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "h1 > .fx-mask:nth-child(2) > .fx-mask__inner",
+        "worst": 15.47,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-mask:nth-child(3) > .fx-mask__inner",
+        "worst": 15.06,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-mask:nth-child(3) > .fx-mask__inner > em",
+        "worst": 16.19,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".hero__intro > p:nth-child(1)",
+        "worst": 10.14,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c04\"] > .panel__cap > .mono",
+        "worst": 16.7,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c04\"] > .panel__cap > .panel__name",
+        "worst": 16.7,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c05\"] > .panel__cap > .mono",
+        "worst": 16.7,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".rail__item[href$=\"#c05\"] > .panel__cap > .panel__name",
+        "worst": 16.7,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(1) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(2) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(3) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".step:nth-child(4) > .step__n",
+        "worst": 10.4,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "#closing-title > .fx-mask:nth-child(1) > .fx-mask__inner",
+        "worst": 15.97,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": "#closing-title > .fx-mask:nth-child(2) > .fx-mask__inner > em",
+        "worst": 6.92,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".closing__text",
+        "worst": 10.71,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > legend",
+        "worst": 10.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > .brief__chips > .chip:nth-child(2) > span",
+        "worst": 16.68,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(1) > .brief__chips > .chip:nth-child(3) > span",
+        "worst": 16.68,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".chip:nth-child(4) > span",
+        "worst": 16.68,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > legend",
+        "worst": 10.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > .brief__chips > .chip:nth-child(1) > span",
+        "worst": 16.08,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "fieldset:nth-child(2) > .brief__chips > .chip:nth-child(2) > span",
+        "worst": 16.45,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".brief__note > .mono",
+        "worst": 9.39,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "input[maxlength=\"180\"]",
+        "worst": 11.06,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "#_r_0_-preview",
+        "worst": 11.89,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "#_r_0_-copy",
+        "worst": 16.59,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-button__arrow",
+        "worst": 16.59,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "text",
+        "worst": 9.92,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".fx-link[href$=\"#top\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "label": "/lab/ @1440",
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "count": 8
+      }
+    ],
+    "pixelChecks": [
+      {
+        "selector": "#remount",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "a[href=\"/\"]",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".lab-video__text",
+        "worst": 11.04,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": "a[href$=\"#d08\"]:nth-child(1)",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".demo__body > .lab-row > .fx-button",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".fx-button__arrow",
+        "worst": 16.51,
+        "required": 4.5,
+        "large": false,
+        "ok": true
+      },
+      {
+        "selector": ".lab-closing__title",
+        "worst": 16.61,
+        "required": 3,
+        "large": true,
+        "ok": true
+      },
+      {
+        "selector": ".lab-closing__title > em",
+        "worst": 16.6,
+        "required": 3,
+        "large": true,
+        "ok": true
+      }
+    ]
+  },
+  {
+    "label": "/ @1440",
+    "violations": [],
+    "incomplete": [],
+    "pixelChecks": []
+  }
+]

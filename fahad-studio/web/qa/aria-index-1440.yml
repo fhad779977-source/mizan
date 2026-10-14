@@ -1,0 +1,13 @@
+- main:
+  - paragraph: FAHAD STUDIO · WEB
+  - heading "Sites & experiments" [level=1]
+  - list:
+    - listitem:
+      - 'link "FORM — Independent Digital Atelier Proof site: pinned gallery scene, concept projects, method, horizon closing."':
+        - /url: /form/
+    - listitem:
+      - link "Interaction Lab Every reusable effect in isolation, with remount test.":
+        - /url: /lab/
+    - listitem:
+      - link "Concept screens The five original interfaces captured into assets (capture source).":
+        - /url: /concepts/

@@ -11,6 +11,7 @@ npm run web:dev              # http://127.0.0.1:5173/        (live dev server)
 npm run web:build            # tsc + production build → web/dist/
 npm run web:preview          # http://127.0.0.1:4173/        (serves the build)
 npm run web:qa               # acceptance checks on the build → web/qa/report.md
+npm run web:a11y             # axe-core WCAG 2.1 AA + pixel contrast + ARIA trees → web/qa/a11y.md
 npm run web:assets           # assets.config.json → web/public/media (+ manifest, registry)
 npm run web:capture-concepts # concept screens → web/assets-src/concepts/*.png
 npm run web:capture-showreel # real site footage → public/assets/video/form-*.mp4
@@ -48,3 +49,6 @@ Live sites react to real time and input (GSAP ticker, ScrollTrigger). Video expo
 
 ## QA (what `npm run web:qa` checks)
 Pages `/form/`, `/lab/`, `/` at 390×844 (touch, @2x), 768×1024 (touch, @2x), 1440×900: console errors, missing files, horizontal overflow, top/mid/bottom screenshots. Plus: keyboard order and focus ring, skip link, deep links and header anchors, mobile menu (tap, Escape, focus return), swipeable rail, reduced motion (no pin, no video download, poster), video lazy-load / play in view / pause out of view / mobile encode / poster + play button on failure, leak tests (lab remount ×5, FORM crossing the pin breakpoint ×4), idle rAF rate, LCP/CLS/requests/bytes (desktop unthrottled and mobile with CPU ×4 + slow network). Conditions are written into the report.
+
+## Accessibility audit (`npm run web:a11y`)
+axe-core 4.13 (MPL-2.0, dev-only) runs WCAG 2.0/2.1 A + AA + best-practice rules on `/form/` (1440, 390, 1440 reduced motion), `/lab/` and `/`, after scrolling the page so every reveal is in its final state. Text that axe cannot judge (over gradients, images, video) is measured from real pixels: the text is hidden, the padding box behind it is captured, and the worst case (2nd/98th luminance percentile) is compared with the text colour; transitions and placeholders are suppressed during the measurement. The ARIA tree a screen reader traverses is saved as `qa/aria-<page>-<width>.yml`.

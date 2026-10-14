@@ -55,11 +55,11 @@ export const HeroGallery: React.FC<{ pinned: boolean }> = ({ pinned }) => {
         <MaskHeadline as="h1" className="hero__title" trigger="load" delay={0.1} lines={lines(content.hero.title)} />
         <div className="hero__intro">
           <p>{content.hero.intro}</p>
-          <p className="ar hero__ar" dir="rtl">{content.hero.arabic}</p>
+          <p className="ar hero__ar" dir="rtl" lang="ar">{content.hero.arabic}</p>
         </div>
         {pinned ? <p className="hero__hint mono" aria-hidden>{content.hero.scrollHint} ↓</p> : null}
       </div>
-      <PerspectiveShelf items={items} managed={pinned} pose={pinned ? HERO_POSE : STATIC_POSE} className={`hero__shelf ${pinned ? "is-pinned" : "is-static"}`} itemClassName="hero__panel" />
+      <PerspectiveShelf items={items} managed={pinned} pose={pinned ? HERO_POSE : STATIC_POSE} ariaHidden={!pinned} className={`hero__shelf ${pinned ? "is-pinned" : "is-static"}`} itemClassName="hero__panel" />
       {pinned ? (
         <>
           <p className="hero__wall-label mono" aria-hidden>

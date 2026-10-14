@@ -12,7 +12,8 @@
     "capture:concepts": "node scripts/capture-concepts.mjs",
     "assets": "node scripts/prepare-assets.mjs",
     "qa": "node scripts/qa.mjs",
-    "capture:showreel": "node scripts/capture-showreel.mjs"
+    "capture:showreel": "node scripts/capture-showreel.mjs",
+    "a11y": "node scripts/a11y.mjs"
   },
   "dependencies": {
     "gsap": "3.15.0",
@@ -28,6 +29,7 @@
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "@vitejs/plugin-react": "6.1.1",
+    "axe-core": "4.13.0",
     "playwright": "1.56.1",
     "sharp": "0.35.5",
     "typescript": "5.9.3",

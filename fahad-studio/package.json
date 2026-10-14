@@ -25,7 +25,8 @@
     "web:qa": "npm --prefix web run qa",
     "web:assets": "npm --prefix web run assets",
     "web:capture-concepts": "npm --prefix web run capture:concepts",
-    "web:capture-showreel": "npm --prefix web run capture:showreel"
+    "web:capture-showreel": "npm --prefix web run capture:showreel",
+    "web:a11y": "npm --prefix web run a11y"
   },
   "dependencies": {
     "@react-three/fiber": "9.8.1",

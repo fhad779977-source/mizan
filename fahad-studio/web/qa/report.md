@@ -1,6 +1,6 @@
 # Web QA report
 
-Generated 2026-10-14T07:50:23.731Z — 48 passed, 0 failed.
+Generated 2026-10-14T08:20:10.352Z — 48 passed, 0 failed.
 
 ## Conditions
 - browser: Playwright Chromium (headless, software GL)
@@ -59,8 +59,8 @@ Generated 2026-10-14T07:50:23.731Z — 48 passed, 0 failed.
 - PASS stability: CLS under 0.1 (mobile, throttled) — 0.0005
 
 ## Performance (lab)
-- desktop unthrottled @1440: LCP 632 ms · CLS 0.0001 · 22 requests · 405 KB initial · load event 95 ms
-- mobile throttled @390: LCP 2268 ms · CLS 0.0005 · 22 requests · 405 KB initial · load event 1323 ms
-- idle requestAnimationFrame calls/s on FORM: 65
+- desktop unthrottled @1440: LCP 600 ms · CLS 0.0001 · 22 requests · 405 KB initial · load event 120 ms
+- mobile throttled @390: LCP 2480 ms · CLS 0.0005 · 22 requests · 405 KB initial · load event 1300 ms
+- idle requestAnimationFrame calls/s on FORM: 64
 
 Screenshots: qa/*.png

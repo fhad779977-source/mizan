@@ -108,7 +108,7 @@ const Demos: React.FC = () => (
       />
     </Demo>
     <Demo n="07" title="Video background" file="src/shared/fx/VideoBackground.tsx" note={`Replaceable by id (available: ${Object.keys(manifest.videos).join(", ")}). Poster first, lazy source, pauses off-screen, mobile encode, autoplay-blocked fallback.`}>
-      <VideoBackground id="horizon" label="Planet horizon loop" className="lab-video">
+      <VideoBackground id="horizon" label="Planet horizon loop" decorative className="lab-video">
         <p className="lab-video__text">Poster → video, never a blank box.</p>
       </VideoBackground>
     </Demo>
@@ -122,7 +122,7 @@ const Demos: React.FC = () => (
       </div>
     </Demo>
     <Demo n="09" title="Closing scene" file="src/sites/form/sections/Closing.tsx" note="Full-bleed video, shade gradient for legibility, glass panel that keeps contrast above 4.5:1.">
-      <VideoBackground id="horizon" label="Planet horizon loop" className="lab-closing">
+      <VideoBackground id="horizon" label="Planet horizon loop" decorative className="lab-closing">
         <div className="lab-closing__shade" />
         <h3 className="lab-closing__title">
           Let’s give it <em>form.</em>

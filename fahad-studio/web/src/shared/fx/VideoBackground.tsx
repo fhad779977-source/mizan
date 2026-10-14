@@ -11,7 +11,14 @@ import { reducedMotion, trackFx } from "./motion";
 type VideoEntry = { kind: "video"; width: number; height: number; poster: string; posterWebp: string; desktop: { mp4: string; webm?: string }; mobile: { mp4: string; webm?: string } };
 const videos = manifest.videos as Record<string, VideoEntry>;
 
-export const VideoBackground: React.FC<{ id: string; label: string; className?: string; children?: React.ReactNode }> = ({ id, label, className, children }) => {
+export const VideoBackground: React.FC<{
+  id: string;
+  label: string;
+  /** Muted ambient footage that carries no information: hidden from assistive tech. */
+  decorative?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+}> = ({ id, label, decorative = false, className, children }) => {
   const e = videos[id];
   const wrap = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -99,7 +106,18 @@ export const VideoBackground: React.FC<{ id: string; label: string; className?: 
         <source type="image/webp" srcSet={e.posterWebp} />
         <img src={e.poster} alt="" width={e.width} height={e.height} loading="lazy" decoding="async" />
       </picture>
-      <video ref={video} className="fx-video__media" muted playsInline loop preload="none" aria-label={label} disablePictureInPicture />
+      <video
+        ref={video}
+        className="fx-video__media"
+        muted
+        playsInline
+        loop
+        preload="none"
+        aria-label={decorative ? undefined : label}
+        aria-hidden={decorative || undefined}
+        tabIndex={-1}
+        disablePictureInPicture
+      />
       {state === "blocked" && !reducedMotion() ? (
         <button
           type="button"

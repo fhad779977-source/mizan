@@ -23,10 +23,12 @@ export const PerspectiveShelf: React.FC<{
   pose?: ShelfOptions;
   /** When true, transforms are left to an external timeline (no inline pose). */
   managed?: boolean;
+  /** Hide from assistive tech when the same items are listed elsewhere. */
+  ariaHidden?: boolean;
   className?: string;
   itemClassName?: string;
-}> = ({ items, pose, managed = false, className, itemClassName }) => (
-  <div className={`fx-shelf ${className ?? ""}`}>
+}> = ({ items, pose, managed = false, ariaHidden = false, className, itemClassName }) => (
+  <div className={`fx-shelf ${className ?? ""}`} aria-hidden={ariaHidden || undefined}>
     <ol className="fx-shelf__stage">
       {items.map((it, i) => (
         <li key={it.key} className={`fx-shelf__item ${itemClassName ?? ""}`} data-shelf-item={i} style={{ transform: managed ? undefined : poseTransform(shelfPose(i, items.length, pose)), zIndex: items.length - i }} aria-label={it.label}>

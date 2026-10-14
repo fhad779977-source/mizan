@@ -95,7 +95,7 @@
         "qa/form-1440-mid.png",
         "qa/form-1440-bottom.png"
       ],
-      "requests": 29
+      "requests": 28
     },
     {
       "page": "/lab/",
@@ -371,8 +371,8 @@
       "label": "desktop unthrottled",
       "viewport": "1440",
       "throttled": false,
-      "loadEventMs": 95,
-      "lcpMs": 632,
+      "loadEventMs": 120,
+      "lcpMs": 600,
       "cls": 0.0001,
       "requests": 22,
       "transferKB": 405,
@@ -388,8 +388,8 @@
       "label": "mobile throttled",
       "viewport": "390",
       "throttled": true,
-      "loadEventMs": 1323,
-      "lcpMs": 2268,
+      "loadEventMs": 1300,
+      "lcpMs": 2480,
       "cls": 0.0005,
       "requests": 22,
       "transferKB": 405,
@@ -512,7 +512,7 @@
       "visible": true
     }
   ],
-  "idleRafPerSecond": 65,
+  "idleRafPerSecond": 64,
   "summary": {
     "passed": 48,
     "failed": 0,

@@ -57,7 +57,7 @@ export const Header: React.FC = () => {
             </a>
           ))}
         </nav>
-        <p className="ar" dir="rtl">{content.brand.arabic}</p>
+        <p className="ar" dir="rtl" lang="ar">{content.brand.arabic}</p>
       </div>
     </header>
   );

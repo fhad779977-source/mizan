@@ -1,0 +1,176 @@
+- link "Skip to work":
+  - /url: "#work"
+- banner:
+  - link "FORM — back to top":
+    - /url: "#top"
+    - text: FORM Independent Digital Atelier
+  - navigation "Primary":
+    - link "Work":
+      - /url: "#work"
+    - link "Method":
+      - /url: "#method"
+    - link "Atelier":
+      - /url: "#atelier"
+- main:
+  - region "Introduction and concept gallery":
+    - list:
+      - listitem "01 Nocturne, concept project":
+        - figure "01 Nocturne Listening room · Web app":
+          - img "Nocturne — Listening room · Web app. Concept interface."
+          - text: 01 Nocturne Listening room · Web app
+      - listitem "02 Herbarium, concept project":
+        - figure "02 Herbarium Editorial archive · Website":
+          - img "Herbarium — Editorial archive · Website. Concept interface."
+          - text: 02 Herbarium Editorial archive · Website
+      - listitem "03 Kiln, concept project":
+        - figure "03 Kiln Ceramics shop · E-commerce":
+          - img "Kiln — Ceramics shop · E-commerce. Concept interface."
+          - text: 03 Kiln Ceramics shop · E-commerce
+      - listitem "04 Meridian, concept project":
+        - figure "04 Meridian Ocean conditions · Dashboard":
+          - img "Meridian — Ocean conditions · Dashboard. Concept interface."
+          - text: 04 Meridian Ocean conditions · Dashboard
+      - listitem "05 مِداد — Midad, concept project":
+        - figure "05 مِداد — Midad Arabic type foundry · Specimen":
+          - img "مِداد — Midad — Arabic type foundry · Specimen. Concept interface."
+          - text: 05 مِداد — Midad Arabic type foundry · Specimen
+  - region "Self-initiated studies in form":
+    - paragraph: Concept Projects
+    - heading "Self-initiated studies in form" [level=2]:
+      - text: Self-initiated studies in
+      - emphasis: form
+    - paragraph: These are concept projects made by the atelier to explore a direction. No clients, no commissions, no results to report — only the work.
+    - list:
+      - listitem:
+        - link "01 Nocturne Listening room · Web app":
+          - /url: "#c01"
+      - listitem:
+        - link "02 Herbarium Editorial archive · Website":
+          - /url: "#c02"
+      - listitem:
+        - link "03 Kiln Ceramics shop · E-commerce":
+          - /url: "#c03"
+      - listitem:
+        - link "04 Meridian Ocean conditions · Dashboard":
+          - /url: "#c04"
+      - listitem:
+        - link "05 مِداد — Midad Arabic type foundry · Specimen":
+          - /url: "#c05"
+    - article "Nocturne":
+      - 'img "Nocturne concept interface: A late-night record room where the album title is the interface. The record slides out of its sleeve as playback starts."'
+      - paragraph: 01 · Concept project
+      - heading "Nocturne" [level=3]
+      - paragraph: Listening room · Web app
+      - paragraph: A late-night record room where the album title is the interface. The record slides out of its sleeve as playback starts.
+      - term: Type
+      - definition: Instrument Serif / Instrument Sans / JetBrains Mono
+      - term: Palette
+      - definition: "#0B0A09 #EDE6DA #FF6A2B"
+      - term: Motion
+      - definition: Sleeve-to-record slide on play; waveform scrubs with the cursor.
+    - article "Herbarium":
+      - 'img "Herbarium concept interface: An archive of pressed plants treated like a printed journal: paper tones, specimen plates and a quiet index."'
+      - paragraph: 02 · Concept project
+      - heading "Herbarium" [level=3]
+      - paragraph: Editorial archive · Website
+      - paragraph: "An archive of pressed plants treated like a printed journal: paper tones, specimen plates and a quiet index."
+      - term: Type
+      - definition: Instrument Serif italic for names, Sans for notes
+      - term: Palette
+      - definition: "#EEE7D8 #1F2A1E #9C3B22"
+      - term: Motion
+      - definition: Plates settle into a staggered grid; specimens draw their stems on scroll.
+    - article "Kiln":
+      - 'img "Kiln concept interface: A small-edition ceramics shop in fired-clay colour. Editions replace prices on the first screen."'
+      - paragraph: 03 · Concept project
+      - heading "Kiln" [level=3]
+      - paragraph: Ceramics shop · E-commerce
+      - paragraph: A small-edition ceramics shop in fired-clay colour. Editions replace prices on the first screen.
+      - term: Type
+      - definition: Instrument Sans at -5.5% tracking
+      - term: Palette
+      - definition: "#B65A35 #F3E9DC #2A140C"
+      - term: Motion
+      - definition: Vessels rise from a warm field; edition numbers count on hover.
+    - article "Meridian":
+      - 'img "Meridian concept interface: A calm data surface for sea conditions: one big number, a contour field and honest sample data."'
+      - paragraph: 04 · Concept project
+      - heading "Meridian" [level=3]
+      - paragraph: Ocean conditions · Dashboard
+      - paragraph: "A calm data surface for sea conditions: one big number, a contour field and honest sample data."
+      - term: Type
+      - definition: Instrument Sans numerals, JetBrains Mono labels
+      - term: Palette
+      - definition: "#07162B #D8E4F2 #59E1C7"
+      - term: Motion
+      - definition: Charts trace in on load; contours drift with time of day.
+    - article "مِداد — Midad":
+      - 'img "مِداد — Midad concept interface: A right-to-left specimen for an Arabic display face: whole words at 300 pt, a glyph table and a weight ladder."'
+      - paragraph: 05 · Concept project
+      - heading "مِداد — Midad" [level=3]
+      - paragraph: Arabic type foundry · Specimen
+      - paragraph: "A right-to-left specimen for an Arabic display face: whole words at 300 pt, a glyph table and a weight ladder."
+      - term: Type
+      - definition: Noto Kufi Arabic display, IBM Plex Sans Arabic text
+      - term: Palette
+      - definition: "#F4F1EA #111111 #D2321E"
+      - term: Motion
+      - definition: Words reveal line by line through masks — letters are never split.
+  - region "Four moves, always in order":
+    - paragraph: Method
+    - heading "Four moves, always in order" [level=2]:
+      - text: Four moves, always in
+      - emphasis: order
+    - list:
+      - listitem:
+        - text: "01"
+        - heading "Read نقرأ" [level=3]
+        - paragraph: "One page of brief: the message, the audience and the single image the site must leave behind."
+      - listitem:
+        - text: "02"
+        - heading "Compose نصوغ" [level=3]
+        - paragraph: Type, grid and the key visual are fixed as still frames first. If the still is weak, nothing moves yet.
+      - listitem:
+        - text: "03"
+        - heading "Animate نحرّك" [level=3]
+        - paragraph: Motion is added where it explains or gives depth — scroll scenes, reveals, quiet hovers. Reduced motion is designed, not removed.
+      - listitem:
+        - text: "04"
+        - heading "Deliver نسلّم" [level=3]
+        - paragraph: Tested at phone, tablet and desktop widths, measured for weight, and shown in a short film made from the real site.
+  - region "Let’s give it form.":
+    - heading "Let’s give it form." [level=2]:
+      - text: Let’s give it
+      - emphasis: form.
+    - paragraph: Draft a short brief below. It stays on your device — copy it and send it however you prefer.
+    - group "Brief composer (stays on this device)":
+      - group "What are you making?":
+        - text: What are you making?
+        - radio "Website" [checked]
+        - text: Website
+        - radio "Product launch"
+        - text: Product launch
+        - radio "Identity in motion"
+        - text: Identity in motion
+        - radio "Interface prototype"
+        - text: Interface prototype
+      - group "When?":
+        - text: When?
+        - radio "This month"
+        - text: This month
+        - radio "Next quarter"
+        - text: Next quarter
+        - radio "Still exploring" [checked]
+        - text: Still exploring
+      - text: In one sentence
+      - textbox "In one sentence":
+        - /placeholder: One sentence about what you are making…
+      - paragraph: Hello FORM — I am planning a website (still exploring).
+      - button "Copy brief"
+      - status
+- contentinfo:
+  - paragraph: FORM — Independent Digital Atelier · 2026
+  - paragraph: أتيليه رقمي مستقل
+  - paragraph: A concept site built in FAHAD STUDIO.
+  - link "Back to top ↑":
+    - /url: "#top"

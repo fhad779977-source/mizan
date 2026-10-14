@@ -17,7 +17,7 @@ const Name: React.FC<{ name: string }> = ({ name }) => {
   const [ar, en] = name.split(" — ");
   return (
     <>
-      <span dir="rtl" className="ar-display">{ar}</span>
+      <span dir="rtl" lang="ar" className="ar-display">{ar}</span>
       {en ? <span className="name-latin"> — {en}</span> : null}
     </>
   );

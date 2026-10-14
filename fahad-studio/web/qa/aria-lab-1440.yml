@@ -1,0 +1,81 @@
+- main:
+  - paragraph: FAHAD STUDIO · WEB
+  - heading "Interaction Lab" [level=1]
+  - paragraph: Reusable effects for the web section. One motion engine (GSAP + ScrollTrigger); CSS for hover/focus.
+  - button "Remount all ×5"
+  - link "Web index":
+    - /url: /
+  - paragraph: MaskHeadline:2 · Reveal:1 · Parallax:1 · PinnedScene:1 · CursorReveal:1 · VideoBackground:2 | ScrollTriggers:2
+  - region "Mask headline":
+    - text: "01"
+    - heading "Mask headline" [level=2]
+    - code: src/shared/fx/MaskHeadline.tsx
+    - paragraph: Line-by-line mask reveal. Lines are explicit — Arabic is never split into letters.
+    - heading "Composed like objects." [level=3]:
+      - text: Composed like
+      - emphasis: objects.
+    - heading "نصنع حضورًا يُرى ويُتذكّر" [level=3]
+  - region "Staggered reveal":
+    - text: "02"
+    - heading "Staggered reveal" [level=2]
+    - code: src/shared/fx/Reveal.tsx
+    - paragraph: Children marked data-reveal enter in batches as they reach the viewport.
+    - list:
+      - listitem: 01 Read
+      - listitem: 02 Compose
+      - listitem: 03 Animate
+      - listitem: 04 Deliver
+  - region "Depth parallax":
+    - text: "03"
+    - heading "Depth parallax" [level=2]
+    - code: src/shared/fx/Parallax.tsx
+    - paragraph: The image drifts against the scroll inside a clipped frame. Disabled with reduced motion.
+    - img "Meridian concept interface"
+  - region "Pinned scene":
+    - text: "04"
+    - heading "Pinned scene" [level=2]
+    - code: src/shared/fx/PinnedScene.tsx
+    - paragraph: Pinned from 'top top' for 1.5 viewports; the bar shows exact start and end. Off for reduced motion.
+    - region "Pinned demo": START Pinned END
+  - region "Cursor reveal":
+    - text: "05"
+    - heading "Cursor reveal" [level=2]
+    - code: src/shared/fx/CursorReveal.tsx
+    - paragraph: A second image appears through a circle that follows the pointer. On touch or keyboard, use the toggle.
+    - img "Herbarium concept"
+    - button "Show Kiln concept"
+  - region "Perspective shelf":
+    - text: "06"
+    - heading "Perspective shelf" [level=2]
+    - code: src/shared/fx/PerspectiveShelf.tsx
+    - paragraph: Covers on a receding shelf with real CSS perspective — crisp text, no WebGL.
+    - list:
+      - listitem "concept-c01"
+      - listitem "concept-c02"
+      - listitem "concept-c03"
+      - listitem "concept-c04"
+      - listitem "concept-c05"
+  - region "Video background":
+    - text: "07"
+    - heading "Video background" [level=2]
+    - code: src/shared/fx/VideoBackground.tsx
+    - paragraph: "Replaceable by id (available: horizon). Poster first, lazy source, pauses off-screen, mobile encode, autoplay-blocked fallback."
+    - paragraph: Poster → video, never a blank box.
+  - region "Hover & focus":
+    - text: "08"
+    - heading "Hover & focus" [level=2]
+    - code: src/shared/styles/fx.css
+    - paragraph: Underline draws from the reading edge; button fill wipes up. Every state also shows on keyboard focus.
+    - link "Text link":
+      - /url: "#d08"
+    - link "رابط عربي":
+      - /url: "#d08"
+    - button "Primary action"
+  - region "Closing scene":
+    - text: "09"
+    - heading "Closing scene" [level=2]
+    - code: src/sites/form/sections/Closing.tsx
+    - paragraph: Full-bleed video, shade gradient for legibility, glass panel that keeps contrast above 4.5:1.
+    - heading "Let’s give it form." [level=3]:
+      - text: Let’s give it
+      - emphasis: form.
