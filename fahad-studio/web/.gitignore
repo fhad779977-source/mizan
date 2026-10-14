@@ -1,5 +1,6 @@
 node_modules/
 dist/
+dist-artifact/
 # Raw, regenerable sources (concept captures 2880×1800, Remotion loop masters,
 # showreel frames). Rebuild with npm run capture:concepts / capture:showreel or
 # the Remotion render in docs/WEB.md.
