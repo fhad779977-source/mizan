@@ -28,7 +28,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .ar-display { font-family: "Kufi Display", "Plex Arabic", sans-serif; font-weight: 800; letter-spacing: 0; }
 
 /* ---------- Header */
-.hdr { position: fixed; z-index: 50; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px var(--pad); transition: background-color 0.4s var(--ease), backdrop-filter 0.4s; }
+.hdr { position: fixed; z-index: 50; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: calc(18px + env(safe-area-inset-top, 0px)) max(var(--pad), env(safe-area-inset-right, 0px)) 18px max(var(--pad), env(safe-area-inset-left, 0px)); transition: background-color 0.4s var(--ease), backdrop-filter 0.4s; }
 .hdr[data-scrolled="true"] { background: rgba(10, 10, 11, 0.84); backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); }
 .hdr__brand { display: flex; align-items: baseline; gap: 14px; text-decoration: none; font-family: var(--serif); font-size: 1.6rem; letter-spacing: 0.02em; }
 .hdr__desc { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
@@ -40,7 +40,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .hdr__menu-lines::before { content: ""; left: 0; right: 0; top: 7px; }
 .hdr[data-open="true"] .hdr__menu-lines { transform: translateY(3.5px) rotate(45deg); }
 .hdr[data-open="true"] .hdr__menu-lines::before { transform: translateY(-7px) rotate(-90deg); }
-.hdr__sheet { position: fixed; inset: 0; z-index: -1; background: var(--ink); padding: 120px var(--pad) 40px; display: flex; flex-direction: column; justify-content: space-between; }
+.hdr__sheet { position: fixed; inset: 0; z-index: -1; background: var(--ink); padding: calc(120px + env(safe-area-inset-top, 0px)) var(--pad) calc(40px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; justify-content: space-between; }
 .hdr__sheet[hidden] { display: none; }
 .hdr__sheet nav { display: flex; flex-direction: column; }
 .hdr__sheet a { display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: clamp(2.6rem, 12vw, 4rem); line-height: 1; text-decoration: none; }
