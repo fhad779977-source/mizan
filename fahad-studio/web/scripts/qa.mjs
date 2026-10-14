@@ -4,6 +4,7 @@
 // Conditions are recorded in the report: headless Chromium (software GL) on
 // this machine; the throttled run uses CDP CPU ×4 + a simulated slow network.
 // These are lab numbers, not field measurements on a real phone.
+import sharp from "sharp";
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { launchBrowser, settle, startServer, WEB } from "./lib.mjs";
@@ -175,11 +176,21 @@ for (const vp of VIEWPORTS) {
   await scrollTo(page, 0.93);
   await page.waitForTimeout(2500);
   const playing = await page.evaluate(() => { const v = document.querySelector(".closing video"); return { paused: v.paused, state: v.closest(".fx-video").dataset.state, src: v.currentSrc.split("/").pop() }; });
+  // "Playing" is not enough: a loop whose motion is too faint reads as a broken
+  // still on a phone. Compare two screenshots of the scene 2.5 s apart.
+  const shot = async () => sharp(await page.locator(".closing__bg").screenshot()).resize(320).greyscale().raw().toBuffer();
+  const a = await shot();
+  await page.waitForTimeout(2500);
+  const b = await shot();
+  let moved = 0;
+  for (let i = 0; i < a.length; i++) if (Math.abs(a[i] - b[i]) > 6) moved++;
+  const movedPct = (moved / a.length) * 100;
   await scrollTo(page, 0);
   await page.waitForTimeout(800);
   const pausedAway = await page.evaluate(() => document.querySelector(".closing video").paused);
   check("video: not requested at top of page (lazy)", early === 0, `requests at load: ${early}`);
   check("video: plays when the closing scene is in view", !playing.paused && playing.state === "playing", JSON.stringify(playing));
+  check("video: motion is visible (pixels changed over 2.5 s, >1.5%)", movedPct > 1.5, `${movedPct.toFixed(2)}% of pixels changed`);
   check("video: pauses when scrolled out of view", pausedAway);
   await ctx.close();
 
