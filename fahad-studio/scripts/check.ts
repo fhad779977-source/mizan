@@ -25,6 +25,7 @@ const referencedAssets = (p: ReturnType<typeof ProjectSchema.parse>) => {
   p.scenes.forEach((s) => {
     s.sfx.forEach((c) => set.add(c.src));
     if (s.media) s.media.split("|").forEach((m) => set.add(m));
+    if (s.secondaryMedia) set.add(s.secondaryMedia);
   });
   if (p.audio.music) set.add(p.audio.music.src);
   return [...set];

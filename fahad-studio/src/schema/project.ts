@@ -38,6 +38,7 @@ export const SCENE_TYPES = [
   "before-after",
   "palette",
   "statement",
+  "prompt-reveal",
 ] as const;
 
 export const SceneSchema = z.object({
@@ -51,6 +52,8 @@ export const SceneSchema = z.object({
   items: z.array(SceneItemSchema).optional(),
   // Asset path relative to public/ (image, video or model).
   media: z.string().optional(),
+  // Second asset for two-media scenes (e.g. the source product in prompt-reveal).
+  secondaryMedia: z.string().optional(),
   // Free-form variant switch interpreted by the scene (e.g. "light", "wire").
   variant: z.string().optional(),
   transitionOut: TransitionSchema.optional(),
@@ -106,7 +109,7 @@ export const CaptionSchema = z.object({
 export const ProjectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string(),
-  template: z.enum(["digital-craft", "product-ad", "web-showcase", "identity-reel", "library"]),
+  template: z.enum(["digital-craft", "product-ad", "web-showcase", "identity-reel", "prompt-reel", "library"]),
   language: z.enum(["ar", "en", "mixed"]),
   direction: z.enum(["rtl", "ltr"]),
   fps: z.number().int().min(12).max(60),

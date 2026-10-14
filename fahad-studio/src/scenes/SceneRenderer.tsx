@@ -12,6 +12,7 @@ import { FeatureCardsScene } from "./FeatureCardsScene";
 import { ScreenRecordingScene } from "./ScreenRecordingScene";
 import { BeforeAfterScene } from "./BeforeAfterScene";
 import { PaletteScene } from "./PaletteScene";
+import { PromptRevealScene } from "./PromptRevealScene";
 import type { Scene } from "../schema/project";
 
 const REGISTRY: Record<Scene["type"], React.FC<SceneProps>> = {
@@ -26,6 +27,7 @@ const REGISTRY: Record<Scene["type"], React.FC<SceneProps>> = {
   "screen-recording": ScreenRecordingScene,
   "before-after": BeforeAfterScene,
   palette: PaletteScene,
+  "prompt-reveal": PromptRevealScene,
 };
 
 export const SceneRenderer: React.FC<SceneProps> = (props) => {

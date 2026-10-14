@@ -47,7 +47,7 @@ Composition ids: `form-showreel-vertical` (site film for FORM), `web-horizon-loo
 3. Add an entry to `assets-registry.json` (path, type, source, license, usedIn). `npm run check` fails for missing files and warns for unregistered ones.
 
 ## With Claude Code
-Open Claude Code inside `fahad-studio/`. Studio skills: `/studio-brief`, `/studio-create`, `/studio-review`, `/studio-render`, `/studio-save-preset`. Official Remotion skills: `/remotion-best-practices` (router) and the other `remotion-*` skills.
+Open Claude Code inside `fahad-studio/`. Studio skills: `/studio-brief`, `/studio-create`, `/studio-review`, `/studio-render`, `/studio-save-preset`, `/studio-generate`. Official Remotion skills: `/remotion-best-practices` (router) and the other `remotion-*` skills.
 
 ## Web section
 See [WEB.md](WEB.md). Short form, from this folder: `npm run web:install` once, then `npm run web:dev` (live) or `npm run web:build && npm run web:preview` (production build at http://127.0.0.1:4173/form/), `npm run web:qa` for acceptance checks.

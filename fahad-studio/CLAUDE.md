@@ -11,7 +11,7 @@ Talk to the user in clear, short Arabic. Make routine technical decisions yourse
 ## Structure
 - `projects/<slug>/project.json` — all content (copy, colours, fonts, scenes, timing, audio, subtitles, assets). Schema: `src/schema/project.ts`. Templates: `projects/_templates/`.
 - `src/compositions/StudioVideo.tsx` — the single composition every project renders through (one per project × format, id `<slug>-<format>`). `Library.tsx` = component preview.
-- `src/scenes/` — scene types (`hero-title`, `type-grid`, `interface`, `three-object`, `logo-end`, `statement`, `product-hero`, `feature-cards`, `screen-recording`, `before-after`, `palette`), registered in `SceneRenderer.tsx`.
+- `src/scenes/` — scene types (`prompt-reveal`, `hero-title`, `type-grid`, `interface`, `three-object`, `logo-end`, `statement`, `product-hero`, `feature-cards`, `screen-recording`, `before-after`, `palette`), registered in `SceneRenderer.tsx`.
 - `src/components/` reusable pieces · `src/motion/` easing + transitions · `src/three/` stage, geometry, materials · `src/lib/` fonts, brand, layout, timeline.
 - `presets/` brands, formats + safe areas, render quality · `public/assets/` fonts, audio, images, video, models, subtitles · `assets-registry.json` source/licence of every asset.
 - `renders/` final · `previews/` previews + contact sheets · `docs/` usage, decisions, STATUS.
@@ -36,4 +36,4 @@ Talk to the user in clear, short Arabic. Make routine technical decisions yourse
 - Quality bar: deep black / warm white / silver + one accent; hierarchy, alignment, readable holds. No emoji, no glow/particles to cover weak design, not fade-everything, no people imagery unless asked, no invented clients/contact data.
 - Before calling work done: `npm run check`, preview, `contact-sheet`, `verify` (frames, dims, peaks < -1 dBFS, near-black report), look at the frames yourself. Say plainly what was checked automatically vs. viewed; you cannot hear audio.
 - Never publish, upload assets, buy services, or call paid APIs without explicit approval. Update `docs/STATUS.md` when capabilities change.
-- Official Remotion skills live in `.claude/skills/remotion-*`; studio workflow skills are `/studio-brief`, `/studio-create`, `/studio-review`, `/studio-render`, `/studio-save-preset`.
+- Official Remotion skills live in `.claude/skills/remotion-*`; studio workflow skills are `/studio-brief`, `/studio-create`, `/studio-review`, `/studio-render`, `/studio-save-preset`, `/studio-generate` (external AI footage via Higgsfield — paid, quote + approval first).

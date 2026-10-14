@@ -1,0 +1,53 @@
+{
+  "file": "renders/demo-prompt-reel-vertical.mp4",
+  "probe": {
+    "duration": 15.339,
+    "video": {
+      "codec": "h264",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "pixFmt": "yuv420p",
+      "frames": 460
+    },
+    "audio": {
+      "codec": "aac",
+      "sampleRate": 48000,
+      "channels": 2
+    }
+  },
+  "loudness": {
+    "integratedLufs": -23.3,
+    "truePeakDbfs": -7.1,
+    "maxVolumeDb": -7.1
+  },
+  "black": [],
+  "luma": {
+    "frames": 460,
+    "minLuma": 65.6494,
+    "maxLuma": 224.667,
+    "top": [
+      {
+        "frame": 294,
+        "delta": 32.09299999999999
+      },
+      {
+        "frame": 110,
+        "delta": 23.46499999999999
+      },
+      {
+        "frame": 109,
+        "delta": 20.876000000000005
+      },
+      {
+        "frame": 108,
+        "delta": 12.109800000000007
+      },
+      {
+        "frame": 295,
+        "delta": 12.033000000000015
+      }
+    ]
+  },
+  "issues": []
+}

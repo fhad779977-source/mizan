@@ -34,6 +34,7 @@ Legend: **✅ works & tested** · **🟡 configured, not tested** · **🔌 need
 | Template: product-ad (vertical + square) | ✅ contact sheets reviewed |
 | Template: web-showcase (horizontal + vertical) | ✅ preview rendered (418 f, −23.3 LUFS, TP −6.9 dBFS) |
 | Template: identity-reel (square + vertical) | ✅ contact sheets reviewed |
+| Template: prompt-reel (vertical + square) — scene `prompt-reveal`: full-bleed result → result panel + product card + scrolling prompt | ✅ `demo-prompt-reel-vertical` rendered (460 f, 15.3 s, −23.3 LUFS, TP −7.1 dBFS, verify: no issues), frames viewed. Demo media is the studio's own 3D render (placeholder). Square not rendered yet |
 
 ## Proof piece — FAHAD — DIGITAL CRAFT
 | File | Result |
@@ -51,7 +52,7 @@ Review method — be precise about what was done:
 ## Needs external setup (🔌) — none required for the local pipeline
 - Whisper transcription (local whisper.cpp or cloud) — not installed. See INTEGRATIONS.md.
 - ElevenLabs / other TTS — no API key; paid.
-- Image/video generation services — not configured.
+- Image/video generation: `/studio-generate` documents the Higgsfield MCP path (quote → approval → generate → registry). The Higgsfield tools are visible in this cloud session, but no generation has been run and no account/balance was checked — 🔌 needs your account and approval.
 - Blender, After Effects — not installed / not available on Linux.
 - GPU rendering — set `FAHAD_GL=angle` on a machine with a GPU.
 

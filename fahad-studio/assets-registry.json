@@ -259,6 +259,24 @@
       "usedIn": [
         "form-showreel"
       ]
+    },
+    {
+      "path": "assets/video/demo-result.mp4",
+      "type": "video",
+      "source": "Original — cut from renders/digital-craft-horizontal.mp4 (3D monogram scene, rendered by this studio). Placeholder 'result' for the prompt-reel template.",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "template:prompt-reel"
+      ]
+    },
+    {
+      "path": "assets/images/demo-product.jpg",
+      "type": "image",
+      "source": "Original — still from renders/digital-craft-horizontal.mp4. Placeholder 'product' for the prompt-reel template.",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "template:prompt-reel"
+      ]
     }
   ]
 }
