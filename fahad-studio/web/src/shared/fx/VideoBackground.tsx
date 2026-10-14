@@ -23,6 +23,9 @@ export const VideoBackground: React.FC<{
   const wrap = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const [state, setState] = useState<"poster" | "playing" | "blocked">("poster");
+  // Set by the effect: attaches sources (if needed) and plays. Used by the
+  // play button, so reduced-motion / Save-Data viewers can opt in.
+  const start = useRef<() => void>(() => {});
 
   useEffect(() => {
     const el = video.current;
@@ -30,43 +33,75 @@ export const VideoBackground: React.FC<{
     if (!el || !host || !e) return;
     const release = trackFx("VideoBackground");
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-    if (reducedMotion() || saveData) {
-      setState("blocked");
-      return release;
-    }
+    // Reduced motion and Save-Data: no autoplay and no download until asked.
+    const auto = !reducedMotion() && !saveData;
     const mobile = window.matchMedia("(max-width: 767px)").matches;
     const src = mobile ? e.mobile : e.desktop;
     let attached = false;
+    let inView = false;
     let stall = 0;
     const onError = () => setState("blocked");
+    // iOS only autoplays inline video that is muted *as an attribute*; React
+    // sets the property, not the attribute, so set both explicitly.
+    el.muted = true;
+    el.defaultMuted = true;
+    el.setAttribute("muted", "");
+    el.setAttribute("playsinline", "");
+    el.setAttribute("webkit-playsinline", "");
     const attach = () => {
       if (attached) return;
       attached = true;
-      if (src.webm) {
-        const s = document.createElement("source");
-        s.src = src.webm;
-        s.type = "video/webm";
-        el.appendChild(s);
-      }
+      // MP4 (H.264) first: plays everywhere, including iPhone Safari; WebM is
+      // a smaller fallback for browsers that skip the MP4.
       const m = document.createElement("source");
       m.src = src.mp4;
       m.type = "video/mp4";
-      // A failing last <source> means no playable source: keep the poster.
-      m.addEventListener("error", onError);
       el.appendChild(m);
+      if (src.webm) {
+        const w = document.createElement("source");
+        w.src = src.webm;
+        w.type = "video/webm";
+        el.appendChild(w);
+      }
+      // A failing last <source> means no playable source: keep the poster.
+      el.lastElementChild?.addEventListener("error", onError);
       el.load();
       // play() can stay pending forever on a dead network; give up after 8 s.
       stall = window.setTimeout(() => {
         if (el.readyState < 2) setState("blocked");
       }, 8000);
     };
-    const play = () =>
+    // If autoplay is refused (e.g. iPhone Low Power Mode), the first tap,
+    // click or key press anywhere on the page counts as permission.
+    const removeGesture = () => {
+      window.removeEventListener("pointerdown", onGesture);
+      window.removeEventListener("touchend", onGesture);
+      window.removeEventListener("keydown", onGesture);
+    };
+    const play = (): Promise<void> =>
       el.play().then(
-        () => setState("playing"),
-        () => setState("blocked"),
+        () => {
+          removeGesture();
+          setState("playing");
+        },
+        () => {
+          setState("blocked");
+          if (!auto) return;
+          window.addEventListener("pointerdown", onGesture, { passive: true });
+          window.addEventListener("touchend", onGesture, { passive: true });
+          window.addEventListener("keydown", onGesture);
+        },
       );
+    function onGesture() {
+      removeGesture();
+      if (inView && attached) void play();
+    }
+    start.current = () => {
+      attach();
+      void play();
+    };
     el.addEventListener("error", onError, true);
-    let inView = false;
+    if (!auto) setState("blocked");
     const io = new IntersectionObserver(
       (entries) => {
         // Several entries can arrive for the same element in one batch
@@ -74,8 +109,10 @@ export const VideoBackground: React.FC<{
         const entry = entries[entries.length - 1];
         inView = entry.isIntersecting;
         if (entry.isIntersecting) {
-          attach();
-          void play();
+          if (auto) {
+            attach();
+            void play();
+          }
         } else if (!el.paused) el.pause();
       },
       { rootMargin: "200px 0px" },
@@ -83,11 +120,13 @@ export const VideoBackground: React.FC<{
     io.observe(host);
     const onVisibility = () => {
       if (document.hidden) el.pause();
-      else if (inView && attached) void play();
+      else if (inView && attached && auto) void play();
     };
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       window.clearTimeout(stall);
+      removeGesture();
+      start.current = () => {};
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       el.removeEventListener("error", onError, true);
@@ -118,21 +157,13 @@ export const VideoBackground: React.FC<{
         tabIndex={-1}
         disablePictureInPicture
       />
-      {state === "blocked" && !reducedMotion() ? (
-        <button
-          type="button"
-          className="fx-video__play"
-          onClick={() =>
-            video.current?.play().then(
-              () => setState("playing"),
-              () => setState("blocked"),
-            )
-          }
-        >
+      {/* Overlays (shades, captions) sit under the play control so it stays tappable. */}
+      {children}
+      {state === "blocked" ? (
+        <button type="button" className="fx-video__play" onClick={() => start.current()}>
           Play background
         </button>
       ) : null}
-      {children}
     </div>
   );
 };

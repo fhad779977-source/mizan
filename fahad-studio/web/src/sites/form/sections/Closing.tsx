@@ -69,8 +69,9 @@ const Brief: React.FC = () => {
 
 export const Closing: React.FC = () => (
   <section id={C.id} className="closing" aria-labelledby="closing-title">
-    <VideoBackground id={C.video} label={C.videoLabel} decorative className="closing__bg" />
-    <div className="closing__shade" aria-hidden />
+    <VideoBackground id={C.video} label={C.videoLabel} decorative className="closing__bg">
+      <div className="closing__shade" aria-hidden />
+    </VideoBackground>
     <div className="closing__content">
       <MaskHeadline id="closing-title" className="closing__title" lines={lines(C.title)} />
       <p className="closing__text">{C.text}</p>

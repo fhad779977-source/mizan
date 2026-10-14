@@ -95,7 +95,7 @@ Performance (lab numbers — headless Chromium with software GL in a 4-vCPU clou
 - Idle `requestAnimationFrame` ≈ 65/s on FORM (GSAP's ticker; no other loops). No Lighthouse score was measured.
 
 Not tested / limits:
-- No real phone, tablet or Safari/Firefox run — only Chromium emulation (touch + DPR). iOS autoplay/Low Power Mode behaviour is handled in code (poster + play button) but not observed on a device.
+- No real phone, tablet or Safari/Firefox run — only Chromium emulation (touch + DPR). iOS autoplay/Low Power Mode behaviour is handled in code (MP4 first, `muted`/`playsinline` attributes, first tap anywhere retries play, a visible "Play background" button; reduced motion / Save-Data download nothing until that button is tapped) and verified in Chromium phone emulation, but not observed on a real iPhone.
 - Accessibility is now audited automatically (`npm run web:a11y`): 0 axe violations on all audited pages; every text over a gradient/image/video passes measured contrast (lowest margin 1.10× of the requirement, at 390 px); ARIA trees reviewed. Still no live screen-reader session (VoiceOver/NVDA) — the tree is what they would read, but announcements and timing were not heard.
 - Firefox and WebKit (Safari engine) are untested: the environment's network policy blocks `cdn.playwright.dev` and `playwright.download.prss.microsoft.com` (HTTP 403). Allow them under the environment's Network access to run the same QA there.
 - Text overlap is judged from screenshots, not measured automatically.

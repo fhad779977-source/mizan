@@ -164,7 +164,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .closing { position: relative; min-height: 100svh; display: grid; align-items: end; overflow: hidden; scroll-margin-top: 0; }
 .closing__bg { position: absolute; inset: 0; }
 .closing__bg .fx-video__poster img, .closing__bg .fx-video__media { object-position: 50% 62%; }
-.closing__shade { position: absolute; inset: 0; background: linear-gradient(180deg, var(--ink) 0%, rgba(10, 10, 11, 0) 28%, rgba(10, 10, 11, 0) 55%, rgba(10, 10, 11, 0.55) 100%); }
+.closing__shade { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(180deg, var(--ink) 0%, rgba(10, 10, 11, 0) 28%, rgba(10, 10, 11, 0) 55%, rgba(10, 10, 11, 0.55) 100%); }
 .closing__content { position: relative; z-index: 2; padding: 22vh var(--pad) clamp(48px, 9vh, 96px); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end; }
 .closing__title { grid-column: 1 / span 7; margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(3.6rem, 10vw, 11rem); line-height: 0.88; letter-spacing: -0.02em; }
 .closing__text { grid-column: 1 / span 5; color: var(--silver); margin: 28px 0 0; }
@@ -201,3 +201,9 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 @media (prefers-reduced-motion: reduce) {
   .detail__img img { scale: 1; }
 }
+
+/* Closing: the play control sits top-right, clear of the header and the brief
+   panel; the content layer lets taps through its empty areas. */
+.closing__content { pointer-events: none; }
+.closing__content > * { pointer-events: auto; }
+.closing .fx-video__play { top: calc(84px + env(safe-area-inset-top, 0px)); bottom: auto; right: max(var(--pad), env(safe-area-inset-right, 0px)); z-index: 4; }
