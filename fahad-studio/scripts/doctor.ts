@@ -61,6 +61,21 @@ const official = skills.filter((s) => s.startsWith("remotion-"));
 const studio = skills.filter((s) => s.startsWith("studio-"));
 add(official.length ? "ok" : "warn", "Remotion skills", `${official.length}: ${official.join(", ")}`);
 add(studio.length >= 5 ? "ok" : "warn", "Studio skills", `${studio.length}: ${studio.join(", ")}`);
+const webSkills = skills.filter((s) => s.startsWith("web-") || s === "asset-prepare");
+add(webSkills.length >= 5 ? "ok" : "warn", "Web skills", `${webSkills.length}: ${webSkills.join(", ")}`);
+
+// Web section (separate package in web/)
+const webPkg = path.join(ROOT, "web", "package.json");
+if (existsSync(webPkg)) {
+  const wv = (k: string) => {
+    const p = path.join(ROOT, "web", "node_modules", k, "package.json");
+    return existsSync(p) ? readJson<{ version: string }>(p).version : null;
+  };
+  const parts = ["vite", "react", "gsap", "sharp", "playwright"].map((k) => `${k}@${wv(k) ?? "missing"}`);
+  add(parts.every((x) => !x.endsWith("missing")) ? "ok" : "warn", "Web section", parts.join(", ") + (parts.some((x) => x.endsWith("missing")) ? " — run npm run web:install" : ""));
+  const media = existsSync(path.join(ROOT, "web", "public", "media")) ? readdirSync(path.join(ROOT, "web", "public", "media")).length : 0;
+  add(media > 0 ? "ok" : "warn", "Web media", `${media} prepared files in web/public/media`);
+}
 
 // Assets
 const fonts = readdirSync(path.join(PUBLIC_DIR, "assets/fonts")).filter((f) => f.endsWith(".woff2"));

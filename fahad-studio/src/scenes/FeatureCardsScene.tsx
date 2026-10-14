@@ -21,7 +21,7 @@ export const FeatureCardsScene: React.FC<SceneProps> = ({ scene, dur, index, tot
   const header = (
     <div style={{ display: "flex", flexDirection: "column", alignItems: L.isPortrait ? "center" : "flex-end", gap: 12 * L.u }}>
       <IndexLabel index={`${pad2(index + 1)}/${pad2(total)}`} label={scene.eyebrow ?? ""} start={s(4)} fontFamily={b.font.latin} fontSize={22 * L.u} color={b.colors.muted} accent={b.colors.accent} />
-      <KineticTitle text={scene.headline ?? ""} start={s(8)} stagger={s(5)} duration={s(22)} exitAt={dur - s(16)} fontFamily={b.font.display} fontSize={(L.isPortrait ? 84 : 80) * L.u} fontWeight={800} color={b.colors.foreground} lineHeight={1.3} align={L.isPortrait ? "center" : "right"} />
+      <KineticTitle text={scene.headline ?? ""} start={s(8)} stagger={s(5)} duration={s(22)} exitAt={dur - s(16)} fontFamily={b.font.display} fontSize={(L.isPortrait ? 84 : 80) * L.u} fontWeight={b.dw(800)} color={b.colors.foreground} lineHeight={1.3} align={L.isPortrait ? "center" : "right"} />
     </div>
   );
   if (scene.media) {
@@ -63,7 +63,7 @@ export const FeatureCardsScene: React.FC<SceneProps> = ({ scene, dur, index, tot
           <MaskReveal key={it.label} start={s(16) + i * s(6)} duration={s(26)} from="bottom">
             <div style={{ background: b.colors.surface, borderRadius: 24 * L.u, padding: 40 * L.u, display: "flex", flexDirection: "column", gap: 14 * L.u, minHeight: (L.isPortrait ? 200 : 300) * L.u }}>
               <div style={{ fontFamily: b.font.latin, fontSize: 24 * L.u, color: b.colors.accent, fontWeight: 600 }}>{it.value ?? pad2(i + 1)}</div>
-              <div style={{ fontFamily: b.font.display, fontSize: 52 * L.u, fontWeight: 800, color: b.colors.foreground, lineHeight: 1.3 }}>{it.label}</div>
+              <div style={{ fontFamily: b.font.display, fontSize: 52 * L.u, fontWeight: b.dw(800), color: b.colors.foreground, lineHeight: 1.3 }}>{it.label}</div>
               {it.latin ? <div dir="ltr" style={{ fontFamily: b.font.latin, fontSize: 20 * L.u, letterSpacing: "0.2em", color: b.colors.muted, textAlign: "right" }}>{it.latin}</div> : null}
             </div>
           </MaskReveal>

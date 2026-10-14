@@ -1,6 +1,10 @@
 # FAHAD STUDIO
 
-Local motion / 3D production studio for FAHAD (web designer). Remotion 4.0.535 + React 19 + TypeScript, Three.js/R3F via `@remotion/three`, FFmpeg for checks. Not a client platform: no auth, hosting, or uploads.
+Personal production studio for FAHAD (web designer), two sections:
+- **Video** (this folder): Remotion 4.0.535 + React 19 + TypeScript, Three.js/R3F via `@remotion/three`, FFmpeg.
+- **Web** (`web/`, own package): Vite 8 + React 19 + TypeScript + GSAP/ScrollTrigger, sharp, Playwright — motion websites, interaction lab, asset pipeline. Guide: `docs/WEB.md`.
+
+Not a client platform: no auth, subscriptions, hosting, or uploads.
 
 Talk to the user in clear, short Arabic. Make routine technical decisions yourself and state what you did.
 
@@ -12,11 +16,18 @@ Talk to the user in clear, short Arabic. Make routine technical decisions yourse
 - `presets/` brands, formats + safe areas, render quality · `public/assets/` fonts, audio, images, video, models, subtitles · `assets-registry.json` source/licence of every asset.
 - `renders/` final · `previews/` previews + contact sheets · `docs/` usage, decisions, STATUS.
 
+## Web section (web/)
+- Sites in `web/src/sites/<slug>/` with all copy in `content.ts`; shared effects in `web/src/shared/fx/` (one engine: GSAP + ScrollTrigger; CSS only for hover/focus); media by id from `web/assets.config.json` → `npm run web:assets`.
+- Live sites use real time; never import web motion code into Remotion. Capture mode `?capture=1` + `npm run web:capture-showreel` makes deterministic footage for videos.
+- Every effect cleans up (`useGsap` / `trackFx`), respects `prefers-reduced-motion`, has a touch/keyboard alternative, and keeps hidden-until-revealed content focusable (opacity, not visibility).
+- Commands: `npm run web:dev | web:build | web:preview | web:qa | web:assets | web:capture-concepts | web:capture-showreel`. Quality is judged by looking at `web/qa/*.png`, not by a passing build.
+- Skills: `/web-brief`, `/web-build`, `/web-review`, `/asset-prepare`, `/web-showreel`.
+
 ## Commands (all tested — see docs/USAGE.md)
 `npm run doctor` · `npm run studio` · `npm run check` · `npm run new-project -- --template <t> --slug <s>` · `npm run preview -- <id>` · `npm run render -- <id>` · `npm run contact-sheet -- <id>` · `npm run verify -- <file>` · `npm run import-srt -- --file x.srt --project <s>` · `npm run gen-audio` · `npm run gen-assets`
 
 ## Rules
-- Time comes only from `useCurrentFrame()` / composition config. No timers, CSS animations/transitions, `useFrame()` in R3F, or unseeded randomness (`random(seed)` from remotion).
+- (Video section) Time comes only from `useCurrentFrame()` / composition config. No timers, CSS animations/transitions, `useFrame()` in R3F, or unseeded randomness (`random(seed)` from remotion).
 - Content never lives in scene code: change copy/colour/media in project.json. New visual behaviour = new scene type or component, driven by schema fields.
 - Never split Arabic into letters. Animate Arabic per word or per line (masks keep shaping). Latin may split by grapheme.
 - Every layout reads `useLayout()` (u-scale, `isPortrait`, `stacked`, safe area). Re-flow per format; never stretch or blind-crop.

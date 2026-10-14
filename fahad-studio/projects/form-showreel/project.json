@@ -1,0 +1,202 @@
+{
+  "slug": "form-showreel",
+  "name": "FORM — Site Showreel",
+  "template": "web-showcase",
+  "language": "mixed",
+  "direction": "rtl",
+  "fps": 30,
+  "targetDurationInSeconds": 19,
+  "formats": [
+    {
+      "id": "vertical",
+      "width": 1080,
+      "height": 1920,
+      "safeArea": "reels"
+    }
+  ],
+  "brief": {
+    "goal": "Show the real FORM website (web/src/sites/form) in a short vertical film.",
+    "audience": "Portfolio / social viewers.",
+    "message": "Interfaces, composed like objects — a gallery that turns into a body of work as you scroll.",
+    "assumptions": [
+      "Footage is captured from the built site by web/scripts/capture-showreel.mjs (deterministic, frame by frame).",
+      "Concept projects only; no clients or results are claimed.",
+      "Sound: studio-synthesized kit from public/assets/audio."
+    ]
+  },
+  "brand": {
+    "name": "FORM",
+    "colors": {
+      "background": "#0A0A0B",
+      "surface": "#17171B",
+      "foreground": "#EFEAE0",
+      "muted": "#8F8B84",
+      "silver": "#B9BCC2",
+      "accent": "#8EA2FF"
+    },
+    "fonts": {
+      "display": "instrument-serif",
+      "body": "plex-arabic",
+      "latin": "inter"
+    },
+    "logo": {
+      "wordmark": "FORM",
+      "arabic": "أتيليه رقمي مستقل",
+      "tagline": "INDEPENDENT DIGITAL ATELIER"
+    }
+  },
+  "motion": {
+    "speed": 1,
+    "bpm": 120
+  },
+  "scenes": [
+    {
+      "id": "open",
+      "type": "hero-title",
+      "durationInSeconds": 2.6,
+      "eyebrow": "CONCEPT SITE",
+      "headline": "FORM",
+      "headlineLatin": "INTERFACES, COMPOSED",
+      "transitionOut": {
+        "type": "maskWipe",
+        "durationInFrames": 12,
+        "direction": "up"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/whoosh.wav",
+          "at": 0,
+          "volume": 0.4
+        },
+        {
+          "src": "assets/audio/sfx/impact.wav",
+          "at": 0.15,
+          "volume": 0.7
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "type": "screen-recording",
+      "durationInSeconds": 7.2,
+      "eyebrow": "DESKTOP · PINNED SCROLL",
+      "headline": "A gallery that\nwalks past you",
+      "media": "assets/video/form-desktop.mp4",
+      "items": [
+        {
+          "label": "Shelf in perspective",
+          "latin": "CSS 3D",
+          "value": "01"
+        },
+        {
+          "label": "Flattens into a wall",
+          "latin": "SCROLL",
+          "value": "02"
+        },
+        {
+          "label": "Five concept screens",
+          "latin": "ORIGINAL",
+          "value": "03"
+        }
+      ],
+      "transitionOut": {
+        "type": "slide",
+        "durationInFrames": 14,
+        "direction": "left"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/tick.wav",
+          "at": 1.0,
+          "volume": 0.35
+        },
+        {
+          "src": "assets/audio/sfx/tick.wav",
+          "at": 2.84,
+          "volume": 0.35
+        },
+        {
+          "src": "assets/audio/sfx/tick.wav",
+          "at": 4.69,
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "type": "screen-recording",
+      "durationInSeconds": 6.0,
+      "eyebrow": "PHONE · TOUCH",
+      "headline": "The same site,\nby touch",
+      "media": "assets/video/form-mobile.mp4",
+      "variant": "phone",
+      "items": [
+        {
+          "label": "Static shelf",
+          "latin": "390 PX",
+          "value": "01"
+        },
+        {
+          "label": "Swipeable rail",
+          "latin": "TOUCH",
+          "value": "02"
+        },
+        {
+          "label": "Readable index",
+          "latin": "WORK",
+          "value": "03"
+        }
+      ],
+      "transitionOut": {
+        "type": "iris",
+        "durationInFrames": 14,
+        "direction": "left"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/whoosh.wav",
+          "at": 0.1,
+          "volume": 0.3
+        }
+      ]
+    },
+    {
+      "id": "signature",
+      "type": "logo-end",
+      "durationInSeconds": 4.4,
+      "body": "Built in FAHAD STUDIO",
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/impact.wav",
+          "at": 0.25,
+          "volume": 0.6
+        },
+        {
+          "src": "assets/audio/sfx/shimmer.wav",
+          "at": 0.5,
+          "volume": 0.45
+        }
+      ]
+    }
+  ],
+  "audio": {
+    "music": {
+      "src": "assets/audio/music/ambient-bed.wav",
+      "volume": 0.5,
+      "fadeInSeconds": 0.4,
+      "fadeOutSeconds": 1.6
+    },
+    "sfxVolume": 1
+  },
+  "subtitles": {
+    "enabled": false,
+    "items": []
+  },
+  "assets": [
+    "assets/video/form-desktop.mp4",
+    "assets/video/form-mobile.mp4",
+    "assets/fonts/InstrumentSerif-Regular.woff2",
+    "assets/audio/music/ambient-bed.wav"
+  ],
+  "showSafeArea": false
+}

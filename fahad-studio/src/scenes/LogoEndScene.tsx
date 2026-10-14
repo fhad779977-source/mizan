@@ -26,6 +26,8 @@ export const LogoEndScene: React.FC<SceneProps> = ({ scene }) => {
         u={L.u}
         colors={{ fg: b.colors.foreground, muted: b.colors.muted, silver: b.colors.silver, accent: b.colors.accent }}
         fonts={{ display: b.font.display, latin: b.font.latin }}
+        displayWeight={b.dw(900)}
+        wordmark_={b.fonts.display === "instrument-serif" ? { family: b.font.display, weight: 400 } : undefined}
       />
       {scene.body ? (
         <div style={{ position: "absolute", bottom: L.safe.bottom, left: 0, right: 0, display: "flex", justifyContent: "center" }}>

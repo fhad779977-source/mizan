@@ -1,0 +1,40 @@
+/* Styles for shared interaction components (src/shared/fx). Colours come
+   from the host page via custom properties: --ink, --paper, --line, --accent. */
+
+/* Mask headline: room above/below for descenders, accents and Arabic marks */
+.fx-mask { display: block; overflow: hidden; padding-block: 0.12em; margin-block: -0.12em; }
+.fx-mask__inner { display: block; will-change: transform; }
+
+/* Links: underline draws from the reading edge; never colour-only feedback */
+.fx-link { position: relative; text-decoration: none; padding-block: 2px; background: linear-gradient(currentColor, currentColor) no-repeat 100% 100% / 0 1px; transition: background-size 0.45s cubic-bezier(.16,1,.3,1); }
+.fx-link:hover, .fx-link:focus-visible { background-position: 0 100%; background-size: 100% 1px; }
+[dir="rtl"] .fx-link:hover, [dir="rtl"] .fx-link:focus-visible { background-position: 100% 100%; }
+
+/* Buttons: fill wipes in, arrow nudges; focus ring from base.css */
+.fx-button { position: relative; display: inline-flex; align-items: center; gap: 0.7em; padding: 0.95em 1.5em; border: 1px solid currentColor; border-radius: 999px; text-decoration: none; overflow: hidden; isolation: isolate; cursor: pointer; background: transparent; transition: color 0.4s cubic-bezier(.16,1,.3,1); }
+.fx-button::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--paper, #efeae0); transform: translateY(101%); transition: transform 0.5s cubic-bezier(.16,1,.3,1); }
+.fx-button:hover, .fx-button:focus-visible { color: var(--ink, #0a0a0b); }
+.fx-button:hover::before, .fx-button:focus-visible::before { transform: translateY(0); }
+.fx-button__arrow { transition: transform 0.4s cubic-bezier(.16,1,.3,1); }
+.fx-button:hover .fx-button__arrow, .fx-button:focus-visible .fx-button__arrow { transform: translateX(4px); }
+.fx-button:active { transform: translateY(1px); }
+
+/* Perspective shelf */
+.fx-shelf { perspective: 1800px; perspective-origin: 50% 40%; overflow: clip; } /* transformed items must never widen the page */
+.fx-shelf__stage { position: relative; list-style: none; margin: 0; padding: 0; transform-style: preserve-3d; width: 100%; height: 100%; }
+.fx-shelf__item { position: absolute; inset: 0; margin: auto; transform-style: preserve-3d; backface-visibility: hidden; }
+
+/* Video background */
+.fx-video { position: relative; overflow: hidden; isolation: isolate; }
+.fx-video__poster, .fx-video__media { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fx-video__poster img, .fx-video__media { width: 100%; height: 100%; object-fit: cover; }
+.fx-video__media { opacity: 0; transition: opacity 0.8s ease; }
+.fx-video[data-state="playing"] .fx-video__media { opacity: 1; }
+.fx-video__play { position: absolute; z-index: 3; right: 16px; bottom: 16px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.4); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+
+/* Cursor reveal */
+.fx-reveal { position: relative; overflow: hidden; }
+.fx-reveal__base, .fx-reveal__top { position: relative; }
+.fx-reveal__top { position: absolute; inset: 0; clip-path: circle(0 at 50% 50%); }
+.fx-reveal__toggle { position: absolute; z-index: 2; left: 12px; bottom: 12px; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); background: rgba(10,10,11,.55); font-size: 12px; cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .fx-reveal__toggle { opacity: 0; } .fx-reveal__toggle:focus-visible, .fx-reveal[data-full="true"] .fx-reveal__toggle { opacity: 1; } }

@@ -19,3 +19,22 @@
 | 15 | Product imagery is an abstract vessel rendered in-studio and labelled as a study; the "website" is an original FAHAD concept site. | No fabricated products, clients, metrics or contact details. |
 | 16 | Default render concurrency 3 on 4 cores; preview at 0.5 scale / CRF 28 / veryfast. | Measured: preview of 20 s ≈ 2.3 min; leaves a core for the system. |
 | 17 | Final mix is −20 LUFS integrated with ~−2 dBFS true peak. | Safe headroom. Platforms normalise to ≈ −14 LUFS; a loudness-normalised delivery can be added with `ffmpeg -af loudnorm=I=-14:TP=-1` when needed. |
+
+## Web section (added 2026-10-14)
+
+| # | Decision | Why |
+|---|----------|-----|
+| W1 | Web section in `web/` with its own `package.json` and lockfile; video section untouched except additive changes. | Vite/GSAP/sharp/Playwright never collide with Remotion's pinned tree; minimal structural change (no monorepo refactor). Local restore point: git tag `pre-web-expansion` (not pushed). |
+| W2 | Vite 8.3.1, @vitejs/plugin-react 6.1.1, GSAP 3.15.0, Playwright 1.56.1 pinned exactly; sharp 0.35.5 (security fix for CVE in 0.35.4's librsvg). | Mature (≥2 weeks) versions except where a security advisory required the newer patch. Playwright matches the pre-installed Chromium 1194. |
+| W3 | GSAP licence: "Standard no-charge licence" — free including commercial use; it excludes building a product that competes with Webflow's visual builder. | Fine for a personal studio's sites; noted so future SaaS ideas are checked first. |
+| W4 | One motion engine per site: GSAP + ScrollTrigger. CSS transitions only for hover/focus. Motion library (motion.dev) not installed. | Avoid two engines on one property; nothing needed Motion's spring/layout features yet. |
+| W5 | No three.js/R3F in the web package yet. Perspective gallery is CSS 3D; the horizon is a Remotion-rendered loop video. | CSS 3D keeps screenshots crisp and costs nothing; the horizon needs no viewpoint change, so real-time WebGL would only add weight. |
+| W6 | Concept screens are React components captured at 1440×900 @2x, then encoded AVIF/WebP/JPEG (640/1280/1920). | Original, honest content; ~18–40 KB per AVIF at 1280 px; one source of truth for edits. |
+| W7 | VideoBackground: poster-first, lazy attach, pause off-screen/hidden tab, mobile encode, Save-Data and reduced motion keep poster, source error or 8 s stall → poster + play button; newest IntersectionObserver entry wins. | Found and fixed during QA: stale IO entry left the video unattached 1 in 4 runs; dead network left play() pending. |
+| W8 | Reveal uses opacity (not visibility) for hidden-until-revealed items. | QA showed keyboard Tab skipped the whole work index because visibility:hidden items are not focusable. |
+| W9 | Deep links re-resolve the hash after fonts load + ScrollTrigger.refresh(). | The pinned scene adds scroll length after the browser's first anchor jump; /form/#method landed 7,000 px short. |
+| W10 | Pinned scene only at ≥900 px wide and ≥560 px tall with motion allowed; otherwise a static shelf + native swipe rail. | Long pins are hostile on phones; reduced motion must still get the full content. |
+| W11 | QA and capture launch a fresh browser per case and run `vite preview` as a child process. | Software-GL Chromium stalled after several high-DPR contexts in one process on this container. |
+| W12 | Capture mode pauses GSAP's global timeline and advances it by 1/30 s per frame; videos are seeked to the same clock. | Showreel frames are deterministic and match the real site, not a re-creation. |
+| W13 | Video section: added `instrument-serif` font option, `b.dw()` (single-weight display faces stay at 400) and an optional serif wordmark in EndLockup. Existing projects render as before (Kufi/Inter paths unchanged). | Lets the FORM showreel carry the site's identity without faux-bold. |
+| W14 | `web-horizon-loop` added to the Studio folder of Root; no existing composition or template changed. | Additive; the earlier Digital Craft video re-rendered as a regression check. |

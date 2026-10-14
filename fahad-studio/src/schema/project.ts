@@ -4,7 +4,7 @@
 import { zColor } from "@remotion/zod-types";
 import { z } from "zod";
 
-export const FONT_FAMILIES = ["kufi", "plex-arabic", "inter"] as const;
+export const FONT_FAMILIES = ["kufi", "plex-arabic", "inter", "instrument-serif"] as const;
 
 export const TransitionSchema = z.object({
   type: z.enum(["cut", "maskWipe", "slide", "iris", "matchFrame"]),

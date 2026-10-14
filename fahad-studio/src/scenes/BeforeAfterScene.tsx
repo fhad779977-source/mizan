@@ -44,7 +44,7 @@ export const BeforeAfterScene: React.FC<SceneProps> = ({ scene, dur, index, tota
         </MaskReveal>
         <div style={{ display: "flex", flexDirection: "column", alignItems: L.isPortrait ? "center" : "flex-end", gap: 14 * L.u, flex: L.isPortrait ? undefined : 1 }}>
           <IndexLabel index={`${pad2(index + 1)}/${pad2(total)}`} label={scene.eyebrow ?? ""} start={s(6)} fontFamily={b.font.latin} fontSize={22 * L.u} color={b.colors.muted} accent={b.colors.accent} />
-          <KineticTitle text={scene.headline ?? ""} start={s(10)} stagger={s(5)} duration={s(22)} exitAt={dur - s(16)} fontFamily={b.font.display} fontSize={(L.isPortrait ? 80 : 84) * L.u} fontWeight={800} color={b.colors.foreground} lineHeight={1.3} align={L.isPortrait ? "center" : "right"} />
+          <KineticTitle text={scene.headline ?? ""} start={s(10)} stagger={s(5)} duration={s(22)} exitAt={dur - s(16)} fontFamily={b.font.display} fontSize={(L.isPortrait ? 80 : 84) * L.u} fontWeight={b.dw(800)} color={b.colors.foreground} lineHeight={1.3} align={L.isPortrait ? "center" : "right"} />
           {scene.headlineLatin ? <KineticTitle text={scene.headlineLatin} mode="words" start={s(18)} duration={s(18)} exitAt={dur - s(14)} fontFamily={b.font.latin} fontSize={22 * L.u} fontWeight={500} color={b.colors.silver} letterSpacing="0.3em" /> : null}
         </div>
       </AbsoluteFill>

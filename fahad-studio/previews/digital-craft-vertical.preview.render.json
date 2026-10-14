@@ -10,8 +10,8 @@
     "audioBitrate": "128k"
   },
   "output": "previews/digital-craft-vertical.preview.mp4",
-  "renderedAt": "2026-10-14T05:42:03.489Z",
-  "renderSeconds": 214.535,
+  "renderedAt": "2026-10-14T08:03:30.187Z",
+  "renderSeconds": 161.9,
   "remotion": "4.0.535",
   "command": "npx remotion render digital-craft-vertical /home/user/mizan/fahad-studio/previews/digital-craft-vertical.preview.tmp.mp4 --codec=h264 --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac --audio-bitrate=128k --crf=28 --x264-preset=veryfast --jpeg-quality=70 --scale=0.5 --concurrency=3 --log=warn",
   "verification": {
@@ -41,7 +41,7 @@
     "luma": {
       "frames": 600,
       "minLuma": 24.482,
-      "maxLuma": 62.9764,
+      "maxLuma": 62.9729,
       "top": [
         {
           "frame": 476,
@@ -53,7 +53,7 @@
         },
         {
           "frame": 360,
-          "delta": 10.952199999999998
+          "delta": 10.959000000000003
         },
         {
           "frame": 90,

@@ -27,7 +27,7 @@ export const StatementScene: React.FC<SceneProps> = ({ scene, dur, index, total 
         <div dir="rtl" style={{ display: "flex", flexDirection: "column", alignItems: align, gap: 6 * L.u }}>
           {lines.map((line, i) => (
             <MaskReveal key={i} start={s(6) + i * s(8)} duration={s(26)} exitAt={dur - s(16) + i * 2} from="bottom">
-              <div style={{ fontFamily: b.font.display, fontWeight: 900, fontSize: size, lineHeight: 1.32, color: i === lines.length - 1 ? b.colors.foreground : b.colors.foreground, padding: `0 ${4 * L.u}px` }}>
+              <div style={{ fontFamily: b.font.display, fontWeight: b.dw(900), fontSize: size, lineHeight: 1.32, color: i === lines.length - 1 ? b.colors.foreground : b.colors.foreground, padding: `0 ${4 * L.u}px` }}>
                 {line}
               </div>
             </MaskReveal>

@@ -1,6 +1,6 @@
 # حالة الاستوديو — STATUS
 
-Last updated: 2026-10-14. Environment where this was built and tested: cloud Linux container (Claude Code on the web), 4 vCPU, 15 GB RAM, no GPU (WebGL via SwiftShader/swangle), Node 22.22, npm 10.9, FFmpeg 6.1.1, Chromium headless shell 1194.
+Last updated: 2026-10-14 (web section added — see the "Web section" part below). Environment where this was built and tested: cloud Linux container (Claude Code on the web), 4 vCPU, 15 GB RAM, no GPU (WebGL via SwiftShader/swangle), Node 22.22, npm 10.9, FFmpeg 6.1.1, Chromium headless shell 1194.
 
 Legend: **✅ works & tested** · **🟡 configured, not tested** · **🔌 needs external setup**
 
@@ -67,3 +67,37 @@ Review method — be precise about what was done:
 - Brand: `presets/brands/fahad.json`
 - Formats & safe areas: `presets/formats.json`
 - Quality: `presets/quality.json` (`preview`, `final`)
+
+
+---
+
+# Web section (added 2026-10-14)
+
+Baseline before the expansion (recorded): `npm run doctor` OK, `npm run check` PASS, 11 compositions. Local restore point: git tag `pre-web-expansion` (local only).
+
+| Capability | State | Evidence |
+|---|---|---|
+| Web package `web/` (Vite 8.3.1, React 19.2, TS 5.9, GSAP 3.15, sharp 0.35.5, Playwright 1.56.1) | ✅ | `npm run web:build` (tsc + vite) passes; `npm audit` 0 vulnerabilities |
+| FORM site `/form/` | ✅ built, QA'd and visually reviewed at 390 / 768 / 1440 | `web/qa/report.md`: 48/48 checks pass |
+| Interaction lab `/lab/` (9 effects, remount ×5 leak test) | ✅ | leak counters identical after remount; no overflow/errors |
+| Concept screens (5 original UIs) + capture | ✅ | `npm run web:capture-concepts` |
+| Asset pipeline (AVIF/WebP/JPEG; H.264+VP9 desktop/mobile; posters; manifest; registry) | ✅ | `npm run web:assets`; horizon loop seam PSNR 59.6 dB |
+| Horizon loop video (Remotion `web-horizon-loop`) | ✅ | 10 s seamless; desktop MP4 144 KB, mobile 27 KB |
+| Keyboard / touch / reduced motion / video fallback / deep links | ✅ automated | see QA report |
+| Deterministic site capture → showreel | ✅ | `npm run web:capture-showreel`; desktop 216 f, mobile 192 f |
+| FORM showreel `renders/form-showreel-vertical.mp4` | ✅ | 1080×1920, 30 fps, 566 frames (18.9 s), −22.4 LUFS, true peak −2.3 dBFS, no near-black |
+| Video section after expansion | ✅ | `npm run check` PASS (5 projects, 3 templates); `digital-craft-vertical` re-rendered: 600 frames, same loudness; frames vs. previous final PSNR ≈ 43 dB (compression only) |
+| Web skills `/web-brief` `/web-build` `/web-review` `/asset-prepare` `/web-showreel` | ✅ discovered | Claude Code 2.1.299 init event lists all 22 project skills; not yet run end-to-end in a fresh session |
+
+Performance (lab numbers — headless Chromium with software GL in a 4-vCPU cloud container, served by `vite preview`; not a real device):
+- Desktop 1440×900, unthrottled: LCP 632 ms · CLS 0.0001 · 22 requests · 405 KB initial transfer.
+- Mobile 390×844 @2x, CPU ×4 + 150 ms / 1.6 Mbps simulated: LCP 2268 ms · CLS 0.0005 · 22 requests · 405 KB initial transfer.
+- Idle `requestAnimationFrame` ≈ 65/s on FORM (GSAP's ticker; no other loops). No Lighthouse score was measured.
+
+Not tested / limits:
+- No real phone, tablet or Safari/Firefox run — only Chromium emulation (touch + DPR). iOS autoplay/Low Power Mode behaviour is handled in code (poster + play button) but not observed on a device.
+- No screen-reader session; semantics (landmarks, headings, labels, live region) were written for it but not verified with VoiceOver/NVDA.
+- Text overlap is judged from screenshots, not measured automatically.
+- On another machine Playwright needs Chromium (`FAHAD_BROWSER_GUI` or `npx playwright install chromium` in `web/`).
+
+Optional integrations for the web section (none configured): image/video generation services, a form backend or email service for a real contact form, analytics, hosting/CDN — all need accounts and your approval; nothing is published.

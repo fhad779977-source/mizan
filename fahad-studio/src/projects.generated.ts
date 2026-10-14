@@ -4,5 +4,6 @@ import p_demo_identity_reel from "../projects/demo-identity-reel/project.json";
 import p_demo_product_ad from "../projects/demo-product-ad/project.json";
 import p_demo_web_showcase from "../projects/demo-web-showcase/project.json";
 import p_digital_craft from "../projects/digital-craft/project.json";
+import p_form_showreel from "../projects/form-showreel/project.json";
 
-export const PROJECTS: unknown[] = [p_demo_identity_reel, p_demo_product_ad, p_demo_web_showcase, p_digital_craft];
+export const PROJECTS: unknown[] = [p_demo_identity_reel, p_demo_product_ad, p_demo_web_showcase, p_digital_craft, p_form_showreel];

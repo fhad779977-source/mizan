@@ -49,7 +49,7 @@ export const ScreenRecordingScene: React.FC<SceneProps> = ({ scene, dur, index, 
         </div>
         <div dir="rtl" style={{ display: "flex", flexDirection: "column", gap: 26 * L.u, width: L.isPortrait ? size.outerW : undefined, flex: L.isPortrait ? undefined : 1 }}>
           <IndexLabel index={`${pad2(index + 1)}/${pad2(total)}`} label={scene.eyebrow ?? ""} start={s(6)} fontFamily={b.font.latin} fontSize={22 * L.u} color={b.colors.muted} accent={b.colors.accent} style={{ direction: "ltr", justifyContent: "flex-end" }} />
-          <KineticTitle text={scene.headline ?? ""} start={s(10)} stagger={s(5)} duration={s(22)} exitAt={dur - s(16)} fontFamily={b.font.display} fontSize={(L.isPortrait ? 76 : 76) * L.u} fontWeight={800} color={b.colors.foreground} lineHeight={1.3} />
+          <KineticTitle text={scene.headline ?? ""} start={s(10)} stagger={s(5)} duration={s(22)} exitAt={dur - s(16)} fontFamily={b.font.display} fontSize={(L.isPortrait ? 76 : 76) * L.u} fontWeight={b.dw(800)} color={b.colors.foreground} lineHeight={1.3} />
           {items.map((it, i) => {
             const at = s(30) + i * slot;
             const on = prog(frame, at, s(18), EASE.out);
@@ -59,7 +59,7 @@ export const ScreenRecordingScene: React.FC<SceneProps> = ({ scene, dur, index, 
                 <Hairline start={at} duration={s(16)} length="100%" color={active ? b.colors.accent : `${b.colors.muted}66`} origin="end" thickness={2} />
                 <div style={{ display: "flex", gap: 18 * L.u, alignItems: "baseline", translate: `${(1 - on) * -30 * L.u}px 0` }}>
                   <span style={{ fontFamily: b.font.latin, fontSize: 22 * L.u, color: b.colors.accent, fontWeight: 600 }}>{it.value ?? pad2(i + 1)}</span>
-                  <span style={{ fontFamily: b.font.display, fontSize: 40 * L.u, color: b.colors.foreground, fontWeight: 700 }}>{it.label}</span>
+                  <span style={{ fontFamily: b.font.display, fontSize: 40 * L.u, color: b.colors.foreground, fontWeight: b.dw(700) }}>{it.label}</span>
                   {it.latin ? <span dir="ltr" style={{ fontFamily: b.font.latin, fontSize: 18 * L.u, color: b.colors.muted, letterSpacing: "0.18em", marginInlineStart: "auto" }}>{it.latin}</span> : null}
                 </div>
               </div>

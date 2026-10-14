@@ -1,29 +1,264 @@
 {
   "$comment": "Every file under public/assets: origin, license and where it is used. `npm run check` fails on missing files and warns on unregistered ones.",
   "assets": [
-    { "path": "assets/fonts/NotoKufiArabic-400.woff2", "type": "font", "source": "@fontsource/noto-kufi-arabic@5.3.0 (Google Noto)", "license": "SIL OFL 1.1 (assets/fonts/LICENSE-NotoKufiArabic.txt)", "usedIn": ["all projects — display"] },
-    { "path": "assets/fonts/NotoKufiArabic-600.woff2", "type": "font", "source": "@fontsource/noto-kufi-arabic@5.3.0 (Google Noto)", "license": "SIL OFL 1.1", "usedIn": ["display"] },
-    { "path": "assets/fonts/NotoKufiArabic-800.woff2", "type": "font", "source": "@fontsource/noto-kufi-arabic@5.3.0 (Google Noto)", "license": "SIL OFL 1.1", "usedIn": ["display"] },
-    { "path": "assets/fonts/NotoKufiArabic-900.woff2", "type": "font", "source": "@fontsource/noto-kufi-arabic@5.3.0 (Google Noto)", "license": "SIL OFL 1.1", "usedIn": ["display"] },
-    { "path": "assets/fonts/IBMPlexSansArabic-300.woff2", "type": "font", "source": "@fontsource/ibm-plex-sans-arabic@5.3.0 (IBM)", "license": "SIL OFL 1.1 (assets/fonts/LICENSE-IBMPlexSansArabic.txt)", "usedIn": ["body"] },
-    { "path": "assets/fonts/IBMPlexSansArabic-400.woff2", "type": "font", "source": "@fontsource/ibm-plex-sans-arabic@5.3.0 (IBM)", "license": "SIL OFL 1.1", "usedIn": ["body"] },
-    { "path": "assets/fonts/IBMPlexSansArabic-500.woff2", "type": "font", "source": "@fontsource/ibm-plex-sans-arabic@5.3.0 (IBM)", "license": "SIL OFL 1.1", "usedIn": ["body"] },
-    { "path": "assets/fonts/IBMPlexSansArabic-600.woff2", "type": "font", "source": "@fontsource/ibm-plex-sans-arabic@5.3.0 (IBM)", "license": "SIL OFL 1.1", "usedIn": ["body"] },
-    { "path": "assets/fonts/Inter-300.woff2", "type": "font", "source": "@fontsource/inter@5.3.0 (rsms/inter)", "license": "SIL OFL 1.1 (assets/fonts/LICENSE-Inter.txt)", "usedIn": ["latin"] },
-    { "path": "assets/fonts/Inter-400.woff2", "type": "font", "source": "@fontsource/inter@5.3.0", "license": "SIL OFL 1.1", "usedIn": ["latin"] },
-    { "path": "assets/fonts/Inter-500.woff2", "type": "font", "source": "@fontsource/inter@5.3.0", "license": "SIL OFL 1.1", "usedIn": ["latin"] },
-    { "path": "assets/fonts/Inter-600.woff2", "type": "font", "source": "@fontsource/inter@5.3.0", "license": "SIL OFL 1.1", "usedIn": ["latin"] },
-    { "path": "assets/fonts/Inter-700.woff2", "type": "font", "source": "@fontsource/inter@5.3.0", "license": "SIL OFL 1.1", "usedIn": ["latin"] },
-    { "path": "assets/fonts/Inter-800.woff2", "type": "font", "source": "@fontsource/inter@5.3.0", "license": "SIL OFL 1.1", "usedIn": ["latin"] },
-    { "path": "assets/audio/sfx/whoosh.wav", "type": "sfx", "source": "Original — synthesized by scripts/gen-audio.ts (seeded)", "license": "Owned by FAHAD STUDIO", "usedIn": ["digital-craft", "templates"] },
-    { "path": "assets/audio/sfx/impact.wav", "type": "sfx", "source": "Original — synthesized by scripts/gen-audio.ts (seeded)", "license": "Owned by FAHAD STUDIO", "usedIn": ["digital-craft", "templates"] },
-    { "path": "assets/audio/sfx/tick.wav", "type": "sfx", "source": "Original — synthesized by scripts/gen-audio.ts (seeded)", "license": "Owned by FAHAD STUDIO", "usedIn": ["digital-craft", "templates"] },
-    { "path": "assets/audio/sfx/riser.wav", "type": "sfx", "source": "Original — synthesized by scripts/gen-audio.ts (seeded)", "license": "Owned by FAHAD STUDIO", "usedIn": ["digital-craft", "templates"] },
-    { "path": "assets/audio/sfx/shimmer.wav", "type": "sfx", "source": "Original — synthesized by scripts/gen-audio.ts (seeded)", "license": "Owned by FAHAD STUDIO", "usedIn": ["digital-craft", "templates"] },
-    { "path": "assets/audio/music/ambient-bed.wav", "type": "music", "source": "Original — synthesized by scripts/gen-audio.ts (D minor add9 pad, 120 BPM pulse, 24 s)", "license": "Owned by FAHAD STUDIO", "usedIn": ["digital-craft", "templates"] },
-    { "path": "assets/images/vessel-study.png", "type": "image", "source": "Original — rendered from the object-still composition (abstract geometric vessel, not a real product)", "license": "Owned by FAHAD STUDIO", "usedIn": ["product-ad template"] },
-    { "path": "assets/video/site-scroll.mp4", "type": "video", "source": "Original — rendered from the site-scroll composition (FAHAD STUDIO concept site, no client content)", "license": "Owned by FAHAD STUDIO", "usedIn": ["web-showcase template", "component-library"] },
-    { "path": "assets/subtitles/web-showcase.ar.srt", "type": "subtitles", "source": "Original copy written for the web-showcase template", "license": "Owned by FAHAD STUDIO", "usedIn": ["web-showcase template"] },
-    { "path": "assets/subtitles/web-showcase.ar.captions.json", "type": "subtitles", "source": "Converted from web-showcase.ar.srt by npm run import-srt", "license": "Owned by FAHAD STUDIO", "usedIn": ["component-library"] }
+    {
+      "path": "assets/fonts/NotoKufiArabic-400.woff2",
+      "type": "font",
+      "source": "@fontsource/noto-kufi-arabic@5.3.0 (Google Noto)",
+      "license": "SIL OFL 1.1 (assets/fonts/LICENSE-NotoKufiArabic.txt)",
+      "usedIn": [
+        "all projects — display"
+      ]
+    },
+    {
+      "path": "assets/fonts/NotoKufiArabic-600.woff2",
+      "type": "font",
+      "source": "@fontsource/noto-kufi-arabic@5.3.0 (Google Noto)",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "display"
+      ]
+    },
+    {
+      "path": "assets/fonts/NotoKufiArabic-800.woff2",
+      "type": "font",
+      "source": "@fontsource/noto-kufi-arabic@5.3.0 (Google Noto)",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "display"
+      ]
+    },
+    {
+      "path": "assets/fonts/NotoKufiArabic-900.woff2",
+      "type": "font",
+      "source": "@fontsource/noto-kufi-arabic@5.3.0 (Google Noto)",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "display"
+      ]
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansArabic-300.woff2",
+      "type": "font",
+      "source": "@fontsource/ibm-plex-sans-arabic@5.3.0 (IBM)",
+      "license": "SIL OFL 1.1 (assets/fonts/LICENSE-IBMPlexSansArabic.txt)",
+      "usedIn": [
+        "body"
+      ]
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansArabic-400.woff2",
+      "type": "font",
+      "source": "@fontsource/ibm-plex-sans-arabic@5.3.0 (IBM)",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "body"
+      ]
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansArabic-500.woff2",
+      "type": "font",
+      "source": "@fontsource/ibm-plex-sans-arabic@5.3.0 (IBM)",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "body"
+      ]
+    },
+    {
+      "path": "assets/fonts/IBMPlexSansArabic-600.woff2",
+      "type": "font",
+      "source": "@fontsource/ibm-plex-sans-arabic@5.3.0 (IBM)",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "body"
+      ]
+    },
+    {
+      "path": "assets/fonts/Inter-300.woff2",
+      "type": "font",
+      "source": "@fontsource/inter@5.3.0 (rsms/inter)",
+      "license": "SIL OFL 1.1 (assets/fonts/LICENSE-Inter.txt)",
+      "usedIn": [
+        "latin"
+      ]
+    },
+    {
+      "path": "assets/fonts/Inter-400.woff2",
+      "type": "font",
+      "source": "@fontsource/inter@5.3.0",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "latin"
+      ]
+    },
+    {
+      "path": "assets/fonts/Inter-500.woff2",
+      "type": "font",
+      "source": "@fontsource/inter@5.3.0",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "latin"
+      ]
+    },
+    {
+      "path": "assets/fonts/Inter-600.woff2",
+      "type": "font",
+      "source": "@fontsource/inter@5.3.0",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "latin"
+      ]
+    },
+    {
+      "path": "assets/fonts/Inter-700.woff2",
+      "type": "font",
+      "source": "@fontsource/inter@5.3.0",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "latin"
+      ]
+    },
+    {
+      "path": "assets/fonts/Inter-800.woff2",
+      "type": "font",
+      "source": "@fontsource/inter@5.3.0",
+      "license": "SIL OFL 1.1",
+      "usedIn": [
+        "latin"
+      ]
+    },
+    {
+      "path": "assets/audio/sfx/whoosh.wav",
+      "type": "sfx",
+      "source": "Original — synthesized by scripts/gen-audio.ts (seeded)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "digital-craft",
+        "templates"
+      ]
+    },
+    {
+      "path": "assets/audio/sfx/impact.wav",
+      "type": "sfx",
+      "source": "Original — synthesized by scripts/gen-audio.ts (seeded)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "digital-craft",
+        "templates"
+      ]
+    },
+    {
+      "path": "assets/audio/sfx/tick.wav",
+      "type": "sfx",
+      "source": "Original — synthesized by scripts/gen-audio.ts (seeded)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "digital-craft",
+        "templates"
+      ]
+    },
+    {
+      "path": "assets/audio/sfx/riser.wav",
+      "type": "sfx",
+      "source": "Original — synthesized by scripts/gen-audio.ts (seeded)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "digital-craft",
+        "templates"
+      ]
+    },
+    {
+      "path": "assets/audio/sfx/shimmer.wav",
+      "type": "sfx",
+      "source": "Original — synthesized by scripts/gen-audio.ts (seeded)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "digital-craft",
+        "templates"
+      ]
+    },
+    {
+      "path": "assets/audio/music/ambient-bed.wav",
+      "type": "music",
+      "source": "Original — synthesized by scripts/gen-audio.ts (D minor add9 pad, 120 BPM pulse, 24 s)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "digital-craft",
+        "templates"
+      ]
+    },
+    {
+      "path": "assets/images/vessel-study.png",
+      "type": "image",
+      "source": "Original — rendered from the object-still composition (abstract geometric vessel, not a real product)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "product-ad template"
+      ]
+    },
+    {
+      "path": "assets/video/site-scroll.mp4",
+      "type": "video",
+      "source": "Original — rendered from the site-scroll composition (FAHAD STUDIO concept site, no client content)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "web-showcase template",
+        "component-library"
+      ]
+    },
+    {
+      "path": "assets/subtitles/web-showcase.ar.srt",
+      "type": "subtitles",
+      "source": "Original copy written for the web-showcase template",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "web-showcase template"
+      ]
+    },
+    {
+      "path": "assets/subtitles/web-showcase.ar.captions.json",
+      "type": "subtitles",
+      "source": "Converted from web-showcase.ar.srt by npm run import-srt",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "component-library"
+      ]
+    },
+    {
+      "path": "assets/fonts/InstrumentSerif-Regular.woff2",
+      "type": "font",
+      "source": "@fontsource/instrument-serif@5.3.0 (copied from web/public/fonts)",
+      "license": "SIL OFL 1.1 (assets/fonts/LICENSE-InstrumentSerif.txt)",
+      "usedIn": [
+        "form-showreel"
+      ]
+    },
+    {
+      "path": "assets/fonts/InstrumentSerif-Italic.woff2",
+      "type": "font",
+      "source": "@fontsource/instrument-serif@5.3.0 (copied from web/public/fonts)",
+      "license": "SIL OFL 1.1 (assets/fonts/LICENSE-InstrumentSerif.txt)",
+      "usedIn": [
+        "form-showreel"
+      ]
+    },
+    {
+      "path": "assets/video/form-desktop.mp4",
+      "type": "video",
+      "source": "Original — deterministic capture of the built FORM site at 1440×900 (web/scripts/capture-showreel.mjs, desktop plan, 216 frames)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "form-showreel"
+      ]
+    },
+    {
+      "path": "assets/video/form-mobile.mp4",
+      "type": "video",
+      "source": "Original — deterministic capture of the built FORM site at 390×844 @2x (web/scripts/capture-showreel.mjs, mobile plan, 192 frames)",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "form-showreel"
+      ]
+    }
   ]
 }

@@ -48,7 +48,7 @@ export const ProductHeroScene: React.FC<SceneProps> = ({ scene, dur, index, tota
         }}
       >
         <IndexLabel index={`${pad2(index + 1)}/${pad2(total)}`} label={scene.eyebrow ?? ""} start={s(10)} fontFamily={b.font.latin} fontSize={22 * L.u} color={b.colors.muted} accent={b.colors.accent} />
-        <KineticTitle text={scene.headline ?? ""} start={s(14)} stagger={s(5)} duration={s(24)} exitAt={dur - s(16)} fontFamily={b.font.display} fontSize={(L.stacked ? 120 : 110) * L.u} fontWeight={900} color={b.colors.foreground} lineHeight={1.3} align={L.stacked ? "center" : "right"} />
+        <KineticTitle text={scene.headline ?? ""} start={s(14)} stagger={s(5)} duration={s(24)} exitAt={dur - s(16)} fontFamily={b.font.display} fontSize={(L.stacked ? 120 : 110) * L.u} fontWeight={b.dw(900)} color={b.colors.foreground} lineHeight={1.3} align={L.stacked ? "center" : "right"} />
         {scene.headlineLatin ? (
           <KineticTitle text={scene.headlineLatin} mode="words" start={s(24)} duration={s(18)} exitAt={dur - s(14)} fontFamily={b.font.latin} fontSize={24 * L.u} fontWeight={600} color={b.colors.muted} letterSpacing="0.34em" />
         ) : null}

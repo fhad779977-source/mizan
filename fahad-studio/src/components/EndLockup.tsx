@@ -16,7 +16,10 @@ export const EndLockup: React.FC<{
   u: number;
   colors: { fg: string; muted: string; silver: string; accent: string };
   fonts: { display: string; latin: string };
-}> = ({ wordmark, arabic, tagline, start = 0, landscape, u, colors, fonts }) => {
+  displayWeight?: number;
+  /** Optional override so a serif identity keeps its serif wordmark. */
+  wordmark_?: { family: string; weight: number };
+}> = ({ wordmark, arabic, tagline, start = 0, landscape, u, colors, fonts, displayWeight = 900, wordmark_ }) => {
   const frame = useCurrentFrame();
   const wordSize = (landscape ? 230 : 200) * u;
   const arabicSize = (landscape ? 150 : 128) * u;
@@ -31,9 +34,9 @@ export const EndLockup: React.FC<{
             start={start + 4}
             stagger={3}
             duration={26}
-            fontFamily={fonts.latin}
+            fontFamily={wordmark_?.family ?? fonts.latin}
             fontSize={wordSize}
-            fontWeight={800}
+            fontWeight={wordmark_?.weight ?? 800}
             color={colors.fg}
             lineHeight={1}
             letterSpacing="-0.035em"
@@ -59,7 +62,7 @@ export const EndLockup: React.FC<{
           thickness={Math.max(1, 2 * u)}
         />
         <MaskReveal start={start + 14} duration={30} from={landscape ? "left" : "bottom"}>
-          <div dir="rtl" style={{ fontFamily: fonts.display, fontWeight: 900, fontSize: arabicSize, color: colors.fg, lineHeight: 1.35, padding: `0 ${8 * u}px` }}>
+          <div dir="rtl" style={{ fontFamily: fonts.display, fontWeight: displayWeight, fontSize: arabicSize, color: colors.fg, lineHeight: 1.35, padding: `0 ${8 * u}px` }}>
             {arabic}
           </div>
         </MaskReveal>

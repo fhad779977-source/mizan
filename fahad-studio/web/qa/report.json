@@ -1,0 +1,521 @@
+{
+  "conditions": {
+    "browser": "Playwright Chromium (headless, software GL)",
+    "machine": "cloud container, 4 vCPU, no GPU",
+    "server": "vite preview (dist/, no CDN, no HTTP compression beyond Vite defaults)",
+    "throttledRun": "CPU ×4, 150 ms latency, 1.6 Mbps down / 750 kbps up (simulated)"
+  },
+  "pages": [
+    {
+      "page": "/form/",
+      "viewport": "390",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/form-390-top.png",
+        "qa/form-390-mid.png",
+        "qa/form-390-bottom.png"
+      ],
+      "requests": 28
+    },
+    {
+      "page": "/lab/",
+      "viewport": "390",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/lab-390-top.png",
+        "qa/lab-390-mid.png",
+        "qa/lab-390-bottom.png"
+      ],
+      "requests": 23
+    },
+    {
+      "page": "/",
+      "viewport": "390",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/index-390-top.png",
+        "qa/index-390-mid.png",
+        "qa/index-390-bottom.png"
+      ],
+      "requests": 8
+    },
+    {
+      "page": "/form/",
+      "viewport": "768",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/form-768-top.png",
+        "qa/form-768-mid.png",
+        "qa/form-768-bottom.png"
+      ],
+      "requests": 31
+    },
+    {
+      "page": "/lab/",
+      "viewport": "768",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/lab-768-top.png",
+        "qa/lab-768-mid.png",
+        "qa/lab-768-bottom.png"
+      ],
+      "requests": 23
+    },
+    {
+      "page": "/",
+      "viewport": "768",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/index-768-top.png",
+        "qa/index-768-mid.png",
+        "qa/index-768-bottom.png"
+      ],
+      "requests": 8
+    },
+    {
+      "page": "/form/",
+      "viewport": "1440",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/form-1440-top.png",
+        "qa/form-1440-mid.png",
+        "qa/form-1440-bottom.png"
+      ],
+      "requests": 29
+    },
+    {
+      "page": "/lab/",
+      "viewport": "1440",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/lab-1440-top.png",
+        "qa/lab-1440-mid.png",
+        "qa/lab-1440-bottom.png"
+      ],
+      "requests": 23
+    },
+    {
+      "page": "/",
+      "viewport": "1440",
+      "errors": [],
+      "failed": [],
+      "overflow": [],
+      "shots": [
+        "qa/index-1440-top.png",
+        "qa/index-1440-mid.png",
+        "qa/index-1440-bottom.png"
+      ],
+      "requests": 8
+    }
+  ],
+  "checks": [
+    {
+      "name": "/form/ @390: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/form/ @390: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/form/ @390: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @390: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @390: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @390: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @390: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @390: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @390: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/form/ @768: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/form/ @768: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/form/ @768: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @768: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @768: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @768: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @768: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @768: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @768: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/form/ @1440: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/form/ @1440: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/form/ @1440: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @1440: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @1440: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/lab/ @1440: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @1440: no console errors",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @1440: no missing files",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "/ @1440: no horizontal overflow",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "keyboard: skip link is the first stop",
+      "ok": true,
+      "detail": "Skip to work"
+    },
+    {
+      "name": "keyboard: all concept rows in the work index are reachable",
+      "ok": true,
+      "detail": "5 of 5 reached"
+    },
+    {
+      "name": "keyboard: every focused element shows a focus ring",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "navigation: deep link /form/#method lands on the section",
+      "ok": true,
+      "detail": "section top 80px"
+    },
+    {
+      "name": "navigation: header link scrolls to #work",
+      "ok": true,
+      "detail": "section top 80px"
+    },
+    {
+      "name": "navigation: all in-page links have targets",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "touch: menu opens on tap and closes with Escape (focus returns)",
+      "ok": true,
+      "detail": "open=true closed=true focusBack=true"
+    },
+    {
+      "name": "touch: menu link navigates to #work",
+      "ok": true,
+      "detail": "top 80px"
+    },
+    {
+      "name": "touch: gallery rail is horizontally swipeable on mobile",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "reduced motion: no pinned scene, rail shown instead",
+      "ok": true,
+      "detail": "{\"pins\":0,\"rail\":true,\"titleOpacity\":\"none\"}"
+    },
+    {
+      "name": "reduced motion: headline not offset (no entrance transform)",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "reduced motion: background video not downloaded, poster shown",
+      "ok": true,
+      "detail": "videoRequests=0 poster=true"
+    },
+    {
+      "name": "video: not requested at top of page (lazy)",
+      "ok": true,
+      "detail": "requests at load: 0"
+    },
+    {
+      "name": "video: plays when the closing scene is in view",
+      "ok": true,
+      "detail": "{\"paused\":false,\"state\":\"playing\",\"src\":\"horizon-desktop.webm\"}"
+    },
+    {
+      "name": "video: pauses when scrolled out of view",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "video: mobile receives the lighter encode",
+      "ok": true,
+      "detail": "horizon-mobile.webm"
+    },
+    {
+      "name": "video: failed load keeps the poster and offers play",
+      "ok": true,
+      "detail": "{\"state\":\"blocked\",\"poster\":true,\"button\":true}"
+    },
+    {
+      "name": "leaks: lab effects identical after 5 remounts",
+      "ok": true,
+      "detail": "{\"fx\":{\"MaskHeadline\":2,\"Reveal\":1,\"Parallax\":1,\"PinnedScene\":1,\"CursorReveal\":1,\"VideoBackground\":2},\"triggers\":8} → {\"fx\":{\"MaskHeadline\":2,\"Reveal\":1,\"Parallax\":1,\"PinnedScene\":1,\"CursorReveal\":1,\"VideoBackground\":2},\"triggers\":8}"
+    },
+    {
+      "name": "leaks: FORM effects identical after crossing the pin breakpoint 4×",
+      "ok": true,
+      "detail": "{\"fx\":{\"MaskHeadline\":4,\"PinnedScene\":1,\"Reveal\":7,\"Parallax\":5,\"VideoBackground\":1},\"triggers\":43,\"pins\":1} → {\"fx\":{\"MaskHeadline\":4,\"PinnedScene\":1,\"Reveal\":7,\"Parallax\":5,\"VideoBackground\":1},\"triggers\":43,\"pins\":1}"
+    },
+    {
+      "name": "weight: initial mobile transfer under 1.2 MB",
+      "ok": true,
+      "detail": "405 KB"
+    },
+    {
+      "name": "stability: CLS under 0.1 (mobile, throttled)",
+      "ok": true,
+      "detail": "0.0005"
+    }
+  ],
+  "perf": [
+    {
+      "label": "desktop unthrottled",
+      "viewport": "1440",
+      "throttled": false,
+      "loadEventMs": 95,
+      "lcpMs": 632,
+      "cls": 0.0001,
+      "requests": 22,
+      "transferKB": 405,
+      "byTypeKB": {
+        "link": 44,
+        "script": 6,
+        "other": 105,
+        "css": 210,
+        "img": 40
+      }
+    },
+    {
+      "label": "mobile throttled",
+      "viewport": "390",
+      "throttled": true,
+      "loadEventMs": 1323,
+      "lcpMs": 2268,
+      "cls": 0.0005,
+      "requests": 22,
+      "transferKB": 405,
+      "byTypeKB": {
+        "link": 44,
+        "script": 6,
+        "other": 105,
+        "css": 210,
+        "img": 40
+      }
+    }
+  ],
+  "keyboard": [
+    {
+      "tag": "A",
+      "cls": "skip-link",
+      "text": "Skip to work",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "hdr__brand",
+      "text": "FORMIndependent Digital Atelie",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "fx-link",
+      "text": "Work",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "fx-link",
+      "text": "Method",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "fx-link",
+      "text": "Atelier",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "index__row",
+      "text": "01NocturneListening room · Web",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "index__row",
+      "text": "02HerbariumEditorial archive ·",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "index__row",
+      "text": "03KilnCeramics shop · E-commer",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "index__row",
+      "text": "04MeridianOcean conditions · D",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "index__row",
+      "text": "05مِداد — MidadArabic type fou",
+      "visible": true
+    },
+    {
+      "tag": "INPUT",
+      "cls": "",
+      "text": "",
+      "visible": true
+    },
+    {
+      "tag": "INPUT",
+      "cls": "",
+      "text": "",
+      "visible": true
+    },
+    {
+      "tag": "INPUT",
+      "cls": "",
+      "text": "",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "fx-button",
+      "text": "Copy brief →",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "fx-link",
+      "text": "Back to top ↑",
+      "visible": true
+    },
+    {
+      "tag": "BODY",
+      "cls": "",
+      "text": "Skip to workFORMIndependent Di",
+      "visible": false
+    },
+    {
+      "tag": "A",
+      "cls": "skip-link",
+      "text": "Skip to work",
+      "visible": true
+    },
+    {
+      "tag": "A",
+      "cls": "hdr__brand",
+      "text": "FORMIndependent Digital Atelie",
+      "visible": true
+    }
+  ],
+  "idleRafPerSecond": 65,
+  "summary": {
+    "passed": 48,
+    "failed": 0,
+    "failures": []
+  }
+}

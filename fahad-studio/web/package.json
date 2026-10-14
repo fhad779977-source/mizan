@@ -1,0 +1,36 @@
+{
+  "name": "fahad-studio-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FAHAD STUDIO \u2014 web section: motion websites, interaction lab, asset pipeline",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit -p . && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p .",
+    "capture:concepts": "node scripts/capture-concepts.mjs",
+    "assets": "node scripts/prepare-assets.mjs",
+    "qa": "node scripts/qa.mjs",
+    "capture:showreel": "node scripts/capture-showreel.mjs"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@fontsource/ibm-plex-sans-arabic": "5.3.0",
+    "@fontsource/instrument-sans": "5.3.0",
+    "@fontsource/instrument-serif": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@types/node": "22.18.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "@vitejs/plugin-react": "6.1.1",
+    "playwright": "1.56.1",
+    "sharp": "0.35.5",
+    "typescript": "5.9.3",
+    "vite": "8.3.1"
+  }
+}

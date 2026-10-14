@@ -1,0 +1,10 @@
+node_modules/
+dist/
+# Raw, regenerable sources (concept captures 2880×1800, Remotion loop masters,
+# showreel frames). Rebuild with npm run capture:concepts / capture:showreel or
+# the Remotion render in docs/WEB.md.
+assets-src/
+qa/*.png
+qa-run.log
+qa-trace.log
+capture.log

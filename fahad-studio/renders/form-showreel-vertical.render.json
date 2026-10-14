@@ -1,0 +1,70 @@
+{
+  "composition": "form-showreel-vertical",
+  "quality": "final",
+  "preset": {
+    "scale": 1,
+    "crf": 17,
+    "jpegQuality": 95,
+    "concurrency": 3,
+    "x264Preset": "slow",
+    "audioBitrate": "320k"
+  },
+  "output": "renders/form-showreel-vertical.mp4",
+  "renderedAt": "2026-10-14T08:00:42.202Z",
+  "renderSeconds": 209.62,
+  "remotion": "4.0.535",
+  "command": "npx remotion render form-showreel-vertical /home/user/mizan/fahad-studio/renders/form-showreel-vertical.tmp.mp4 --codec=h264 --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac --audio-bitrate=320k --crf=17 --x264-preset=slow --jpeg-quality=95 --scale=1 --concurrency=3 --log=warn",
+  "verification": {
+    "file": "renders/form-showreel-vertical.mp4",
+    "probe": {
+      "duration": 18.88,
+      "video": {
+        "codec": "h264",
+        "width": 1080,
+        "height": 1920,
+        "fps": 30,
+        "pixFmt": "yuv420p",
+        "frames": 566
+      },
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2
+      }
+    },
+    "loudness": {
+      "integratedLufs": -22.4,
+      "truePeakDbfs": -2.3,
+      "maxVolumeDb": -2.3
+    },
+    "black": [],
+    "luma": {
+      "frames": 566,
+      "minLuma": 26.6464,
+      "maxLuma": 37.2798,
+      "top": [
+        {
+          "frame": 275,
+          "delta": 3.6930000000000014
+        },
+        {
+          "frame": 72,
+          "delta": 1.6157000000000004
+        },
+        {
+          "frame": 276,
+          "delta": 1.5300999999999974
+        },
+        {
+          "frame": 440,
+          "delta": 1.1463999999999999
+        },
+        {
+          "frame": 451,
+          "delta": 0.8823000000000008
+        }
+      ]
+    },
+    "issues": []
+  }
+}

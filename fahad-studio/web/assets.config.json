@@ -1,0 +1,22 @@
+{
+  "$comment": "Source assets for the web section. `npm run assets` turns each entry into web-ready files in public/media, updates src/shared/media-manifest.json and assets-registry.json. Sources live in assets-src/ (regenerable, git-ignored when large).",
+  "images": [
+    { "id": "concept-c01", "src": "assets-src/concepts/c01.png", "widths": [640, 1280, 1920], "source": "Original concept screen (web/src/concepts/C01Nocturne.tsx), captured by npm run capture:concepts", "license": "Owned by FAHAD STUDIO", "usedIn": ["form"] },
+    { "id": "concept-c02", "src": "assets-src/concepts/c02.png", "widths": [640, 1280, 1920], "source": "Original concept screen (C02Herbarium.tsx), captured", "license": "Owned by FAHAD STUDIO", "usedIn": ["form"] },
+    { "id": "concept-c03", "src": "assets-src/concepts/c03.png", "widths": [640, 1280, 1920], "source": "Original concept screen (C03Kiln.tsx) using the studio's own vessel render, captured", "license": "Owned by FAHAD STUDIO", "usedIn": ["form"] },
+    { "id": "concept-c04", "src": "assets-src/concepts/c04.png", "widths": [640, 1280, 1920], "source": "Original concept screen (C04Meridian.tsx, sample data), captured", "license": "Owned by FAHAD STUDIO", "usedIn": ["form"] },
+    { "id": "concept-c05", "src": "assets-src/concepts/c05.png", "widths": [640, 1280, 1920], "source": "Original concept screen (C05Midad.tsx), captured", "license": "Owned by FAHAD STUDIO", "usedIn": ["form", "lab"] }
+  ],
+  "videos": [
+    {
+      "id": "horizon",
+      "src": "assets-src/video/horizon.mp4",
+      "posterAt": 0,
+      "desktop": { "width": 1920, "crf": 20, "vp9crf": 28 },
+      "mobile": { "width": 960, "crf": 24, "vp9crf": 33 },
+      "source": "Original — Remotion composition web-horizon-loop (src/compositions/HorizonLoop.tsx), seamless 10 s loop",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": ["form", "lab"]
+    }
+  ]
+}

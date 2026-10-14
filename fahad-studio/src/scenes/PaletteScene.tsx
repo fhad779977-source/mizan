@@ -44,7 +44,7 @@ export const PaletteScene: React.FC<SceneProps> = ({ scene, dur, index, total })
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", opacity: 1 - exit }}>
         <KineticTitle text="Aa" mode="letters" start={s(30)} duration={s(22)} fontFamily={b.font.latin} fontSize={(L.isPortrait ? 150 : 170) * L.u} fontWeight={800} color={b.colors.foreground} lineHeight={1} />
         <MaskReveal start={s(36)} duration={s(26)} from="bottom">
-          <div dir="rtl" style={{ fontFamily: b.font.display, fontWeight: 900, fontSize: (L.isPortrait ? 150 : 170) * L.u, color: b.colors.foreground, lineHeight: 1.25 }}>
+          <div dir="rtl" style={{ fontFamily: b.font.display, fontWeight: b.dw(900), fontSize: (L.isPortrait ? 150 : 170) * L.u, color: b.colors.foreground, lineHeight: 1.25 }}>
             {scene.headline ?? "أبجد"}
           </div>
         </MaskReveal>

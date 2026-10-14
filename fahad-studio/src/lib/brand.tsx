@@ -7,6 +7,9 @@ type BrandTokens = Brand & {
   dir: "rtl" | "ltr";
   speed: number;
   bpm: number;
+  /** Display weight: single-weight display faces (Instrument Serif) stay at
+   *  400 so the browser never synthesizes a fake bold. */
+  dw: (weight: number) => number;
 };
 
 const BrandContext = createContext<BrandTokens | null>(null);
@@ -22,6 +25,7 @@ export const BrandProvider: React.FC<{ project: Project; children: React.ReactNo
     dir: project.direction,
     speed: project.motion.speed,
     bpm: project.motion.bpm,
+    dw: (w: number) => (project.brand.fonts.display === "instrument-serif" ? 400 : w),
   };
   return <BrandContext.Provider value={value}>{children}</BrandContext.Provider>;
 };

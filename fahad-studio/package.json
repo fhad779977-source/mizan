@@ -17,7 +17,15 @@
     "gen-audio": "tsx scripts/gen-audio.ts",
     "gen-assets": "remotion still object-still public/assets/images/vessel-study.png --log=error && remotion render site-scroll public/assets/video/site-scroll.mp4 --muted --crf=20 --log=error",
     "registry": "tsx scripts/registry.ts",
-    "typecheck": "tsc --noEmit -p ."
+    "typecheck": "tsc --noEmit -p .",
+    "web:install": "npm --prefix web ci",
+    "web:dev": "npm --prefix web run dev",
+    "web:build": "npm --prefix web run build",
+    "web:preview": "npm --prefix web run preview",
+    "web:qa": "npm --prefix web run qa",
+    "web:assets": "npm --prefix web run assets",
+    "web:capture-concepts": "npm --prefix web run capture:concepts",
+    "web:capture-showreel": "npm --prefix web run capture:showreel"
   },
   "dependencies": {
     "@react-three/fiber": "9.8.1",

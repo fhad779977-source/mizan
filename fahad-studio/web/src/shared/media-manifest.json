@@ -1,0 +1,106 @@
+{
+  "images": {
+    "concept-c01": {
+      "kind": "image",
+      "width": 2880,
+      "height": 1800,
+      "widths": [
+        640,
+        1280,
+        1920
+      ],
+      "base": "/media/concept-c01",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "color": "#080808"
+    },
+    "concept-c02": {
+      "kind": "image",
+      "width": 2880,
+      "height": 1800,
+      "widths": [
+        640,
+        1280,
+        1920
+      ],
+      "base": "/media/concept-c02",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "color": "#e8e8d8"
+    },
+    "concept-c03": {
+      "kind": "image",
+      "width": 2880,
+      "height": 1800,
+      "widths": [
+        640,
+        1280,
+        1920
+      ],
+      "base": "/media/concept-c03",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "color": "#b85838"
+    },
+    "concept-c04": {
+      "kind": "image",
+      "width": 2880,
+      "height": 1800,
+      "widths": [
+        640,
+        1280,
+        1920
+      ],
+      "base": "/media/concept-c04",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "color": "#081828"
+    },
+    "concept-c05": {
+      "kind": "image",
+      "width": 2880,
+      "height": 1800,
+      "widths": [
+        640,
+        1280,
+        1920
+      ],
+      "base": "/media/concept-c05",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "color": "#f8f8e8"
+    }
+  },
+  "videos": {
+    "horizon": {
+      "kind": "video",
+      "width": 1920,
+      "height": 1080,
+      "poster": "/media/horizon-poster.jpg",
+      "posterWebp": "/media/horizon-poster.webp",
+      "desktop": {
+        "mp4": "/media/horizon-desktop.mp4",
+        "webm": "/media/horizon-desktop.webm"
+      },
+      "mobile": {
+        "mp4": "/media/horizon-mobile.mp4",
+        "webm": "/media/horizon-mobile.webm"
+      }
+    }
+  }
+}

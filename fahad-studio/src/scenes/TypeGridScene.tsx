@@ -68,7 +68,7 @@ export const TypeGridScene: React.FC<SceneProps> = ({ scene, dur, index, total }
         return (
           <React.Fragment key={it.label}>
             <div style={{ position: "absolute", top: wordTop, left: wordLeft, right: wordRight, display: "flex", justifyContent: "flex-end" }}>
-              <KineticTitle text={it.label} mode="line" start={inAt} duration={s(22)} exitAt={outAt} exitDuration={s(12)} fontFamily={b.font.display} fontSize={wordSize} fontWeight={900} color={b.colors.foreground} lineHeight={1.3} />
+              <KineticTitle text={it.label} mode="line" start={inAt} duration={s(22)} exitAt={outAt} exitDuration={s(12)} fontFamily={b.font.display} fontSize={wordSize} fontWeight={b.dw(900)} color={b.colors.foreground} lineHeight={1.3} />
             </div>
             <div style={{ position: "absolute", top: wordTop + wordSize * 1.55, left: wordLeft, right: wordRight, display: "flex", justifyContent: "flex-end" }}>
               <KineticTitle text={`${it.value ?? pad2(i + 1)}  ${it.latin ?? ""}`} mode="line" start={inAt + 4} duration={s(18)} exitAt={outAt} exitDuration={s(10)} fontFamily={b.font.latin} fontSize={32 * L.u} fontWeight={600} color={b.colors.silver} letterSpacing="0.3em" />

@@ -28,7 +28,7 @@ On a machine with a GPU: `FAHAD_GL=angle npm run render -- <id>` is faster. To u
 
 Extra render options: `--frames 0-59` (render a range), `--concurrency 2`, `--out path.mp4`.
 
-Composition ids: `digital-craft-vertical`, `digital-craft-horizontal`, `demo-product-ad-vertical`, `demo-product-ad-square`, `demo-web-showcase-horizontal`, `demo-web-showcase-vertical`, `demo-identity-reel-square`, `demo-identity-reel-vertical`, `component-library`, `object-still`, `site-scroll`.
+Composition ids: `form-showreel-vertical` (site film for FORM), `web-horizon-loop` (web background loop), `digital-craft-vertical`, `digital-craft-horizontal`, `demo-product-ad-vertical`, `demo-product-ad-square`, `demo-web-showcase-horizontal`, `demo-web-showcase-vertical`, `demo-identity-reel-square`, `demo-identity-reel-vertical`, `component-library`, `object-still`, `site-scroll`.
 
 ## Editing a video
 - **Text, colours, fonts, media, timing, sounds:** edit `projects/<slug>/project.json`, then `npm run check`. Studio hot-reloads.
@@ -48,3 +48,6 @@ Composition ids: `digital-craft-vertical`, `digital-craft-horizontal`, `demo-pro
 
 ## With Claude Code
 Open Claude Code inside `fahad-studio/`. Studio skills: `/studio-brief`, `/studio-create`, `/studio-review`, `/studio-render`, `/studio-save-preset`. Official Remotion skills: `/remotion-best-practices` (router) and the other `remotion-*` skills.
+
+## Web section
+See [WEB.md](WEB.md). Short form, from this folder: `npm run web:install` once, then `npm run web:dev` (live) or `npm run web:build && npm run web:preview` (production build at http://127.0.0.1:4173/form/), `npm run web:qa` for acceptance checks.
