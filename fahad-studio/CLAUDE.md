@@ -6,6 +6,11 @@ Personal production studio for FAHAD (web designer), two sections:
 
 Not a client platform: no auth, subscriptions, hosting, or uploads.
 
+## Purpose and working mode (from the user)
+- Goal: sell high-quality, fast creative services to store owners and brands without a team, and build a content account around this work.
+- Default deliverable in this studio = **3D user-interface visuals for marketing**: interfaces shown as 3D objects, devices and scenes, delivered as videos and stills (Remotion + 3D). Not working websites or app code.
+- Real websites/code are built only when a client order arrives, in a separate conversation. Do not build sites or production code here unless the user explicitly asks.
+
 Talk to the user in clear, short Arabic. Make routine technical decisions yourself and state what you did.
 
 ## Structure
