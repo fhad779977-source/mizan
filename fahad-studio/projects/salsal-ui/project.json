@@ -1,0 +1,131 @@
+{
+  "slug": "salsal-ui",
+  "name": "SALSAL — 3D UI (concept)",
+  "template": "product-ad",
+  "language": "ar",
+  "direction": "rtl",
+  "fps": 30,
+  "targetDurationInSeconds": 14,
+  "formats": [
+    {
+      "id": "vertical",
+      "width": 1080,
+      "height": 1920,
+      "safeArea": "tiktok"
+    },
+    {
+      "id": "horizontal",
+      "width": 1920,
+      "height": 1080,
+      "safeArea": "youtube"
+    }
+  ],
+  "brief": {
+    "goal": "Show a luxury ceramics app concept as a 3D marketing film.",
+    "audience": "Store owners and brands looking for premium app/UI visuals; social viewers.",
+    "message": "Craft you can feel, in an interface that feels the same.",
+    "assumptions": [
+      "SALSAL is a concept brand made by FAHAD STUDIO: no real client, products or prices.",
+      "Ceramic pieces are procedural 3D studies rendered in the studio (ceramic-still), not photos of real products.",
+      "Screens are rendered stills of compositions/ConceptScreen.tsx."
+    ]
+  },
+  "brand": {
+    "name": "SALSAL",
+    "colors": {
+      "background": "#EFEAE1",
+      "surface": "#F7F4EE",
+      "foreground": "#1A1715",
+      "muted": "#8A8178",
+      "silver": "#C9C0B2",
+      "accent": "#B5643C"
+    },
+    "fonts": {
+      "display": "kufi",
+      "body": "plex-arabic",
+      "latin": "inter"
+    },
+    "logo": {
+      "wordmark": "SALSAL",
+      "arabic": "صلصال",
+      "tagline": "CONCEPT · 3D UI BY FAHAD STUDIO"
+    }
+  },
+  "motion": {
+    "speed": 1,
+    "bpm": 96
+  },
+  "scenes": [
+    {
+      "id": "devices",
+      "type": "device-float",
+      "durationInSeconds": 8.5,
+      "media": "assets/images/salsal/screen-product.png|assets/images/salsal/screen-home.png|assets/images/salsal/screen-collection.png",
+      "variant": "ceramic:moon:bone",
+      "transitionOut": {
+        "type": "maskWipe",
+        "durationInFrames": 16,
+        "direction": "up"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/riser.wav",
+          "at": 0.2,
+          "volume": 0.35
+        },
+        {
+          "src": "assets/audio/sfx/whoosh.wav",
+          "at": 7.9,
+          "volume": 0.4
+        }
+      ]
+    },
+    {
+      "id": "line",
+      "type": "statement",
+      "durationInSeconds": 2.8,
+      "eyebrow": "CONCEPT",
+      "headline": "خزفٌ يُحَسّ\nبواجهة تُشبهه",
+      "headlineLatin": "CRAFT YOU CAN FEEL",
+      "transitionOut": {
+        "type": "iris",
+        "durationInFrames": 14,
+        "direction": "left"
+      },
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/impact.wav",
+          "at": 0.1,
+          "volume": 0.45
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "type": "logo-end",
+      "durationInSeconds": 3,
+      "sfx": [
+        {
+          "src": "assets/audio/sfx/shimmer.wav",
+          "at": 0.2,
+          "volume": 0.4
+        }
+      ]
+    }
+  ],
+  "audio": {
+    "music": {
+      "src": "assets/audio/music/ambient-bed.wav",
+      "volume": 0.5,
+      "fadeInSeconds": 0.6,
+      "fadeOutSeconds": 1.5
+    },
+    "sfxVolume": 1
+  },
+  "subtitles": {
+    "enabled": false,
+    "items": []
+  },
+  "assets": [],
+  "showSafeArea": false
+}

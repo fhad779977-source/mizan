@@ -6,5 +6,6 @@ import p_demo_prompt_reel from "../projects/demo-prompt-reel/project.json";
 import p_demo_web_showcase from "../projects/demo-web-showcase/project.json";
 import p_digital_craft from "../projects/digital-craft/project.json";
 import p_form_showreel from "../projects/form-showreel/project.json";
+import p_salsal_ui from "../projects/salsal-ui/project.json";
 
-export const PROJECTS: unknown[] = [p_demo_identity_reel, p_demo_product_ad, p_demo_prompt_reel, p_demo_web_showcase, p_digital_craft, p_form_showreel];
+export const PROJECTS: unknown[] = [p_demo_identity_reel, p_demo_product_ad, p_demo_prompt_reel, p_demo_web_showcase, p_digital_craft, p_form_showreel, p_salsal_ui];

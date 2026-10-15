@@ -277,6 +277,69 @@
       "usedIn": [
         "template:prompt-reel"
       ]
+    },
+    {
+      "path": "assets/images/ceramics/moon-bone.jpg",
+      "type": "image",
+      "source": "Original — procedural ceramic rendered by composition ceramic-still (src/three/ceramics.tsx). Concept product, not a real item.",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "salsal-ui"
+      ]
+    },
+    {
+      "path": "assets/images/ceramics/bottle-ink.jpg",
+      "type": "image",
+      "source": "Original — procedural ceramic rendered by composition ceramic-still (src/three/ceramics.tsx). Concept product, not a real item.",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "salsal-ui"
+      ]
+    },
+    {
+      "path": "assets/images/ceramics/bowl-celadon.jpg",
+      "type": "image",
+      "source": "Original — procedural ceramic rendered by composition ceramic-still (src/three/ceramics.tsx). Concept product, not a real item.",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "salsal-ui"
+      ]
+    },
+    {
+      "path": "assets/images/ceramics/cup-clay.jpg",
+      "type": "image",
+      "source": "Original — procedural ceramic rendered by composition ceramic-still (src/three/ceramics.tsx). Concept product, not a real item.",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "salsal-ui"
+      ]
+    },
+    {
+      "path": "assets/images/salsal/screen-home.png",
+      "type": "image",
+      "source": "Original — SALSAL concept app screen rendered by composition salsal-screen (src/compositions/ConceptScreen.tsx).",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "salsal-ui"
+      ]
+    },
+    {
+      "path": "assets/images/salsal/screen-product.png",
+      "type": "image",
+      "source": "Original — SALSAL concept app screen rendered by composition salsal-screen (src/compositions/ConceptScreen.tsx).",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "salsal-ui"
+      ]
+    },
+    {
+      "path": "assets/images/salsal/screen-collection.png",
+      "type": "image",
+      "source": "Original — SALSAL concept app screen rendered by composition salsal-screen (src/compositions/ConceptScreen.tsx).",
+      "license": "Owned by FAHAD STUDIO",
+      "usedIn": [
+        "salsal-ui"
+      ]
     }
   ]
 }

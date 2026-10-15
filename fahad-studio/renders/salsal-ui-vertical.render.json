@@ -1,0 +1,70 @@
+{
+  "composition": "salsal-ui-vertical",
+  "quality": "final",
+  "preset": {
+    "scale": 1,
+    "crf": 17,
+    "jpegQuality": 95,
+    "concurrency": 3,
+    "x264Preset": "slow",
+    "audioBitrate": "320k"
+  },
+  "output": "renders/salsal-ui-vertical.mp4",
+  "renderedAt": "2026-10-15T06:47:20.883Z",
+  "renderSeconds": 548.6,
+  "remotion": "4.0.535",
+  "command": "npx remotion render salsal-ui-vertical /home/user/mizan/fahad-studio/renders/salsal-ui-vertical.tmp.mp4 --codec=h264 --pixel-format=yuv420p --color-space=bt709 --audio-codec=aac --audio-bitrate=320k --crf=17 --x264-preset=slow --jpeg-quality=95 --scale=1 --concurrency=3 --log=warn",
+  "verification": {
+    "file": "renders/salsal-ui-vertical.mp4",
+    "probe": {
+      "duration": 13.312,
+      "video": {
+        "codec": "h264",
+        "width": 1080,
+        "height": 1920,
+        "fps": 30,
+        "pixFmt": "yuv420p",
+        "frames": 399
+      },
+      "audio": {
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2
+      }
+    },
+    "loudness": {
+      "integratedLufs": -23.1,
+      "truePeakDbfs": -4.9,
+      "maxVolumeDb": -5.1
+    },
+    "black": [],
+    "luma": {
+      "frames": 399,
+      "minLuma": 181.423,
+      "maxLuma": 218.274,
+      "top": [
+        {
+          "frame": 1,
+          "delta": 13.924000000000007
+        },
+        {
+          "frame": 248,
+          "delta": 13.492000000000019
+        },
+        {
+          "frame": 249,
+          "delta": 8.930999999999983
+        },
+        {
+          "frame": 2,
+          "delta": 7.956999999999994
+        },
+        {
+          "frame": 316,
+          "delta": 7.608000000000004
+        }
+      ]
+    },
+    "issues": []
+  }
+}

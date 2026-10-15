@@ -39,6 +39,7 @@ export const SCENE_TYPES = [
   "palette",
   "statement",
   "prompt-reveal",
+  "device-float",
 ] as const;
 
 export const SceneSchema = z.object({

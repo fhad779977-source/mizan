@@ -13,6 +13,7 @@ import { ScreenRecordingScene } from "./ScreenRecordingScene";
 import { BeforeAfterScene } from "./BeforeAfterScene";
 import { PaletteScene } from "./PaletteScene";
 import { PromptRevealScene } from "./PromptRevealScene";
+import { DeviceFloatScene } from "./DeviceFloatScene";
 import type { Scene } from "../schema/project";
 
 const REGISTRY: Record<Scene["type"], React.FC<SceneProps>> = {
@@ -28,6 +29,7 @@ const REGISTRY: Record<Scene["type"], React.FC<SceneProps>> = {
   "before-after": BeforeAfterScene,
   palette: PaletteScene,
   "prompt-reveal": PromptRevealScene,
+  "device-float": DeviceFloatScene,
 };
 
 export const SceneRenderer: React.FC<SceneProps> = (props) => {
